@@ -8,3 +8,13 @@ H:\Cadastro Cliente\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolveAssemblyRefer
 H:\Cadastro Cliente\Projeto.DAL\obj\Debug\Projeto.DAL.csproj.CoreCompileInputs.cache
 H:\Cadastro Cliente\Projeto.DAL\obj\Debug\Projeto.DAL.dll
 H:\Cadastro Cliente\Projeto.DAL\obj\Debug\Projeto.DAL.pdb
+E:\Projetos\CadastroCliente\Projeto.DAL\bin\Debug\Projeto.DAL.dll
+E:\Projetos\CadastroCliente\Projeto.DAL\bin\Debug\Projeto.DAL.pdb
+E:\Projetos\CadastroCliente\Projeto.DAL\bin\Debug\Projeto.Entidades.dll
+E:\Projetos\CadastroCliente\Projeto.DAL\bin\Debug\Projeto.Util.dll
+E:\Projetos\CadastroCliente\Projeto.DAL\bin\Debug\Projeto.Entidades.pdb
+E:\Projetos\CadastroCliente\Projeto.DAL\bin\Debug\Projeto.Util.pdb
+E:\Projetos\CadastroCliente\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolveAssemblyReference.cache
+E:\Projetos\CadastroCliente\Projeto.DAL\obj\Debug\Projeto.DAL.csproj.CoreCompileInputs.cache
+E:\Projetos\CadastroCliente\Projeto.DAL\obj\Debug\Projeto.DAL.dll
+E:\Projetos\CadastroCliente\Projeto.DAL\obj\Debug\Projeto.DAL.pdb
