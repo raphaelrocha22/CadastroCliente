@@ -70,6 +70,12 @@ E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.csprojResolveAssem
 E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.csproj.CoreCompileInputs.cache
 E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.dll
 E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.pdb
+H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.CodeAnalysis.dll
+H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.IO.Compression.dll
+H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\VBCSCompiler.exe
 H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.WEB.dll.config
 H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.WEB.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.WEB.pdb
@@ -80,13 +86,9 @@ H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\csi.exe
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\csi.exe.config
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\csi.rsp
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.CodeAnalysis.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.CSharp.Core.targets
-H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.VisualBasic.Core.targets
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\Microsoft.Win32.Primitives.dll
@@ -96,7 +98,6 @@ H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.Console.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.Diagnostics.Process.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.Diagnostics.StackTrace.dll
-H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.IO.Compression.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.IO.FileSystem.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.IO.FileSystem.Primitives.dll
@@ -119,17 +120,21 @@ H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\System.Xml.XPath.XDocument.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\vbc.exe
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\vbc.exe.config
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\vbc.rsp
-H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\VBCSCompiler.exe
 H:\Cadastro Cliente\Projeto.WEB\bin\roslyn\VBCSCompiler.exe.config
 H:\Cadastro Cliente\Projeto.WEB\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\Microsoft.Web.Infrastructure.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\Newtonsoft.Json.dll
+H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.DAL.dll
+H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.Entidades.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Helpers.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Mvc.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Razor.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Webpages.Deployment.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Webpages.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Webpages.Razor.dll
+H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.Util.dll
+H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.DAL.pdb
+H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.Entidades.pdb
 H:\Cadastro Cliente\Projeto.WEB\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 H:\Cadastro Cliente\Projeto.WEB\bin\Newtonsoft.Json.xml
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Razor.xml
@@ -138,6 +143,7 @@ H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Webpages.Deployment.xml
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Webpages.Razor.xml
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Helpers.xml
 H:\Cadastro Cliente\Projeto.WEB\bin\System.Web.Mvc.xml
+H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.Util.pdb
 H:\Cadastro Cliente\Projeto.WEB\obj\Debug\Projeto.WEB.csprojResolveAssemblyReference.cache
 H:\Cadastro Cliente\Projeto.WEB\obj\Debug\Projeto.WEB.csproj.CoreCompileInputs.cache
 H:\Cadastro Cliente\Projeto.WEB\obj\Debug\Projeto.WEB.dll

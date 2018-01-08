@@ -1,0 +1,10 @@
+H:\Cadastro Cliente\Projeto.DAL\bin\Debug\Projeto.DAL.dll
+H:\Cadastro Cliente\Projeto.DAL\bin\Debug\Projeto.DAL.pdb
+H:\Cadastro Cliente\Projeto.DAL\bin\Debug\Projeto.Entidades.dll
+H:\Cadastro Cliente\Projeto.DAL\bin\Debug\Projeto.Util.dll
+H:\Cadastro Cliente\Projeto.DAL\bin\Debug\Projeto.Entidades.pdb
+H:\Cadastro Cliente\Projeto.DAL\bin\Debug\Projeto.Util.pdb
+H:\Cadastro Cliente\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolveAssemblyReference.cache
+H:\Cadastro Cliente\Projeto.DAL\obj\Debug\Projeto.DAL.csproj.CoreCompileInputs.cache
+H:\Cadastro Cliente\Projeto.DAL\obj\Debug\Projeto.DAL.dll
+H:\Cadastro Cliente\Projeto.DAL\obj\Debug\Projeto.DAL.pdb

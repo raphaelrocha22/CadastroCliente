@@ -107,8 +107,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\AreaRestrita\Views\web.config" />
+    <Content Include="Areas\AreaRestrita\Views\Cliente\Cadastro.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\Cliente\Index.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\Shared\_Layout.cshtml" />
     <None Include="Properties\PublishProfiles\cadastroclienterbr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Imagens\logoRodenstock.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -126,12 +131,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Areas\AreaRestrita\AreaRestritaAreaRegistration.cs" />
+    <Compile Include="Areas\AreaRestrita\Controllers\ClienteController.cs" />
+    <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Cliente\ClienteViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\JsonClass\AtividadePrincipal.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\JsonClass\AtividadesSecundarias.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\JsonClass\Extra.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\JsonClass\JSONHelper.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\JsonClass\Modelo.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\JsonClass\Qsa.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClienteViewModel.cs" />
+    <Compile Include="Models\Home\UpdateViewModel.cs" />
+    <Compile Include="Models\Home\LoginViewModel.cs" />
     <Compile Include="Models\JsonClass\JSONHelper.cs" />
     <Compile Include="Models\JsonClass\AtividadePrincipal.cs" />
     <Compile Include="Models\JsonClass\AtividadesSecundarias.cs" />
@@ -144,7 +160,8 @@
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Cliente\Cadastro.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\AlterarSenha.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -154,6 +171,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\AreaRestrita\Views\Usuario\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Projeto.DAL\Projeto.DAL.csproj">
+      <Project>{3eb12b15-943a-40a5-adae-fa6ca98fecf4}</Project>
+      <Name>Projeto.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Projeto.Entidades\Projeto.Entidades.csproj">
+      <Project>{10106d0d-9a70-4717-bd10-748981e84a4b}</Project>
+      <Name>Projeto.Entidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,18 +1,23 @@
 ﻿using Newtonsoft.Json;
-using Projeto.WEB.Models;
-using Projeto.WEB.Models.JsonClass;
+using Projeto.WEB.Areas.AreaRestrita.Models.Cliente;
+using Projeto.WEB.Areas.AreaRestrita.Models.JsonClass;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-
-
-namespace Projeto.WEB.Controllers
+namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 {
+    [Authorize]
     public class ClienteController : Controller
     {
-        // GET: Cliente
+        // GET: AreaRestrita/Cliente
+        public ActionResult Index()
+        {
+            return View();
+        }
+                
         public ActionResult Cadastro()
         {
             return View();
