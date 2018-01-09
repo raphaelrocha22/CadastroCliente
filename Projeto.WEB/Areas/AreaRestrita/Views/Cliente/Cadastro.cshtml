@@ -1,158 +1,248 @@
 ﻿@{
-    ViewBag.Title = "index";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/Cliente/Cadastro.js"></script>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Cadastro Cliente</title>
+<h4>Cadastro de Cliente</h4>
+<hr />
 
-    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
+<form id="formCadastroCliente">
+    <div class="col-md-12">
 
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
-
-    <script src="~/Scripts/Cliente/Cadastro.js"></script>
-
-</head>
-<body class="container">
-
-    <h4>Cadastro de Cliente</h4>
-    <hr />
-
-    <form id="myform">
-        <div class="col-md-12">
-
-            <div class="row">
-                <div class="col-md-2">
-                    <label>*Classe:</label>
-                    <select id="optClasse" class="form-control" name="classe">
-                        <option value="">- Selecione -</option>
-                        <option>Ótica</option>
-                        <option>Médico</option>
-                        <option>Laboratório</option>
-                        <option>Distribuidor</option>
-                        <option>Funcionário</option>
-                        <option>Particular</option>
-                    </select>
-                </div>
-
-                <div class="col-md-3">
-                    <label>*Representante</label>
-                    <select id="optRepresentante" class="form-control" name="representante">
-                        <option value="">- Selecione -</option>
-                        <option value=1>Representante A</option>
-                        <option value=2>Representante B</option>
-                        <option value=3>Representante C</option>
-                        <option value=4>Representante D</option>
-                        <option value=5>Representante E</option>
-                        <option value=6>Representante F</option>
-                    </select>
-                </div>
-
-                <div class="col-md-3">
-                    <label>*CNPJ</label>
-                    <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" name="cnpj" />
-                    <input type="button" id="btnConsultaCNPJ" class="btn btn-success btn-xs" value="Consultar pelo CNPJ" />
-                </div>
-
-                <div class="col-md-2">
-                    <label>CODUN</label>
-                    <input type="text" id="txtCodun" class="form-control" placeholder="Digite aqui" name="codun" />
-                </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>*Classe:</label>
+                <select id="optClasse" class="form-control" name="obrigatorio">
+                    <option value="">- Selecione -</option>
+                    <option>Ótica</option>
+                    <option>Médico</option>
+                    <option>Laboratório</option>
+                    <option>Distribuidor</option>
+                    <option>Funcionário</option>
+                    <option>Particular</option>
+                </select>
             </div>
-            <hr />
 
-            <div class="row" style="margin-top:15px">
-                <div class="col-md-4">
-                    <label>*Razão Social</label>
-                    <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" name="razaoSocial" />
-                </div>
-                <div class="col-md-4">
-                    <label>Nome Fantasia</label>
-                    <input type="text" id="txtNomeFantasia" class="form-control" placeholder="Digite aqui" />
-                </div>
-                <div class="col-md-2">
-                    <label>*Inscrição Estadual</label>
-                    <input type="text" id="txtInscEstadual" class="form-control" placeholder="Digite aqui" />
-                </div>
-                <div class="col-md-2">
-                    <label>*Inscrição Municipal</label>
-                    <input type="text" id="txtInscMunicipal" class="form-control" placeholder="Digite aqui" />
-                </div>
+            <div class="col-md-3">
+                <label>*Representante</label>
+                <select id="optRepresentante" class="form-control" name="obrigatorio">
+                    <option value="">- Selecione -</option>
+                    <option>Representante A</option>
+                    <option>Representante B</option>
+                    <option>Representante C</option>
+                    <option>Representante D</option>
+                    <option>Representante E</option>
+                    <option>Representante F</option>
+                </select>
             </div>
-            <hr />
 
+            <div class="col-md-3">
+                <label>*CNPJ</label>
+                <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" name="obrigatorio" />
+                <input type="button" id="btnConsultaCNPJ" class="btn btn-success btn-xs" value="Consultar pelo CNPJ" />
+            </div>
+
+            <div class="col-md-2">
+                <label>CODUN</label>
+                <input type="text" id="txtCodun" class="form-control" placeholder="Digite aqui" name="" />
+            </div>
+        </div>
+        <hr />
+
+        <div class="row" style="margin-top:15px">
+            <div class="col-md-4">
+                <label>*Razão Social</label>
+                <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" name="obrigatorio" />
+            </div>
+            <div class="col-md-4">
+                <label>Nome Fantasia</label>
+                <input type="text" id="txtNomeFantasia" class="form-control" placeholder="Digite aqui" />
+            </div>
+            <div class="col-md-2">
+                <label>*Inscrição Estadual</label>
+                <input type="text" id="txtInscEstadual" class="form-control" placeholder="Digite aqui" />
+            </div>
+            <div class="col-md-2">
+                <label>*Inscrição Municipal</label>
+                <input type="text" id="txtInscMunicipal" class="form-control" placeholder="Digite aqui" />
+            </div>
+        </div>
+        <hr />
+
+        <div class="enderecoCadastro">
             <div class="row">
                 <div class="col-md-3">
-                    <label>*Tipo Endereço</label>
-                    <select id="optTipoEndereco" class="form-control">
-                        <option value="">-Endereço Único-</option>
-                        <option value=1>Cobrança</option>
-                        <option value=2>Entrega Lentes</option>
-                        <option value=3>Entrega Armaçoes</option>
-                    </select>
+                    <label>*Endereco Cadastro</label>
                 </div>
             </div>
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
                     <label>*Logradouro</label>
-                    <input type="text" id="txtLogradouro" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="cadastro_Logradouro" class="form-control" placeholder="Digite aqui" />
                 </div>
                 <div class="col-md-2">
                     <label>*Número</label>
-                    <input type="text" id="txtNumero" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="cadastro_Numero" class="form-control" placeholder="Digite aqui" />
                 </div>
                 <div class="col-md-2">
                     <label>Complemento</label>
-                    <input type="text" id="txtComplemento" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="cadastro_Complemento" class="form-control" placeholder="Digite aqui" />
                 </div>
                 <div class="col-md-2">
                     <label>*Bairro</label>
-                    <input type="text" id="txtBairro" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="cadastro_Bairro" class="form-control" placeholder="Digite aqui" />
                 </div>
                 <div class="col-md-2">
                     <label>*Munícipio</label>
-                    <input type="text" id="txtMunicipio" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="cadastro_Municipio" class="form-control" placeholder="Digite aqui" />
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    <input type="text" id="txtUF" class="form-control" placeholder="Digite aqui"/>
+                    <input type="text" id="cadastro_UF" class="form-control" placeholder="Digite aqui" />
                 </div>
             </div>
 
             <div class="row" style="margin-top:15px">
                 <div class="col-md-2">
                     <label>*CEP</label>
-                    <input type="text" id="txtCEP" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="cadastro_CEP" class="form-control" placeholder="Digite aqui" />
                 </div>
                 <div class="col-md-3">
                     <label>E-mail</label>
-                    <input type="email" id="txtEmail" class="form-control" placeholder="Digite aqui"/>
+                    <input type="email" id="cadastro_Email" class="form-control" placeholder="Digite aqui" />
                 </div>
                 <div class="col-md-2">
                     <label>*Telefone1</label>
-                    <input type="text" id="txtTelefone1" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="cadastro_Telefone1" class="form-control" placeholder="Digite aqui" />
                 </div>
                 <div class="col-md-2">
                     <label>Telefone2</label>
-                    <input type="text" id="txtTelefone2" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="cadastro_Telefone2" class="form-control" placeholder="Digite aqui" />
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="enderecoCobranca">
+            <div class="row">
+                <div class="col-md-5">
+                    <label>*Endereco de Cobrança</label><br />
+                    <input type="checkbox" id="check_Cobranca_Cadastro"> Igual ao endereco de cadastro
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px">
+                <div class="col-md-3">
+                    <label>*Logradouro</label>
+                    <input type="text" id="cobranca_Logradouro" class="form-control cobranca" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>*Número</label>
+                    <input type="text" id="cobranca_Numero" class="form-control cobranca" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>Complemento</label>
+                    <input type="text" id="cobranca_Complemento" class="form-control cobranca" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>*Bairro</label>
+                    <input type="text" id="cobranca_Bairro" class="form-control cobranca" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>*Munícipio</label>
+                    <input type="text" id="cobranca_Municipio" class="form-control cobranca" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-1">
+                    <label>*UF</label>
+                    <input type="text" id="cobranca_UF" class="form-control cobranca" placeholder="Digite aqui" />
                 </div>
             </div>
 
             <div class="row" style="margin-top:15px">
                 <div class="col-md-2">
-                    <input type="submit" value="Cadastrar" id="btnCadastrar" class="btn btn-primary" />
+                    <label>*CEP</label>
+                    <input type="text" id="cobranca_CEP" class="form-control cobranca" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-3">
+                    <label>E-mail</label>
+                    <input type="email" id="cobranca_Email" class="form-control cobranca" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>*Telefone1</label>
+                    <input type="text" id="cobranca_Telefone1" class="form-control cobranca" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>Telefone2</label>
+                    <input type="text" id="cobranca_Telefone2" class="form-control cobranca" placeholder="Digite aqui" />
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="enderecoEntrega">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>*Endereco de Entrega</label><br />
+                    <input type="checkbox" id="check_Entrega_Cadastro"> Igual ao endereco de cadastro<br />
+                    <input type="checkbox" id="check_Entrega_Cobranca"> Igual ao endereco de cobrança
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px">
+                <div class="col-md-3">
+                    <label>*Logradouro</label>
+                    <input type="text" id="entrega_Logradouro" class="form-control entrega" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>*Número</label>
+                    <input type="text" id="entrega_Numero" class="form-control entrega" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>Complemento</label>
+                    <input type="text" id="entrega_Complemento" class="form-control entrega" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>*Bairro</label>
+                    <input type="text" id="entrega_Bairro" class="form-control entrega" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>*Munícipio</label>
+                    <input type="text" id="entrega_Municipio" class="form-control entrega" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-1">
+                    <label>*UF</label>
+                    <input type="text" id="entrega_UF" class="form-control entrega" placeholder="Digite aqui" />
                 </div>
             </div>
 
+            <div class="row" style="margin-top:15px">
+                <div class="col-md-2">
+                    <label>*CEP</label>
+                    <input type="text" id="entrega_CEP" class="form-control entrega" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-3">
+                    <label>E-mail</label>
+                    <input type="email" id="entrega_Email" class="form-control entrega" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>*Telefone1</label>
+                    <input type="text" id="entrega_Telefone1" class="form-control entrega" placeholder="Digite aqui" />
+                </div>
+                <div class="col-md-2">
+                    <label>Telefone2</label>
+                    <input type="text" id="entrega_Telefone2" class="form-control entrega" placeholder="Digite aqui" />
+                </div>
+            </div>
         </div>
-    </form>    
 
-</body>
-</html>
+        <div class="row" style="margin-top:15px">
+            <div class="col-md-2">
+                <input type="submit" value="Cadastrar" id="btnCadastrar" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+</form>
+

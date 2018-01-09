@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Projeto.WEB.Areas.AreaRestrita.Models.Cliente;
-using Projeto.WEB.Areas.AreaRestrita.Models.JsonClass;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,7 +19,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         {
             return View();
         }
-                
+
         public ActionResult Cadastro()
         {
             return View();
@@ -26,15 +28,24 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         [HttpPost]
         public ActionResult Cadastro(CadastroViewModel model)
         {
+
+
+
             return View();
         }
 
-        public JsonResult ConsultarCNPJ(ClienteViewModel model)
+        public JsonResult ConsultarCNPJ(JsonClass model)
         {
             try
             {
-                var json = JSONHelper.GetJSONString(model.NumeroCNPJ);
-                model = JsonConvert.DeserializeObject<ClienteViewModel>(json);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://www.receitaws.com.br/v1/cnpj/{model.Cnpj}");
+                WebResponse response = request.GetResponse();
+                
+                using (Stream stream = response.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                    model = JsonConvert.DeserializeObject<JsonClass>(reader.ReadToEnd());
+                }              
 
                 return Json(model);
 
