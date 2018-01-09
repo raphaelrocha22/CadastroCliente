@@ -23,6 +23,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Cadastro(CadastroViewModel model)
+        {
+            return View();
+        }
+
         public JsonResult ConsultarCNPJ(ClienteViewModel model)
         {
             try

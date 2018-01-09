@@ -116,6 +116,7 @@
     <Content Include="Imagens\logoRodenstock.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Cliente\Cadastro.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -134,6 +135,7 @@
     <Compile Include="Areas\AreaRestrita\AreaRestritaAreaRegistration.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\ClienteController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Cliente\CadastroViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\ClienteViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\JsonClass\AtividadePrincipal.cs" />
     <Compile Include="Areas\AreaRestrita\Models\JsonClass\AtividadesSecundarias.cs" />
@@ -159,7 +161,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
-    <Content Include="Views\Cliente\Cadastro.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\AlterarSenha.cshtml" />
     <None Include="Web.Debug.config">

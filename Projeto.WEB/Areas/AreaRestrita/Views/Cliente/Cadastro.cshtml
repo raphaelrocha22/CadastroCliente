@@ -11,56 +11,13 @@
     <title>Cadastro Cliente</title>
 
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $('#btnConsultaCNPJ').click(function () {
-
-                var rgx = new RegExp("^[0-9]{14}$");
-                if (rgx.test($('#txtCnpj').val())) {
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '/AreaRestrita/Cliente/ConsultarCNPJ',
-                        data: model = {
-                            NumeroCNPJ: $('#txtCnpj').val()
-                        },
-                        success:
-                        function (m) {
-                            if (m.Status != "ERROR") {
-                                $("#txtRazaoSocial").val(m.Nome);
-                                $("#txtNomeFantasia").val(m.Fantasia);
-                                $("#txtLogradouro").val(m.Logradouro);
-                                $("#txtNumero").val(m.Numero);
-                                $("#txtComplemento").val(m.Complemento);
-                                $("#txtBairro").val(m.Bairro);
-                                $("#txtMunicipio").val(m.Municipio);
-                                $("#txtUF").val(m.Uf);
-                                $("#txtCEP").val(m.Cep);
-                                $("#txtEmail").val(m.Email);
-                                $("#txtTelefone1").val(m.Telefone1);
-                            }
-                            else {
-                                alert("CNPJ não encontrado!")
-                            }
-                        },
-                        error: function (event) {
-                            alert(event.message);
-                        }
-                    });
-                }
-                else {
-                    alert("CNPJ inválido, informe apenas caracteres numéricos com 14 caractéres")
-                }
-            });
-        });
-    </script>
+    <script src="~/Scripts/Cliente/Cadastro.js"></script>
 
 </head>
 <body class="container">
@@ -68,13 +25,13 @@
     <h4>Cadastro de Cliente</h4>
     <hr />
 
-    <div class="form-group">
+    <form id="myform">
         <div class="col-md-12">
 
             <div class="row">
                 <div class="col-md-2">
                     <label>*Classe:</label>
-                    <select id="optClasse" class="form-control">
+                    <select id="optClasse" class="form-control" name="classe">
                         <option value="">- Selecione -</option>
                         <option>Ótica</option>
                         <option>Médico</option>
@@ -87,7 +44,7 @@
 
                 <div class="col-md-3">
                     <label>*Representante</label>
-                    <select id="optRepresentante" class="form-control">
+                    <select id="optRepresentante" class="form-control" name="representante">
                         <option value="">- Selecione -</option>
                         <option value=1>Representante A</option>
                         <option value=2>Representante B</option>
@@ -99,14 +56,14 @@
                 </div>
 
                 <div class="col-md-3">
-                    <label>*CNPJ(apenas números)</label>
-                    <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" />
+                    <label>*CNPJ</label>
+                    <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" name="cnpj" />
                     <input type="button" id="btnConsultaCNPJ" class="btn btn-success btn-xs" value="Consultar pelo CNPJ" />
                 </div>
 
                 <div class="col-md-2">
                     <label>CODUN</label>
-                    <input type="text" id="txtCodun" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="txtCodun" class="form-control" placeholder="Digite aqui" name="codun" />
                 </div>
             </div>
             <hr />
@@ -114,7 +71,7 @@
             <div class="row" style="margin-top:15px">
                 <div class="col-md-4">
                     <label>*Razão Social</label>
-                    <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" name="razaoSocial" />
                 </div>
                 <div class="col-md-4">
                     <label>Nome Fantasia</label>
@@ -165,7 +122,7 @@
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    <input type="text" id="txtUF" class="form-control" placeholder="Digite aqui" />
+                    <input type="text" id="txtUF" class="form-control" placeholder="Digite aqui"/>
                 </div>
             </div>
 
@@ -176,7 +133,7 @@
                 </div>
                 <div class="col-md-3">
                     <label>E-mail</label>
-                    <input type="text" id="txtEmail" class="form-control" placeholder="Digite aqui" />
+                    <input type="email" id="txtEmail" class="form-control" placeholder="Digite aqui"/>
                 </div>
                 <div class="col-md-2">
                     <label>*Telefone1</label>
@@ -187,187 +144,15 @@
                     <input type="text" id="txtTelefone2" class="form-control" placeholder="Digite aqui" />
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-12">
-            <hr />
-            <h4>Modalidade Comercial</h4>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <strong>Instruções: </strong>Abaixo estão descritas as modalidades comerciais disponíveis para o cadastro dos clientes e as faixa de descontos disponíveis em cada uma
-                    Escolha apenas UMA modalidade e UMA faixa de desconto. Informe a escolha marcando um X entre os parênteses ( X )
-                </div>
-            </div>
 
             <div class="row" style="margin-top:15px">
-                <div class="col-md-12">
-                    <table class="table table-condensed table-hover">
-                        <tr>
-                            <th>Prazo Pagamento</th>
-                            <th class="text-center" colspan="9">Descontos</th>
-                        </tr>
-                        <tr align="center" class="active">
-                            <td align="left"><input type="radio" id="" name="selection1" /> 9 vezes (aprovação reunião Dir.)</td>
-                            <td>46%</td>
-                            <td>43%</td>
-                            <td>41%</td>
-                            <td>38%</td>
-                            <td>36%</td>
-                            <td>33%</td>
-                            <td>30%</td>
-                            <td>27%</td>
-                            <td>22%</td>
-                        </tr>
-                        <tr align="center" class="active">
-                            <td align="left"><input type="radio" id="" name="selection1" /> 30 dias (aprovação Dir. Comercial)</td>
-                            <td>52,5%</td>
-                            <td>50,0%</td>
-                            <td>47,5%</td>
-                            <td>45,0%</td>
-                            <td>42,5%</td>
-                            <td>39,0%</td>
-                            <td>35,0%</td>
-                            <td>33,0%</td>
-                            <td>27,5</td>
-                        </tr>
-                        <tr align="center" class="active">
-                            <td align="left"><input type="radio" id="" name="selection1" /><strong> Normal</strong></td>
-                            <td><strong>50,0%</strong></td>
-                            <td><strong>47,5%</strong></td>
-                            <td><strong>45,0%</strong></td>
-                            <td><strong>42,5%</strong></td>
-                            <td><strong>40,0%</strong></td>
-                            <td><strong>36,0%</strong></td>
-                            <td><strong>33,0%</strong></td>
-                            <td><strong>30,0%</strong></td>
-                            <td><strong>25,5%</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="10"><strong>1) Sem Meta</strong></td>
-                        </tr>
-                        <tr align="center" class="info">
-                            <td align="left" colspan="5">1.1) Sem Rebate + Guelta Normal</td>
-                            <td><input type="radio" id="rd1" name="selection" /></td>
-                            <td><input type="radio" id="rd2" name="selection" /></td>
-                            <td><input type="radio" id="rd3" name="selection" /></td>
-                            <td><input type="radio" id="rd4" name="selection" /></td>
-                            <td><input type="radio" id="rd5" name="selection" /></td>
-                        </tr>
-                        <tr align="center" class="info">
-                            <td align="left" colspan="5">1.2) Sem Rebate + Guelta Zero</td>
-                            <td><input type="radio" id="rd6" name="selection" /></td>
-                            <td><input type="radio" id="rd7" name="selection" /></td>
-                            <td><input type="radio" id="rd8" name="selection" /></td>
-                            <td><input type="radio" id="rd9" name="selection" /></td>
-                            <td><input type="radio" id="rd10" name="selection" /></td>
-                        </tr>
-                        <tr align="center" class="info">
-                            <td align="left" colspan="5">Desconto por Faixa de Fatur. (valores mensais indicativos)</td>
-                            <td>R$ 7.500</td>
-                            <td>R$ 5.000</td>
-                            <td>R$ 3.000</td>
-                            <td>R$ 2.000</td>
-                            <td>R$ 1.000</td>
-                        </tr>
-                        <tr>
-                            <td colspan="10"><strong>2) Com Meta</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="10"><strong>2.1) ClubR</strong></td>
-                        </tr>
-                        <tr align="center" class="warning">
-                            <td align="left" colspan="5">2.1.a) Rebate até 5% + Guelta Normal</td>
-                            <td><input type="radio" id="rd11" name="selection" /></td>
-                            <td><input type="radio" id="rd12" name="selection" /></td>
-                            <td><input type="radio" id="rd13" name="selection" /></td>
-                            <td><input type="radio" id="rd14" name="selection" /></td>
-                            <td><input type="radio" id="rd15" name="selection" /></td>
-                        </tr>
-                        <tr align="center" class="warning">
-                            <td align="left" colspan="5">Metas Mínimas Mensais</td>
-                            <td>R$ 10.000</td>
-                            <td>R$ 10.000</td>
-                            <td>R$ 10.000</td>
-                            <td>R$ 10.000</td>
-                            <td>R$ 10.000</td>
-                        </tr>
-                        <tr>
-                            <td colspan="10"><strong>2.2) Upgrade</strong></td>
-                        </tr>
-                        <tr align="center" class="success">
-                            <td align="left" colspan="5">2.2.a) Rebate Zero + Guelta Maior</td>
-                            <td><input type="radio" id="rd11" name="selection" /></td>
-                            <td><input type="radio" id="rd12" name="selection" /></td>
-                            <td><input type="radio" id="rd13" name="selection" /></td>
-                            <td><input type="radio" id="rd14" name="selection" /></td>
-                            <td><input type="radio" id="rd15" name="selection" /></td>
-                        </tr>
-                        <tr align="center" class="success">
-                            <td align="left" colspan="5">Desconto por Faixa de Fatur. (valores mensais indicativos)</td>
-                            <td>R$ 7.500</td>
-                            <td>R$ 5.000</td>
-                            <td>R$ 3.000</td>
-                            <td>R$ 2.000</td>
-                            <td>R$ 1.000</td>
-                        </tr>
-                        <tr align="center" class="success">
-                            <td align="left" colspan="8">2.2.b) Rebate até 3% + Guelta Maior</td>
-                            <td><input type="radio" id="rd14" name="selection" /></td>
-                            <td><input type="radio" id="rd15" name="selection" /></td>
-                        </tr>
-                        <tr align="center" class="success">
-                            <td align="left" colspan="8">Desconto por Faixa de Fatur. (valores mensais indicativos)</td>
-                            <td>R$ 5.000</td>
-                            <td>R$ 5.000</td>
-                        </tr>
-                        <tr>
-                            <td colspan="10"><strong>2.3) MarkUP Maior</strong></td>
-                        </tr>
-                        <tr align="center" class="bg-info">
-                            <td align="left">2.3.a) Rebate Zero, MarkUP até 5 + Guelta Normal</td>
-                            <td><input type="radio" id="rd11" name="selection" /></td>
-                            <td><input type="radio" id="rd12" name="selection" /></td>
-                            <td><input type="radio" id="rd13" name="selection" /></td>
-                            <td><input type="radio" id="rd14" name="selection" /></td>
-                            <td colspan="5"></td>
-                        </tr>
-                        <tr align="center" class="bg-info">
-                            <td align="left">Desconto por Faixa de Fatur. (valores mensais indicativos)</td>
-                            <td>R$ 15.000</td>
-                            <td>R$ 15.000</td>
-                            <td>R$ 10.000</td>
-                            <td>R$ 10.000</td>
-                            <td colspan="5"></td>
-                        </tr>
-                        <tr align="center">
-                            <td align="left" colspan="6"><strong>Participação Regionais</strong></td>
-                            <td><strong>0,5%</strong></td>
-                            <td><strong>1,0%</strong></td>
-                            <td><strong>1,5%</strong></td>
-                            <td><strong>1,5%</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="10">
-                                Apuração Anual (1/3 do movimento anual)
-                                Não faz parte da base de calculo o período em que os clientes se encontrarem em mark up 5, ou Up Grade II
-                            </td>
-                        </tr>
-                    </table>
+                <div class="col-md-2">
+                    <input type="submit" value="Cadastrar" id="btnCadastrar" class="btn btn-primary" />
                 </div>
             </div>
 
-
         </div>
-    </div>
-
-    <div class="row" style="margin-top:15px">
-        <div class="col-md-2">
-            <input type="submit" value="Cadastrar" id="cadastrar" class="btn btn-primary" />
-        </div>
-    </div>
+    </form>    
 
 </body>
 </html>
