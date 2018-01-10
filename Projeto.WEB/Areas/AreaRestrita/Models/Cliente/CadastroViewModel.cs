@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Projeto.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,44 +9,58 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
     public class CadastroViewModel
     {
-        public Entidades.Cliente cliente { get; set; }
-        public List<Entidades.Endereco> enderecos { get; set; }
-
+        public int codun { get; set; }
 
         [JsonProperty("nome")]
-        public string Nome { get; set; }
+        public string razaoSocial { get; set; }
 
         [JsonProperty("fantasia")]
-        public string Fantasia { get; set; }
+        public string nomeFantasia { get; set; }
 
         [JsonProperty("cnpj")]
-        public string Cnpj { get; set; }
+        public string cnpj { get; set; }
+
+        public string inscricaoEstadual { get; set; }
+
+        public string inscricaoMunicipal { get; set; }
+
+        public string classe { get; set; }
+
+        public Endereco enderecoCadastro { get; set; }
+
+        public Endereco enderecoCobranca { get; set; }
+
+        public Endereco enderecoEntrega { get; set; }
+
+        public Representante representante { get; set; }
+
+
 
         [JsonProperty("logradouro")]
-        public string Logradouro { get; set; }
+        public string logradouro { get; set; }
 
         [JsonProperty("numero")]
-        public string Numero { get; set; }
+        public string numero { get; set; }
 
         [JsonProperty("complemento")]
-        public string Complemento { get; set; }
+        public string complemento { get; set; }
 
         [JsonProperty("bairro")]
-        public string Bairro { get; set; }
+        public string bairro { get; set; }
 
         [JsonProperty("municipio")]
-        public string Municipio { get; set; }
+        public string municipio { get; set; }
 
         [JsonProperty("uf")]
-        public string Uf { get; set; }
+        public string uf { get; set; }
 
         [JsonProperty("cep")]
-        public string Cep { get; set; }
+        public string cep { get; set; }
 
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string email { get; set; }
 
         [JsonProperty("telefone")]
-        public string Telefone1 { get; set; }
+        public string telefone1 { get; set; }
     }
 }

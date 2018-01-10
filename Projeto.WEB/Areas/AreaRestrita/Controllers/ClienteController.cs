@@ -32,13 +32,24 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         {
             try
             {
-                model.cliente.enderecos = new List<Endereco>();
-                model.cliente.enderecos.Add(model.cliente.enderecoCadastro);
-                model.cliente.enderecos.Add(model.cliente.enderecoCobranca);
-                model.cliente.enderecos.Add(model.cliente.enderecoEntrega);
+                var c = new Cliente();
+                c.endereco = new List<Endereco>();
+                c.representante = new Representante();
+
+                c.codun = model.codun;
+                c.razaoSocial = model.razaoSocial;
+                c.nomeFantasia = model.nomeFantasia;
+                c.cnpj = model.cnpj;
+                c.inscricaoEstadual = model.inscricaoEstadual;
+                c.inscricaoMunicipal = model.inscricaoMunicipal;
+                c.classe = model.classe;
+                c.endereco.Add(model.enderecoCadastro);
+                c.endereco.Add(model.enderecoCobranca);
+                c.endereco.Add(model.enderecoEntrega);
+                c.representante = model.representante;
 
                 var d = new ClienteDAL();
-                d.CadastrarCliente(model.cliente);
+                d.CadastrarCliente(c);
 
                 return Json("Usuario cadastrado com sucesso");
             }
@@ -52,7 +63,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         {
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://www.receitaws.com.br/v1/cnpj/{model.Cnpj}");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://www.receitaws.com.br/v1/cnpj/{model.cnpj}");
                 WebResponse response = request.GetResponse();
                 
                 using (Stream stream = response.GetResponseStream())

@@ -17,12 +17,9 @@ namespace Projeto.Entidades
         public string inscricaoEstadual { get; set; }
         public string inscricaoMunicipal { get; set; }
         public string classe { get; set; }
-        public Endereco enderecoCadastro { get; set; }
-        public Endereco enderecoCobranca { get; set; }
-        public Endereco enderecoEntrega { get; set; }
-        public Representante representante { get; set; }
 
-        public List<Endereco> enderecos { get; set; }
+        public List<Endereco> endereco { get; set; }
+        public Representante representante { get; set; }
 
     }
 }
