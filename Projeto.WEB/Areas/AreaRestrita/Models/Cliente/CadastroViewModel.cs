@@ -11,7 +11,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
     {
         public string classe { get; set; }
 
-        public int representante { get; set; }
+        public string representante { get; set; }
 
         public string cnpj { get; set; }
 
