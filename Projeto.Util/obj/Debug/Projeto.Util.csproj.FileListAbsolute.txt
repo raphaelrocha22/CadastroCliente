@@ -1,6 +1,5 @@
 H:\Cadastro Cliente\Projeto.Util\bin\Debug\Projeto.Util.dll
 H:\Cadastro Cliente\Projeto.Util\bin\Debug\Projeto.Util.pdb
-H:\Cadastro Cliente\Projeto.Util\obj\Debug\Projeto.Util.csprojResolveAssemblyReference.cache
 H:\Cadastro Cliente\Projeto.Util\obj\Debug\Projeto.Util.csproj.CoreCompileInputs.cache
 H:\Cadastro Cliente\Projeto.Util\obj\Debug\Projeto.Util.dll
 H:\Cadastro Cliente\Projeto.Util\obj\Debug\Projeto.Util.pdb

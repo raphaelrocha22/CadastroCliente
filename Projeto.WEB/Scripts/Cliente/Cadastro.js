@@ -7,7 +7,7 @@
             classe: { required: true },
             representante: { required: true },
             cnpj: { required: true },
-            codun: { digits: true, required: true },
+            codun: { digits: true},
             razaoSocial: { required: true },
             logradouro: { required: true },
             numero: { required: true },
@@ -95,63 +95,69 @@
             }
             
             var model = {
-                classe: $('#optClasse').val(),
-                representante: $('#optRepresentante').val(),
-                cnpj: $('#txtCnpj').val(),
-                codun: $('#txtCodun').val(),
-                nome: $('#txtRazaoSocial').val(),
-                fantasia: $('#txtNomeFantasia').val(),
-                inscricaoEstadual: $('#txtInscEstadual').val(),
-                inscricaoMunicipal: $('#txtInscMunicipal').val(),
-                enderecoCadastro:{
-                    Logradouro: $('#cadastro_Logradouro').val(),
-                    Numero: $('#cadastro_Numero').val(),
-                    Complemento: $('#cadastro_Complemento').val(),
-                    Bairro: $('#cadastro_Bairro').val(),
-                    Municipio: $('#cadastro_Municipio').val(),
-                    Uf: $('#cadastro_UF').val(),
-                    Cep: $('#cadastro_CEP').val(),
-                    Email: $('#cadastro_Email').val(),
-                    Telefone1: $('#cadastro_Telefone1').val(),
-                    Telefone2: $('#cadastro_Telefone2').val()
-                },
-                enderecoCobranca: {
-                    Logradouro: $('#cobranca_Logradouro').val(),
-                    Numero: $('#cobranca_Numero').val(),
-                    Complemento: $('#cobranca_Complemento').val(),
-                    Bairro: $('#cobranca_Bairro').val(),
-                    Municipio: $('#cobranca_Municipio').val(),
-                    Uf: $('#cobranca_UF').val(),
-                    Cep: $('#cobranca_CEP').val(),
-                    Email: $('#cobranca_Email').val(),
-                    Telefone1: $('#cobranca_Telefone1').val(),
-                    Telefone2: $('#cobranca_Telefone2').val()
-                },
-                enderecoEntrega: {
-                    Logradouro: $('#entrega_Logradouro').val(),
-                    Numero: $('#entrega_Numero').val(),
-                    Complemento: $('#entrega_Complemento').val(),
-                    Bairro: $('#entrega_Bairro').val(),
-                    Municipio: $('#entrega_Municipio').val(),
-                    Uf: $('#entrega_UF').val(),
-                    Cep: $('#entrega_CEP').val(),
-                    Email: $('#entrega_Email').val(),
-                    Telefone1: $('#entrega_Telefone1').val(),
-                    Telefone2: $('#entrega_Telefone2').val()
+                Cliente: {
+                    codun: $('#txtCodun').val(),
+                    razaoSocial: $('#txtRazaoSocial').val(),
+                    nomeFantasia: $('#txtNomeFantasia').val(),
+                    cnpj: $('#txtCnpj').val(),
+                    inscricaoEstadual: $('#txtInscEstadual').val(),
+                    inscricaoMunicipal: $('#txtInscMunicipal').val(),
+                    classe: $('#optClasse').val(),
+                    enderecoCadastro: {
+                        tipo: 'Cadastro',
+                        logradouro: $('#cadastro_Logradouro').val(),
+                        numero: $('#cadastro_Numero').val(),
+                        complemento: $('#cadastro_Complemento').val(),
+                        bairro: $('#cadastro_Bairro').val(),
+                        municipio: $('#cadastro_Municipio').val(),
+                        UF: $('#cadastro_UF').val(),
+                        cep: $('#cadastro_CEP').val(),
+                        email: $('#cadastro_Email').val(),
+                        telefone1: $('#cadastro_Telefone1').val(),
+                        telefone2: $('#cadastro_Telefone2').val()
+                    },
+                    enderecoCobranca: {
+                        tipo: 'Cobranca',
+                        logradouro: $('#cobranca_Logradouro').val(),
+                        numero: $('#cobranca_Numero').val(),
+                        complemento: $('#cobranca_Complemento').val(),
+                        bairro: $('#cobranca_Bairro').val(),
+                        municipio: $('#cobranca_Municipio').val(),
+                        UF: $('#cobranca_UF').val(),
+                        cep: $('#cobranca_CEP').val(),
+                        email: $('#cobranca_Email').val(),
+                        telefone1: $('#cobranca_Telefone1').val(),
+                        telefone2: $('#cobranca_Telefone2').val()
+                    },
+                    enderecoEntrega: {
+                        tipo: 'Entrega',
+                        logradouro: $('#entrega_Logradouro').val(),
+                        numero: $('#entrega_Numero').val(),
+                        complemento: $('#entrega_Complemento').val(),
+                        bairro: $('#entrega_Bairro').val(),
+                        municipio: $('#entrega_Municipio').val(),
+                        UF: $('#entrega_UF').val(),
+                        cep: $('#entrega_CEP').val(),
+                        email: $('#entrega_Email').val(),
+                        telefone1: $('#entrega_Telefone1').val(),
+                        telefone2: $('#entrega_Telefone2').val()
+                    },
+                    representante: {
+                        nome: $('#optRepresentante').val()
+                    }
                 }
             };
             $.ajax({
                 type: "POST",
                 url: "/AreaRestrita/Cliente/Cadastro",
                 data: model,
-                success: function (data) {
+                success: function (dados) {
                     alert("SIM");
                 },
                 Error: function (e) {
                     alert(e.message)
                 }
             });
-            return false;
         }
     });
     

@@ -9,21 +9,20 @@ namespace Projeto.Entidades
 {
     public class Cliente
     {
-        public int id { get; set; }
-        public int codCliente { get; set; }
+        public int idCliente { get; set; }
         public int codun { get; set; }
         public string razaoSocial { get; set; }
         public string nomeFantasia { get; set; }
-        public string cpfCnpj { get; set; }
+        public string cnpj { get; set; }
         public string inscricaoEstadual { get; set; }
         public string inscricaoMunicipal { get; set; }
-        public TipoCliente tipoCliente { get; set; }
-        public ModalidadeCliente modalidade { get; set; }
-        public Endereco enderecoNotaFiscal { get; set; }
+        public string classe { get; set; }
+        public Endereco enderecoCadastro { get; set; }
         public Endereco enderecoCobranca { get; set; }
-        public Endereco enderecoEntregaLentes { get; set; }
-        public Endereco enderecoEntregaArmacao { get; set; }
+        public Endereco enderecoEntrega { get; set; }
         public Representante representante { get; set; }
+
+        public List<Endereco> enderecos { get; set; }
 
     }
 }

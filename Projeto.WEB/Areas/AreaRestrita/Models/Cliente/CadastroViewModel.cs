@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Projeto.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +8,44 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
     public class CadastroViewModel
     {
-        public string classe { get; set; }
+        public Entidades.Cliente cliente { get; set; }
+        public List<Entidades.Endereco> enderecos { get; set; }
 
-        public string representante { get; set; }
 
-        public string cnpj { get; set; }
+        [JsonProperty("nome")]
+        public string Nome { get; set; }
 
-        public int codun { get; set; }
+        [JsonProperty("fantasia")]
+        public string Fantasia { get; set; }
 
-        public string nome { get; set; }
+        [JsonProperty("cnpj")]
+        public string Cnpj { get; set; }
 
-        public string fantasia { get; set; }
+        [JsonProperty("logradouro")]
+        public string Logradouro { get; set; }
 
-        public string inscricaoEstadual { get; set; }
+        [JsonProperty("numero")]
+        public string Numero { get; set; }
 
-        public string inscricaoMunicipal { get; set; }
-        
-        public EnderecoViewModel enderecoCadastro { get; set; }
+        [JsonProperty("complemento")]
+        public string Complemento { get; set; }
 
-        public EnderecoViewModel enderecoCobranca { get; set; }
+        [JsonProperty("bairro")]
+        public string Bairro { get; set; }
 
-        public EnderecoViewModel enderecoEntrega { get; set; }
+        [JsonProperty("municipio")]
+        public string Municipio { get; set; }
 
+        [JsonProperty("uf")]
+        public string Uf { get; set; }
+
+        [JsonProperty("cep")]
+        public string Cep { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        [JsonProperty("telefone")]
+        public string Telefone1 { get; set; }
     }
 }
