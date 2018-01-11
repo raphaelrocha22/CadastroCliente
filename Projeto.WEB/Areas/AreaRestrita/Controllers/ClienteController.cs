@@ -49,14 +49,20 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 c.representante = model.representante;
 
                 var d = new ClienteDAL();
-                d.CadastrarCliente(c);
-
-                return Json("Usuario cadastrado com sucesso");
+                if (!d.VerificarCNPJ(c.cnpj))
+                {
+                    d.CadastrarCliente(c);
+                    return Json("Usuario cadastrado com sucesso");
+                }
+                else
+                {
+                    return Json("Já existe um cliente cadastrado com o CNPJ informado");
+                }                
             }
             catch (Exception e)
             {
                 return Json(e.Message);
-            }            
+            }
         }
 
         public JsonResult ConsultarCNPJ(CadastroViewModel model)
@@ -65,12 +71,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://www.receitaws.com.br/v1/cnpj/{model.cnpj}");
                 WebResponse response = request.GetResponse();
-                
+
                 using (Stream stream = response.GetResponseStream())
                 {
                     StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                     model = JsonConvert.DeserializeObject<CadastroViewModel>(reader.ReadToEnd());
-                }              
+                }
 
                 return Json(model);
 

@@ -17,7 +17,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
         [JsonProperty("fantasia")]
         public string nomeFantasia { get; set; }
 
-        [JsonProperty("cnpj")]
         public string cnpj { get; set; }
 
         public string inscricaoEstadual { get; set; }
@@ -62,5 +61,8 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 
         [JsonProperty("telefone")]
         public string telefone1 { get; set; }
+
+        [JsonProperty("status")]
+        public string status { get; set; }
     }
 }

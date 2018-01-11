@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projeto.Util;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -25,5 +26,7 @@ namespace Projeto.DAL.Repositorio
         {
             con.Close();
         }
+
+        
     }
 }

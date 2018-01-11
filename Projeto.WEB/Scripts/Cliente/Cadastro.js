@@ -1,13 +1,18 @@
 ﻿$(document).ready(function () {
 
+    jQuery.validator.addMethod("cnpj", function (value, element) {
+        var rgx = new RegExp("^[0-9]{14}$");
+        return rgx.test(value.replace(/\.|-|[/]/g, ''))
+    }, "Formato inválido. Digite apenas números de 14 caractéres");
+
     $('#formCadastroCliente').validate({
         errorClass: "my-error-class",
         validClass: "my-valid-class",
         rules: {
             classe: { required: true },
             representante: { required: true },
-            cnpj: { required: true },
-            codun: { digits: true},
+            cnpj: { required: true, cnpj: true },
+            codun: { digits: true },
             razaoSocial: { required: true },
             logradouro: { required: true },
             numero: { required: true },
@@ -93,12 +98,12 @@
                 $('#entrega_Telefone1').val($('#cobranca_Telefone1').val());
                 $('#entrega_Telefone2').val($('#cobranca_Telefone2').val());
             }
-            
+
             var model = {
                 codun: $('#txtCodun').val(),
                 razaoSocial: $('#txtRazaoSocial').val(),
                 nomeFantasia: $('#txtNomeFantasia').val(),
-                cnpj: $('#txtCnpj').val(),
+                cnpj: $('#txtCnpj').val().replace(/\.|-|[/]/g, ''),
                 inscricaoEstadual: $('#txtInscEstadual').val(),
                 inscricaoMunicipal: $('#txtInscMunicipal').val(),
                 classe: $('#optClasse').val(),
@@ -142,15 +147,15 @@
                     telefone2: $('#entrega_Telefone2').val()
                 },
                 representante: {
-                    nome: $('#optRepresentante').val()
+                    idRepresentante: $('#optRepresentante').val()
                 }
             };
             $.ajax({
                 type: "POST",
                 url: "/AreaRestrita/Cliente/Cadastro",
                 data: model,
-                success: function (dados) {
-                    alert("SIM");
+                success: function (mensagem) {
+                    alert(mensagem);
                 },
                 Error: function (e) {
                     alert(e.message)
@@ -158,9 +163,9 @@
             });
         }
     });
-    
+
     $('#btnConsultaCNPJ').click(function () {
-        
+
         var cnpj = $('#txtCnpj').val().replace(/\.|-|[/]/g, '')
 
         var rgx = new RegExp("^[0-9]{14}$");
@@ -172,9 +177,12 @@
                 data: model = {
                     cnpj: cnpj
                 },
+                beforeSend: function () {
+                    $('#btnConsultaCNPJ').prop('value', 'Aguarde...').prop('disabled', true);
+                },
                 success:
                 function (m) {
-                    if (m.Status != "ERROR") {
+                    if (m.status != "ERROR") {
                         $("#txtRazaoSocial").val(m.razaoSocial);
                         $("#txtNomeFantasia").val(m.nomeFantasia);
                         $("#cadastro_Logradouro").val(m.logradouro);
@@ -186,7 +194,6 @@
                         $("#cadastro_CEP").val(m.cep);
                         $("#cadastro_Email").val(m.email);
                         $("#cadastro_Telefone1").val(m.telefone1);
-
                     }
                     else {
                         alert("CNPJ não encontrado!")
@@ -194,7 +201,10 @@
                 },
                 error: function (event) {
                     alert(event.message);
-                }
+                },
+                complete: function () {
+                    $('#btnConsultaCNPJ').prop('value', 'Consultar pelo CNPJ').prop('disabled', false);
+                },
             });
         }
         else {
