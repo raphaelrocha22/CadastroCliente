@@ -2,6 +2,8 @@
 using Projeto.DAL.Persistencia;
 using Projeto.Entidades;
 using Projeto.WEB.Areas.AreaRestrita.Models.Cliente;
+using Rotativa;
+using Rotativa.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,7 +59,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 else
                 {
                     return Json("Já existe um cliente cadastrado com o CNPJ informado");
-                }                
+                }
             }
             catch (Exception e)
             {
