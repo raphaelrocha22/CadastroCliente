@@ -155,3 +155,4 @@ E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.csproj.CoreCompile
 E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.dll
 E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.pdb
 H:\Cadastro Cliente\Projeto.WEB\bin\Rotativa.dll
+E:\Projetos\CadastroCliente\Projeto.WEB\bin\Rotativa.dll

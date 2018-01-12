@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Consulta";
+    Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Cliente/Consulta.js"></script>
+
+<h2>Consulta de Clientes</h2>
+<hr />
+
+<div class="col-md-12">
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>CodCliente</label>
+            <input type="text" id="txtCodCliente" class="form-control" placeholder="Digite aqui" name="codCliente" />
+        </div>
+        <div class="col-md-2">
+            <label>CODUN</label>
+            <input type="text" id="txtCodun" class="form-control" placeholder="Digite aqui" name="codun" />
+        </div>
+        <div class="col-md-4">
+            <label>Razão Social</label>
+            <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" name="razaoSocial" />
+        </div>
+        <div class="col-md-4">
+            <label>Nome Fantasia</label>
+            <input type="text" id="txtNomeFantasia" class="form-control" placeholder="Digite aqui" />
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:15px">
+        <div class="col-md-3">
+            <label>CNPJ</label>
+            <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" name="cnpj" />
+        </div>
+
+        <div class="col-md-3">
+            <label>Representante</label>
+            <select id="optRepresentante" class="form-control" name="representante">
+                <option value="">- Selecione -</option>
+                <option value="1">Representante A</option>
+                <option value="2">Representante B</option>
+                <option value="3">Representante C</option>
+                <option value="4">Representante D</option>
+                <option value="5">Representante E</option>
+                <option value="6">Representante F</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <input type="submit" value="Consultar" id="btnConsultar" class="btn btn-primary" style="margin-top:25px"/>
+        </div>
+
+    </div>
+
+

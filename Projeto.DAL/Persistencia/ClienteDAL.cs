@@ -31,8 +31,8 @@ namespace Projeto.DAL.Persistencia
                 AbrirConexao();
                 tr = con.BeginTransaction();
 
-                string query = "insert into Cliente (codun,razaoSocial,nomeFantasia,cnpj,inscricaoEstadual,inscricaoMunicipal,classe,idRepresentante) " +
-                    "values (@codun,@razaoSocial,@nomeFantasia,@cnpj,@inscricaoEstadual,@inscricaoMunicipal,@classe,@idRepresentante) SELECT SCOPE_IDENTITY()";
+                string query = "insert into Cliente (codun,razaoSocial,nomeFantasia,cnpj,inscricaoEstadual,inscricaoMunicipal,classe,idRepresentante, ativo) " +
+                    "values (@codun,@razaoSocial,@nomeFantasia,@cnpj,@inscricaoEstadual,@inscricaoMunicipal,@classe,@idRepresentante,@ativo) SELECT SCOPE_IDENTITY()";
                 cmd = new SqlCommand(query, con, tr);
                 cmd.Parameters.AddWithNullValue("@codun", c.codun);
                 cmd.Parameters.AddWithValue("@razaoSocial", c.razaoSocial);
@@ -42,6 +42,7 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithNullValue("inscricaoMunicipal", c.inscricaoMunicipal);
                 cmd.Parameters.AddWithValue("@classe", c.classe);
                 cmd.Parameters.AddWithValue("idRepresentante", c.representante.idRepresentante);
+                cmd.Parameters.AddWithValue("@ativo", c.ativo);
                 c.idCliente = Convert.ToInt32(cmd.ExecuteScalar());
 
                 foreach (var e in c.endereco)
@@ -76,42 +77,41 @@ namespace Projeto.DAL.Persistencia
             }
         }
 
-        public List<Cliente> ObterClientes(Cliente cliente)
+        public List<Cliente> ObterClientes(int codCliente, int codun, string razaoSocial, string nomeFantasia, string cnpj, int idRepresentante)
         {
             try
             {
                 AbrirConexao();
 
-                string query = "select idCliente, codCliente, codun, razaoSocial, nomeFantasia, cnpj, inscricaoEstadual, " +
-                    "inscricaoMunicipal, classe, c.idRepresentante, r.nome " +
-                    "from Cliente c inner join Representante r on c.idRepresentante = r.idRepresentante " +
-                    "where idCliente>0 ";
+                string query = "select idCliente, ISNULL(codCliente,0) codCliente, codun, razaoSocial, nomeFantasia, cnpj, inscricaoEstadual, " +
+                    "inscricaoMunicipal, classe, c.idRepresentante, r.nome from Cliente c " +
+                    "inner join Representante r on c.idRepresentante = r.idRepresentante where ativo = 1 ";
                 cmd = new SqlCommand(query, con);
 
-                if (cliente.codCliente != 0)
-                    query += "and codCliente = @codCliente";
+                if (codCliente != 0)
+                    query += "and codCliente = @codCliente ";
 
-                if (cliente.codun != 0)
-                    query += "and codun = @codun";
+                if (codun != 0)
+                    query += "and codun = @codun ";
 
-                if (cliente.razaoSocial != null)
-                    query += "and razaoSocial like '%" + "@razaoSocial" + "%'";
+                if (razaoSocial != null)
+                    query += "and razaoSocial like '%" + "@razaoSocial" + "%' ";
 
-                if (cliente.nomeFantasia != null)
-                    query += "and nomeFantasia like '%" + "@nomeFantasia" + "%'";
+                if (nomeFantasia != null)
+                    query += "and nomeFantasia like '%" + "@nomeFantasia" + "%' ";
 
-                if (cliente.cnpj != null)
-                    query += "and cnpj = @cnpj";
+                if (cnpj != null)
+                    query += "and cnpj = @cnpj ";
 
-                if (cliente.representante.idRepresentante != 0)
-                    query += "and c.idRepresentante = @idRepresentante";
+                if (idRepresentante != 0)
+                    query += "and c.idRepresentante = @idRepresentante ";
 
-                cmd.Parameters.AddWithNullValue("@codCliente", cliente.codCliente);
-                cmd.Parameters.AddWithNullValue("@codun", cliente.codun);
-                cmd.Parameters.AddWithNullValue("@razaoSocial", cliente.razaoSocial);
-                cmd.Parameters.AddWithNullValue("@nomeFantasia", cliente.nomeFantasia);
-                cmd.Parameters.AddWithNullValue("@cnpj", cliente.cnpj);
-                cmd.Parameters.AddWithNullValue("@idRepresentante", cliente.representante.idRepresentante);
+                cmd.Parameters.AddWithNullValue("@codCliente", codCliente);
+                cmd.Parameters.AddWithValue("@codun", codun);
+                cmd.Parameters.AddWithNullValue("@razaoSocial", razaoSocial);
+                cmd.Parameters.AddWithNullValue("@nomeFantasia", nomeFantasia);
+                cmd.Parameters.AddWithNullValue("@cnpj", cnpj);
+                cmd.Parameters.AddWithNullValue("@idRepresentante", idRepresentante);
                 dr = cmd.ExecuteReader();
 
                 var lista = new List<Cliente>();
@@ -120,42 +120,70 @@ namespace Projeto.DAL.Persistencia
                 {
                     var c = new Cliente();
                     c.representante = new Representante();
-                    c.endereco = new List<Endereco>();
 
                     c.idCliente = (int)dr["idCliente"];
                     c.codCliente = (int)dr["codCliente"];
-                    c.razaoSocial = (string)dr["razaoSocial"];
-                    c.nomeFantasia = (string)dr["nomeFantasia"];
-                    c.cnpj = (string)dr["cnpj"];
-                    c.inscricaoEstadual = (string)dr["inscricaoEstadual"];
-                    c.inscricaoMunicipal = (string)dr["inscricaoMunicipal"];
-                    c.classe = (string)dr["classe"];
+                    c.razaoSocial = dr["razaoSocial"].ToString();
+                    c.nomeFantasia = dr["nomeFantasia"].ToString();
+                    c.cnpj = dr["cnpj"].ToString();
+                    c.inscricaoEstadual = dr["inscricaoEstadual"].ToString();
+                    c.inscricaoMunicipal = dr["inscricaoMunicipal"].ToString();
+                    c.classe = dr["classe"].ToString();
                     c.representante.idRepresentante = (int)dr["idRepresentante"];
-                    c.representante.nome = (string)dr["nome"];
+                    c.representante.nome = dr["nome"].ToString();
 
-                    dr.Dispose();
-                    query = "select idEndereco, logradouro, numero, complemento, bairro, municipio, " +
-                        "uf, cep, telefone1, telefone2, email, tipo FROM Endereco where idCliente = @idCliente";
-                    cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
-                    dr = cmd.ExecuteReader();
-
-                    while (dr.Read())
-                    {
-                        var e = new Endereco();
-                        e.idEndereco = (int)dr["idEndereco"];
-                        e.logradouro = (string)dr["logradouro"];
-                        e.numero = (string)dr["numero"];
-                        e.complemento = (string)dr["complemento"];
-                    }
-
+                    lista.Add(c);
                 }
 
+                return lista;
             }
             catch (Exception e)
             {
+                throw e;
+            }
+            finally
+            {
+                FecharConexao();
+            }
+        }
 
-                throw;
+        public List<Endereco> ObterEndereco(int idCliente)
+        {
+            try
+            {
+                AbrirConexao();
+
+                string query = "select idEndereco, logradouro, numero, complemento, bairro, municipio, " +
+                        "uf, cep, telefone1, telefone2, email, tipo FROM Endereco where idCliente = @idCliente";
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                dr = cmd.ExecuteReader();
+
+                var lista = new List<Endereco>();
+
+                while (dr.Read())
+                {
+                    var e = new Endereco();
+                    e.idEndereco = (int)dr["idEndereco"];
+                    e.logradouro = dr["logradouro"].ToString();
+                    e.numero = dr["numero"].ToString();
+                    e.complemento = dr["complemento"].ToString();
+                    e.bairro = dr["bairro"].ToString();
+                    e.municipio = dr["municipio"].ToString();
+                    e.UF = dr["uf"].ToString();
+                    e.cep = dr["cep"].ToString();
+                    e.telefone1 = dr["telefone1"].ToString();
+                    e.telefone2 = dr["telefone2"].ToString();
+                    e.email = dr["email"].ToString();
+                    e.tipo = dr["tipo"].ToString();
+
+                    lista.Add(e);
+                }
+                return lista;
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
             finally
             {

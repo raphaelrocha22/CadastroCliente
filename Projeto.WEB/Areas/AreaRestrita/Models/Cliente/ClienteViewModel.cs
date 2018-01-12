@@ -7,8 +7,12 @@ using System.Web;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
-    public class CadastroViewModel
+    public class ClienteViewModel
     {
+        public int idCliente { get; set; }
+
+        public int codCliente { get; set; }
+
         public int codun { get; set; }
 
         [JsonProperty("nome")]

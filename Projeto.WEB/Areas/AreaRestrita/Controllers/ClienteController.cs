@@ -2,8 +2,6 @@
 using Projeto.DAL.Persistencia;
 using Projeto.Entidades;
 using Projeto.WEB.Areas.AreaRestrita.Models.Cliente;
-using Rotativa;
-using Rotativa.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +28,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         }
 
         [HttpPost]
-        public JsonResult Cadastro(CadastroViewModel model)
+        public JsonResult Cadastro(ClienteViewModel model)
         {
             try
             {
@@ -45,6 +43,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 c.inscricaoEstadual = model.inscricaoEstadual;
                 c.inscricaoMunicipal = model.inscricaoMunicipal;
                 c.classe = model.classe;
+                c.ativo = true;
                 c.endereco.Add(model.enderecoCadastro);
                 c.endereco.Add(model.enderecoCobranca);
                 c.endereco.Add(model.enderecoEntrega);
@@ -67,7 +66,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             }
         }
 
-        public JsonResult ConsultarCNPJ(CadastroViewModel model)
+        public JsonResult ConsultarCNPJ(ClienteViewModel model)
         {
             try
             {
@@ -77,7 +76,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 using (Stream stream = response.GetResponseStream())
                 {
                     StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-                    model = JsonConvert.DeserializeObject<CadastroViewModel>(reader.ReadToEnd());
+                    model = JsonConvert.DeserializeObject<ClienteViewModel>(reader.ReadToEnd());
                 }
 
                 return Json(model);
@@ -86,6 +85,63 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             catch (Exception e)
             {
                 return Json(e.Message);
+            }
+        }
+
+        public ActionResult Consulta()
+        {
+            //carregar o dropBox representantes
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult Consulta(ClienteViewModel model)
+        {
+            try
+            {
+                var lista = new List<ClienteViewModel>();
+
+                var d = new ClienteDAL();
+                foreach (var c in d.ObterClientes(model.codCliente, model.codun, model.razaoSocial, 
+                    model.nomeFantasia, model.cnpj,model.representante.idRepresentante))
+                {
+                    model.idCliente = c.idCliente;
+                    model.codCliente = c.codCliente;
+                    model.codun = c.codun;
+                    model.razaoSocial = c.razaoSocial;
+                    model.nomeFantasia = c.nomeFantasia;
+                    model.cnpj = c.cnpj;
+                    model.inscricaoEstadual = c.inscricaoEstadual;
+                    model.inscricaoMunicipal = c.inscricaoMunicipal;
+                    model.classe = c.classe;
+                    model.representante.idRepresentante = c.representante.idRepresentante;
+                    model.representante.nome = c.representante.nome;
+
+                    foreach (var item in d.ObterEndereco(c.idCliente))
+                    {
+                        switch (item.tipo)
+                        {
+                            case("Cadastro"):
+                                model.enderecoCadastro = item;
+                                break;
+
+                            case ("Cobranca"):
+                                model.enderecoCobranca = item;
+                                break;
+
+                            case ("Entrega"):
+                                model.enderecoEntrega = item;
+                                break;
+                        }
+                    }
+
+                    lista.Add(model);
+                }
+                return Json(lista);
+            }
+            catch (Exception e)
+            {
+                return Json(e);
             }
         }
     }
