@@ -76,7 +76,6 @@ E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.csprojResolveAssem
 E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.csproj.CoreCompileInputs.cache
 E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.dll
 E:\Projetos\CadastroCliente\Projeto.WEB\obj\Debug\Projeto.WEB.pdb
-E:\Projetos\CadastroCliente\Projeto.WEB\bin\Rotativa.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.WEB.dll.config
 H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.WEB.dll
 H:\Cadastro Cliente\Projeto.WEB\bin\Projeto.WEB.pdb
