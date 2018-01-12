@@ -85,9 +85,8 @@ namespace Projeto.DAL.Persistencia
 
                 string query = "select idCliente, ISNULL(codCliente,0) codCliente, codun, razaoSocial, nomeFantasia, cnpj, inscricaoEstadual, " +
                     "inscricaoMunicipal, classe, c.idRepresentante, r.nome from Cliente c " +
-                    "inner join Representante r on c.idRepresentante = r.idRepresentante where ativo = 1 ";
-                cmd = new SqlCommand(query, con);
-
+                    "inner join Representante r on c.idRepresentante = r.idRepresentante where c.ativo = @ativo ";
+                
                 if (codCliente != 0)
                     query += "and codCliente = @codCliente ";
 
@@ -95,23 +94,25 @@ namespace Projeto.DAL.Persistencia
                     query += "and codun = @codun ";
 
                 if (razaoSocial != null)
-                    query += "and razaoSocial like '%" + "@razaoSocial" + "%' ";
-
+                    query += "and razaoSocial like '%"+@razaoSocial+"%' ";
+                
                 if (nomeFantasia != null)
-                    query += "and nomeFantasia like '%" + "@nomeFantasia" + "%' ";
-
+                    query += "and nomeFantasia like '%"+@nomeFantasia+"%' ";
+                
                 if (cnpj != null)
                     query += "and cnpj = @cnpj ";
-
+                                
                 if (idRepresentante != 0)
                     query += "and c.idRepresentante = @idRepresentante ";
 
+                cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithNullValue("@codCliente", codCliente);
-                cmd.Parameters.AddWithValue("@codun", codun);
+                cmd.Parameters.AddWithNullValue("@codun", codun);
                 cmd.Parameters.AddWithNullValue("@razaoSocial", razaoSocial);
                 cmd.Parameters.AddWithNullValue("@nomeFantasia", nomeFantasia);
                 cmd.Parameters.AddWithNullValue("@cnpj", cnpj);
                 cmd.Parameters.AddWithNullValue("@idRepresentante", idRepresentante);
+                cmd.Parameters.AddWithNullValue("@ativo", true);
                 dr = cmd.ExecuteReader();
 
                 var lista = new List<Cliente>();
