@@ -3,7 +3,7 @@ using Projeto.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-
+using System.Data.SqlTypes;
 
 namespace Projeto.DAL.Persistencia
 {
@@ -31,8 +31,8 @@ namespace Projeto.DAL.Persistencia
                 AbrirConexao();
                 tr = con.BeginTransaction();
 
-                string query = "insert into Cliente (codun,razaoSocial,nomeFantasia,cnpj,inscricaoEstadual,inscricaoMunicipal,classe,idRepresentante, ativo) " +
-                    "values (@codun,@razaoSocial,@nomeFantasia,@cnpj,@inscricaoEstadual,@inscricaoMunicipal,@classe,@idRepresentante,@ativo) SELECT SCOPE_IDENTITY()";
+                string query = "insert into Cliente (codun,razaoSocial,nomeFantasia,cnpj,inscricaoEstadual,inscricaoMunicipal,classe,idRepresentante, ativo, dataCadastro) " +
+                    "values (@codun,@razaoSocial,@nomeFantasia,@cnpj,@inscricaoEstadual,@inscricaoMunicipal,@classe,@idRepresentante,@ativo,@dataCadastro) SELECT SCOPE_IDENTITY()";
                 cmd = new SqlCommand(query, con, tr);
                 cmd.Parameters.AddWithNullValue("@codun", c.codun);
                 cmd.Parameters.AddWithValue("@razaoSocial", c.razaoSocial);
@@ -43,12 +43,13 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithValue("@classe", c.classe);
                 cmd.Parameters.AddWithValue("idRepresentante", c.representante.idRepresentante);
                 cmd.Parameters.AddWithValue("@ativo", c.ativo);
+                cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
                 c.idCliente = Convert.ToInt32(cmd.ExecuteScalar());
 
                 foreach (var e in c.endereco)
                 {
-                    query = "insert into Endereco (logradouro,numero,complemento,bairro,municipio,uf,cep,telefone1,telefone2,email,tipo,idCliente) " +
-                        "values (@logradouro,@numero,@complemento,@bairro,@municipio,@uf,@cep,@telefone1,@telefone2,@email,@tipo,@idCliente)";
+                    query = "insert into Endereco (logradouro,numero,complemento,bairro,municipio,uf,cep,telefone1,telefone2,email,tipo,dataCadastro,idCliente) " +
+                        "values (@logradouro,@numero,@complemento,@bairro,@municipio,@uf,@cep,@telefone1,@telefone2,@email,@tipo,@dataCadastro,@idCliente)";
                     cmd = new SqlCommand(query, con, tr);
                     cmd.Parameters.AddWithValue("@logradouro", e.logradouro);
                     cmd.Parameters.AddWithValue("@numero", e.numero);
@@ -62,6 +63,7 @@ namespace Projeto.DAL.Persistencia
                     cmd.Parameters.AddWithNullValue("@email", e.email);
                     cmd.Parameters.AddWithValue("@tipo", e.tipo);
                     cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
+                    cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
                 tr.Commit();
@@ -77,16 +79,20 @@ namespace Projeto.DAL.Persistencia
             }
         }
 
-        public List<Cliente> ObterClientes(int codCliente, int codun, string razaoSocial, string nomeFantasia, string cnpj, int idRepresentante)
+        public List<Cliente> ObterClientes(int codCliente, int codun, string razaoSocial, string nomeFantasia, string cnpj,
+            int idRepresentante, DateTime dataInico, DateTime dataFim)
         {
             try
             {
                 AbrirConexao();
 
                 string query = "select idCliente, ISNULL(codCliente,0) codCliente, codun, razaoSocial, nomeFantasia, cnpj, inscricaoEstadual, " +
-                    "inscricaoMunicipal, classe, c.idRepresentante, r.nome from Cliente c " +
-                    "inner join Representante r on c.idRepresentante = r.idRepresentante where c.ativo = @ativo ";
-                
+                    "inscricaoMunicipal, classe, c.dataCadastro, c.idRepresentante, r.nome from Cliente c " +
+                    "inner join Representante r on c.idRepresentante = r.idRepresentante where c.dataCadastro >= @dataInico and c.dataCadastro <= @dataFim ";
+
+                if (dataInico == DateTime.MinValue)
+                    dataInico = (DateTime)SqlDateTime.MinValue;
+
                 if (codCliente != 0)
                     query += "and codCliente = @codCliente ";
 
@@ -113,6 +119,8 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithNullValue("@cnpj", cnpj);
                 cmd.Parameters.AddWithNullValue("@idRepresentante", idRepresentante);
                 cmd.Parameters.AddWithNullValue("@ativo", true);
+                cmd.Parameters.AddWithNullValue("@dataInico", dataInico);
+                cmd.Parameters.AddWithNullValue("@dataFim", dataFim);
                 dr = cmd.ExecuteReader();
 
                 var lista = new List<Cliente>();
@@ -130,6 +138,7 @@ namespace Projeto.DAL.Persistencia
                     c.inscricaoEstadual = dr["inscricaoEstadual"].ToString();
                     c.inscricaoMunicipal = dr["inscricaoMunicipal"].ToString();
                     c.classe = dr["classe"].ToString();
+                    c.dataCadastro = (DateTime)dr["dataCadastro"];
                     c.representante.idRepresentante = (int)dr["idRepresentante"];
                     c.representante.nome = dr["nome"].ToString();
 
@@ -137,6 +146,55 @@ namespace Projeto.DAL.Persistencia
                 }
 
                 return lista;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                FecharConexao();
+            }
+        }
+
+
+        public Cliente ObterCliente(int id)
+        {
+            try
+            {
+                AbrirConexao();
+
+                string query = "select idCliente, ISNULL(codCliente,0) codCliente, codun, razaoSocial, nomeFantasia, cnpj, inscricaoEstadual, " +
+                    "inscricaoMunicipal, classe, c.dataCadastro, c.idRepresentante, r.nome from Cliente c " +
+                    "inner join Representante r on c.idRepresentante = r.idRepresentante where c.idCliente = @idcliente";
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@idCliente",id);
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    var c = new Cliente();
+                    c.representante = new Representante();
+
+                    c.idCliente = (int)dr["idCliente"];
+                    c.codCliente = (int)dr["codCliente"];
+                    c.razaoSocial = dr["razaoSocial"].ToString();
+                    c.nomeFantasia = dr["nomeFantasia"].ToString();
+                    c.cnpj = dr["cnpj"].ToString();
+                    c.inscricaoEstadual = dr["inscricaoEstadual"].ToString();
+                    c.inscricaoMunicipal = dr["inscricaoMunicipal"].ToString();
+                    c.classe = dr["classe"].ToString();
+                    c.dataCadastro = (DateTime)dr["dataCadastro"];
+                    c.representante.idRepresentante = (int)dr["idRepresentante"];
+                    c.representante.nome = dr["nome"].ToString();
+
+                    return c;
+                }
+                else
+                {
+                    throw new Exception("Cod Cliente não encontrado");
+                }
+                
             }
             catch (Exception e)
             {

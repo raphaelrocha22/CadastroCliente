@@ -3,56 +3,184 @@
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/Scripts/moment-with-locales.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+
 <script src="~/Scripts/Cliente/Consulta.js"></script>
+
 
 <h2>Consulta de Clientes</h2>
 <hr />
+<div class="row">
+    <div class="col-md-12">
 
-<div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>CodCliente</label>
+                        <input type="text" id="txtCodCliente" class="form-control" placeholder="Digite aqui" name="codCliente" />
+                    </div>
+                    <div class="col-md-2">
+                        <label>CODUN</label>
+                        <input type="text" id="txtCodun" class="form-control" placeholder="Digite aqui" name="codun" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Razão Social</label>
+                        <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" name="razaoSocial" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Nome Fantasia</label>
+                        <input type="text" id="txtNomeFantasia" class="form-control" placeholder="Digite aqui" />
+                    </div>
+                </div>
 
-    <div class="row">
-        <div class="col-md-2">
-            <label>CodCliente</label>
-            <input type="text" id="txtCodCliente" class="form-control" placeholder="Digite aqui" name="codCliente" />
-        </div>
-        <div class="col-md-2">
-            <label>CODUN</label>
-            <input type="text" id="txtCodun" class="form-control" placeholder="Digite aqui" name="codun" />
-        </div>
-        <div class="col-md-4">
-            <label>Razão Social</label>
-            <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" name="razaoSocial" />
-        </div>
-        <div class="col-md-4">
-            <label>Nome Fantasia</label>
-            <input type="text" id="txtNomeFantasia" class="form-control" placeholder="Digite aqui" />
-        </div>
-    </div>
+                <div class="row" style="margin-top:15px">
+                    <div class="col-md-3">
+                        <label>CNPJ</label>
+                        <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" name="cnpj" />
+                    </div>
 
-    <div class="row" style="margin-top:15px">
-        <div class="col-md-3">
-            <label>CNPJ</label>
-            <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" name="cnpj" />
+                    <div class="col-md-3">
+                        <label>Representante</label>
+                        <select id="optRepresentante" class="form-control" name="representante">
+                            <option value="">- Selecione -</option>
+                            <option value="1">Representante A</option>
+                            <option value="2">Representante B</option>
+                            <option value="3">Representante C</option>
+                            <option value="4">Representante D</option>
+                            <option value="5">Representante E</option>
+                            <option value="6">Representante F</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Data Inicio</label>
+                        <div class='input-group date'>
+                            <input type="text" class="form-control" id="txtDataInicio" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Data Fim</label>
+                        <div class='input-group date'>
+                            <input type="text" class="form-control" id="txtDataFim" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Teste</label>
+                        <input type="file" name="teste" class="form-control" />
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <input type="submit" value="Consultar" id="btnConsultar" class="btn btn-primary" style="margin-top:25px" />
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-3">
-            <label>Representante</label>
-            <select id="optRepresentante" class="form-control" name="representante">
-                <option value="">- Selecione -</option>
-                <option value="1">Representante A</option>
-                <option value="2">Representante B</option>
-                <option value="3">Representante C</option>
-                <option value="4">Representante D</option>
-                <option value="5">Representante E</option>
-                <option value="6">Representante F</option>
-            </select>
-        </div>
+        <hr />
 
-        <div class="col-md-2">
-            <input type="submit" value="Consultar" id="btnConsultar" class="btn btn-primary" style="margin-top:25px" />
+        <div class="row">
+            <div class="col-md-12">
+                <table id="tabela" class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                <style hidden>
+                                    idCliente
+                                </style>
+                            </th>
+                            <th>Cod Cliente</th>
+                            <th>Codun</th>
+                            <th>Razao Social</th>
+                            <th>Nome Fantasia</th>
+                            <th>Classe</th>
+                            <th>Representante</th>
+                            <th>Operações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                Clientes encontrados: <span id="quantidade"></span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
-
     </div>
 </div>
 
 
+<div id="janelaDetalhes" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                <h3>Detalhes Cliente</h3>
+            </div>
+            <div class="modal-body">
+                <strong>Cod Cliente: </strong><span id="detalhes_codCliente"></span> <br />
+                <strong>CODUN: </strong><span id="detalhes_codun"></span> <br />
+                <strong>Razão Social: </strong><span id="detalhes_razaoSocial"></span> <br />
+                <strong>Nome Fantasia: </strong><span id="detalhes_nomeFantasia"></span> <br />
+                <strong>CNPJ: </strong><span id="detalhes_CNPJ"></span> <br />
+                <strong>Inscrição Estadual: </strong><span id="detalhes_estadual"></span> <br />
+                <strong>Inscrição Municipal: </strong><span id="detalhes_municipal"></span> <br />
+                <strong>Classe: </strong><span id="detalhes_classe"></span> <br />
+                <strong>Representante: </strong><span id="detalhes_representante"></span> <br />
+                <br />
+
+                <strong>Endereço Cadastro</strong><br />
+                <strong>Logradouro: </strong><span id="detalhes_cadastro_logradouro"></span> <br />
+                <strong>Número: </strong><span id="detalhes_cadastro_numero"></span> <br />
+                <strong>Complemento: </strong><span id="detalhes_cadastro_complemento"></span> <br />
+                <strong>Bairro: </strong><span id="detalhes_cadastro_bairro"></span> <br />
+                <strong>Município: </strong><span id="detalhes_cadastro_municipio"></span> <br />
+                <strong>UF: </strong><span id="detalhes_cadastro_uf"></span> <br />
+                <strong>CEP: </strong><span id="detalhes_cadastro_cep"></span> <br />
+                <strong>Telefone1: </strong><span id="detalhes_cadastro_telefone1"></span> <br />
+                <strong>Telefone2: </strong><span id="detalhes_cadastro_telefone2"></span> <br />
+                <strong>Email: </strong><span id="detalhes_cadastro_email"></span> <br />
+                <br />
+
+                <strong>Endereço Cobrança</strong><br />
+                <strong>Logradouro: </strong><span id="detalhes_cobranca_logradouro"></span> <br />
+                <strong>Número: </strong><span id="detalhes_cobranca_numero"></span> <br />
+                <strong>Complemento: </strong><span id="detalhes_cobranca_complemento"></span> <br />
+                <strong>Bairro: </strong><span id="detalhes_cobranca_bairro"></span> <br />
+                <strong>Município: </strong><span id="detalhes_cobranca_municipio"></span> <br />
+                <strong>UF: </strong><span id="detalhes_cobranca_uf"></span> <br />
+                <strong>CEP: </strong><span id="detalhes_cobranca_cep"></span> <br />
+                <strong>Telefone1: </strong><span id="detalhes_cobranca_telefone1"></span> <br />
+                <strong>Telefone2: </strong><span id="detalhes_cobranca_telefone2"></span> <br />
+                <strong>Email: </strong><span id="detalhes_cobranca_email"></span> <br />
+                <br />
+
+                <strong>Endereço Entrega</strong><br />
+                <strong>Logradouro: </strong><span id="detalhes_entrega_logradouro"></span> <br />
+                <strong>Número: </strong><span id="detalhes_entrega_numero"></span> <br />
+                <strong>Complemento: </strong><span id="detalhes_entrega_complemento"></span> <br />
+                <strong>Bairro: </strong><span id="detalhes_entrega_bairro"></span> <br />
+                <strong>Município: </strong><span id="detalhes_entrega_municipio"></span> <br />
+                <strong>UF: </strong><span id="detalhes_entrega_uf"></span> <br />
+                <strong>CEP: </strong><span id="detalhes_entrega_cep"></span> <br />
+                <strong>Telefone1: </strong><span id="detalhes_entrega_telefone1"></span> <br />
+                <strong>Telefone2: </strong><span id="detalhes_entrega_telefone2"></span> <br />
+                <strong>Email: </strong><span id="detalhes_entrega_email"></span> <br />
+            </div>
+
+        </div>
+    </div>
+</div>

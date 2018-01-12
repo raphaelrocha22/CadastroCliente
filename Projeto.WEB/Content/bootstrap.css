@@ -5840,7 +5840,7 @@ button.list-group-item-danger.active:focus {
 }
 .close {
   float: right;
-  font-size: 21px;
+  font-size: 40px;
   font-weight: bold;
   line-height: 1;
   color: #000;

@@ -29,6 +29,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 
         public string classe { get; set; }
 
+        public string dataCadastro { get; set; }
+
+        public DateTime dataInicio { get; set; }
+
+        public DateTime dataFim { get; set; }
+
         public Endereco enderecoCadastro { get; set; }
 
         public Endereco enderecoCobranca { get; set; }
@@ -36,8 +42,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
         public Endereco enderecoEntrega { get; set; }
 
         public Representante representante { get; set; }
-
-
 
         [JsonProperty("logradouro")]
         public string logradouro { get; set; }

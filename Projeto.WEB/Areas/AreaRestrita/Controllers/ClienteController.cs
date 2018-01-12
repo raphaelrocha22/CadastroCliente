@@ -103,7 +103,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
                 var d = new ClienteDAL();
                 foreach (var c in d.ObterClientes(model.codCliente, model.codun, model.razaoSocial, 
-                    model.nomeFantasia, model.cnpj,model.representante.idRepresentante))
+                    model.nomeFantasia, model.cnpj,model.representante.idRepresentante, model.dataInicio, model.dataFim))
                 {
                     model.idCliente = c.idCliente;
                     model.codCliente = c.codCliente;
@@ -121,7 +121,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     {
                         switch (item.tipo)
                         {
-                            case("Cadastro"):
+                            case ("Cadastro"):
                                 model.enderecoCadastro = item;
                                 break;
 
@@ -138,6 +138,56 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     lista.Add(model);
                 }
                 return Json(lista);
+            }
+            catch (Exception e)
+            {
+                return Json(e);
+            }
+        }
+
+        public JsonResult ObterCliente(int id)
+        {
+            try
+            {
+                var model = new ClienteViewModel();
+                model.representante = new Representante();
+                model.enderecoCadastro = new Endereco();
+                model.enderecoCobranca = new Endereco();
+                model.enderecoEntrega = new Endereco();
+
+                var d = new ClienteDAL();
+                Cliente c = d.ObterCliente(id);
+
+                model.idCliente = c.idCliente;
+                model.codCliente = c.codCliente;
+                model.codun = c.codun;
+                model.razaoSocial = c.razaoSocial;
+                model.nomeFantasia = c.nomeFantasia;
+                model.cnpj = c.cnpj;
+                model.inscricaoEstadual = c.inscricaoEstadual;
+                model.inscricaoMunicipal = c.inscricaoMunicipal;
+                model.classe = c.classe;
+                model.representante.idRepresentante = c.representante.idRepresentante;
+                model.representante.nome = c.representante.nome;
+
+                foreach (var item in d.ObterEndereco(c.idCliente))
+                {
+                    switch (item.tipo)
+                    {
+                        case ("Cadastro"):
+                            model.enderecoCadastro = item;
+                            break;
+
+                        case ("Cobranca"):
+                            model.enderecoCobranca = item;
+                            break;
+
+                        case ("Entrega"):
+                            model.enderecoEntrega = item;
+                            break;
+                    }
+                }
+                return Json(model);
             }
             catch (Exception e)
             {
