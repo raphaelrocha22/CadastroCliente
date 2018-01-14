@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Cliente.ClienteViewModel
+@{
     ViewBag.Title = "Consulta";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
@@ -6,7 +7,7 @@
 <script src="~/Scripts/moment-with-locales.js"></script>
 <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
 
-<script src="~/AreaRestrita/Views/_Scripts/Cliente/Consulta.js"></script>
+<script src="~/Scripts/Cliente/consulta.js"></script>
 
 
 <h2>Consulta de Clientes</h2>
@@ -43,15 +44,7 @@
 
                     <div class="col-md-3">
                         <label>Representante</label>
-                        <select id="optRepresentante" class="form-control" name="representante">
-                            <option value="">- Selecione -</option>
-                            <option value="1">Representante A</option>
-                            <option value="2">Representante B</option>
-                            <option value="3">Representante C</option>
-                            <option value="4">Representante D</option>
-                            <option value="5">Representante E</option>
-                            <option value="6">Representante F</option>
-                        </select>
+                        @Html.DropDownListFor(m => m.representante, Model.ListagemRepresentante, "- Selecione -", new { @class = "form-control", @id = "optRepresentante" })
                     </div>
 
                     <div class="col-md-2">
@@ -75,12 +68,6 @@
                     </div>
 
                     <div class="col-md-2">
-                        <label>Teste</label>
-                        <input type="file" name="teste" class="form-control" />
-                    </div>
-
-
-                    <div class="col-md-2">
                         <input type="submit" value="Consultar" id="btnConsultar" class="btn btn-primary" style="margin-top:25px" />
                     </div>
                 </div>
@@ -94,10 +81,8 @@
                 <table id="tabela" class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>
-                                <style hidden>
-                                    idCliente
-                                </style>
+                            <th class="hidden">
+                                idCliente
                             </th>
                             <th>Cod Cliente</th>
                             <th>Codun</th>
@@ -131,6 +116,7 @@
                 <h3>Detalhes Cliente</h3>
             </div>
             <div class="modal-body">
+                <strong>Data Cadastro: </strong><span id="detalhes_cliente_dataCadastro"></span> <br />
                 <strong>Cod Cliente: </strong><span id="detalhes_codCliente"></span> <br />
                 <strong>CODUN: </strong><span id="detalhes_codun"></span> <br />
                 <strong>Razão Social: </strong><span id="detalhes_razaoSocial"></span> <br />
@@ -143,6 +129,7 @@
                 <br />
 
                 <strong>Endereço Cadastro</strong><br />
+                <strong>Data Cadastro: </strong><span id="detalhes_cadastro_dataCadastro"></span> <br />
                 <strong>Logradouro: </strong><span id="detalhes_cadastro_logradouro"></span> <br />
                 <strong>Número: </strong><span id="detalhes_cadastro_numero"></span> <br />
                 <strong>Complemento: </strong><span id="detalhes_cadastro_complemento"></span> <br />
@@ -156,6 +143,7 @@
                 <br />
 
                 <strong>Endereço Cobrança</strong><br />
+                <strong>Data Cadastro: </strong><span id="detalhes_cobranca_dataCadastro"></span> <br />
                 <strong>Logradouro: </strong><span id="detalhes_cobranca_logradouro"></span> <br />
                 <strong>Número: </strong><span id="detalhes_cobranca_numero"></span> <br />
                 <strong>Complemento: </strong><span id="detalhes_cobranca_complemento"></span> <br />
@@ -169,6 +157,7 @@
                 <br />
 
                 <strong>Endereço Entrega</strong><br />
+                <strong>Data Cadastro: </strong><span id="detalhes_entrega_dataCadastro"></span> <br />
                 <strong>Logradouro: </strong><span id="detalhes_entrega_logradouro"></span> <br />
                 <strong>Número: </strong><span id="detalhes_entrega_numero"></span> <br />
                 <strong>Complemento: </strong><span id="detalhes_entrega_complemento"></span> <br />

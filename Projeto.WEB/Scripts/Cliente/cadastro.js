@@ -1,5 +1,21 @@
 ﻿$(document).ready(function () {
 
+    $('#btnSalvar').click(function () {
+        idCliente = $('#idCliente').val();
+        idEnderecoCadastro = $('#idEnderecoCadastro').val();
+        idEnderecoCobranca = $('#idEnderecoCobranca').val();
+        idEnderecoEntrega = $('#idEnderecoEntrega').val();
+        url = "/AreaRestrita/Cliente/Edicao"
+    });
+
+    $('#btnCadastrar').click(function () {
+        idCliente = 0;
+        idEnderecoCadastro = 0;
+        idEnderecoCobranca = 0;
+        idEnderecoEntrega = 0;
+        url = "/AreaRestrita/Cliente/Cadastro"
+    });
+
     jQuery.validator.addMethod("cnpj", function (value, element) {
         var rgx = new RegExp("^[0-9]{14}$");
         return rgx.test(value.replace(/\.|-|[/]/g, ''))
@@ -100,6 +116,7 @@
             }
 
             var model = {
+                idCliente: idCliente,
                 codun: $('#txtCodun').val(),
                 razaoSocial: $('#txtRazaoSocial').val(),
                 nomeFantasia: $('#txtNomeFantasia').val(),
@@ -108,6 +125,7 @@
                 inscricaoMunicipal: $('#txtInscMunicipal').val(),
                 classe: $('#optClasse').val(),
                 enderecoCadastro: {
+                    idEndereco: idEnderecoCadastro,
                     tipo: 'Cadastro',
                     logradouro: $('#cadastro_Logradouro').val(),
                     numero: $('#cadastro_Numero').val(),
@@ -121,6 +139,7 @@
                     telefone2: $('#cadastro_Telefone2').val()
                 },
                 enderecoCobranca: {
+                    idEndereco: idEnderecoCobranca,
                     tipo: 'Cobranca',
                     logradouro: $('#cobranca_Logradouro').val(),
                     numero: $('#cobranca_Numero').val(),
@@ -134,6 +153,7 @@
                     telefone2: $('#cobranca_Telefone2').val()
                 },
                 enderecoEntrega: {
+                    idEndereco: idEnderecoEntrega,
                     tipo: 'Entrega',
                     logradouro: $('#entrega_Logradouro').val(),
                     numero: $('#entrega_Numero').val(),
@@ -152,7 +172,7 @@
             };
             $.ajax({
                 type: "POST",
-                url: "/AreaRestrita/Cliente/Cadastro",
+                url: url,
                 data: model,
                 success: function (mensagem) {
                     alert(mensagem);
@@ -182,7 +202,7 @@
                 },
                 success:
                 function (m) {
-                    if (m.status != "ERROR") {
+                    if (m.status !== "ERROR") {
                         $("#txtRazaoSocial").val(m.razaoSocial);
                         $("#txtNomeFantasia").val(m.nomeFantasia);
                         $("#cadastro_Logradouro").val(m.logradouro);

@@ -24,7 +24,11 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
         public ActionResult Cadastro()
         {
-            return View();
+            Usuario u = (Usuario)Session["usuario"];
+
+            var model = new ClienteViewModel();
+            model.idSessao = u.idUsuario;
+            return View(model);
         }
 
         [HttpPost]
@@ -53,7 +57,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 if (!d.VerificarCNPJ(c.cnpj))
                 {
                     d.CadastrarCliente(c);
-                    return Json("Usuario cadastrado com sucesso");
+                    return Json("Cliente cadastrado com sucesso");
                 }
                 else
                 {
@@ -90,8 +94,11 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
         public ActionResult Consulta()
         {
-            //carregar o dropBox representantes
-            return View();
+            Usuario u = (Usuario)Session["usuario"];
+
+            var model = new ClienteViewModel();
+            model.idSessao = u.idUsuario;
+            return View(model);
         }
 
         [HttpPost]
@@ -102,9 +109,15 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 var lista = new List<ClienteViewModel>();
 
                 var d = new ClienteDAL();
-                foreach (var c in d.ObterClientes(model.codCliente, model.codun, model.razaoSocial, 
+                foreach (var c in d.ObterClientes(model.idCliente, model.codCliente, model.codun, model.razaoSocial, 
                     model.nomeFantasia, model.cnpj,model.representante.idRepresentante, model.dataInicio, model.dataFim))
                 {
+                    model = new ClienteViewModel();
+                    model.representante = new Representante();
+                    model.enderecoCadastro = new Endereco();
+                    model.enderecoCobranca = new Endereco();
+                    model.enderecoEntrega = new Endereco();
+
                     model.idCliente = c.idCliente;
                     model.codCliente = c.codCliente;
                     model.codun = c.codun;
@@ -114,8 +127,8 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     model.inscricaoEstadual = c.inscricaoEstadual;
                     model.inscricaoMunicipal = c.inscricaoMunicipal;
                     model.classe = c.classe;
-                    model.representante.idRepresentante = c.representante.idRepresentante;
-                    model.representante.nome = c.representante.nome;
+                    model.dataCadastro = c.dataCadastro.ToString();
+                    model.representante = c.representante;
 
                     foreach (var item in d.ObterEndereco(c.idCliente))
                     {
@@ -145,10 +158,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             }
         }
 
-        public JsonResult ObterCliente(int id)
+        public ActionResult Edicao(int id)
         {
             try
             {
+                Usuario u = (Usuario)Session["usuario"];
+
                 var model = new ClienteViewModel();
                 model.representante = new Representante();
                 model.enderecoCadastro = new Endereco();
@@ -156,42 +171,77 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 model.enderecoEntrega = new Endereco();
 
                 var d = new ClienteDAL();
-                Cliente c = d.ObterCliente(id);
-
-                model.idCliente = c.idCliente;
-                model.codCliente = c.codCliente;
-                model.codun = c.codun;
-                model.razaoSocial = c.razaoSocial;
-                model.nomeFantasia = c.nomeFantasia;
-                model.cnpj = c.cnpj;
-                model.inscricaoEstadual = c.inscricaoEstadual;
-                model.inscricaoMunicipal = c.inscricaoMunicipal;
-                model.classe = c.classe;
-                model.representante.idRepresentante = c.representante.idRepresentante;
-                model.representante.nome = c.representante.nome;
-
-                foreach (var item in d.ObterEndereco(c.idCliente))
+                foreach (var c in d.ObterClientes(id))
                 {
-                    switch (item.tipo)
+                    model.idCliente = c.idCliente;
+                    model.codCliente = c.codCliente;
+                    model.codun = c.codun;
+                    model.razaoSocial = c.razaoSocial;
+                    model.nomeFantasia = c.nomeFantasia;
+                    model.cnpj = c.cnpj;
+                    model.inscricaoEstadual = c.inscricaoEstadual;
+                    model.inscricaoMunicipal = c.inscricaoMunicipal;
+                    model.classe = c.classe;
+                    model.representante = c.representante;
+                    model.idSessao = u.idUsuario;                    
+
+                    foreach (var item in d.ObterEndereco(c.idCliente))
                     {
-                        case ("Cadastro"):
-                            model.enderecoCadastro = item;
-                            break;
+                        switch (item.tipo)
+                        {
+                            case ("Cadastro"):
+                                model.enderecoCadastro = item;
+                                break;
 
-                        case ("Cobranca"):
-                            model.enderecoCobranca = item;
-                            break;
+                            case ("Cobranca"):
+                                model.enderecoCobranca = item;
+                                break;
 
-                        case ("Entrega"):
-                            model.enderecoEntrega = item;
-                            break;
+                            case ("Entrega"):
+                                model.enderecoEntrega = item;
+                                break;
+                        }
                     }
                 }
-                return Json(model);
+                return View(model);
             }
             catch (Exception e)
             {
-                return Json(e);
+                return ViewBag.Mensagem = e.Message;
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Edicao(ClienteViewModel model)
+        {
+            try
+            {
+                var c = new Cliente();
+                c.endereco = new List<Endereco>();
+                c.representante = new Representante();
+
+                c.idCliente = model.idCliente;
+                c.codun = model.codun;
+                c.razaoSocial = model.razaoSocial;
+                c.nomeFantasia = model.nomeFantasia;
+                c.cnpj = model.cnpj;
+                c.inscricaoEstadual = model.inscricaoEstadual;
+                c.inscricaoMunicipal = model.inscricaoMunicipal;
+                c.classe = model.classe;
+                c.ativo = true;
+                c.endereco.Add(model.enderecoCadastro);
+                c.endereco.Add(model.enderecoCobranca);
+                c.endereco.Add(model.enderecoEntrega);
+                c.representante = model.representante;
+
+                var d = new ClienteDAL();
+                d.AtualizarCliente(c);
+
+                return Json("Cliente atualizado com sucesso");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
             }
         }
     }

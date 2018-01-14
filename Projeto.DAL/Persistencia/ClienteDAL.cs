@@ -79,8 +79,8 @@ namespace Projeto.DAL.Persistencia
             }
         }
 
-        public List<Cliente> ObterClientes(int codCliente, int codun, string razaoSocial, string nomeFantasia, string cnpj,
-            int idRepresentante, DateTime dataInico, DateTime dataFim)
+        public List<Cliente> ObterClientes(int idCliente = 0, int codCliente = 0, int codun = 0, string razaoSocial = null, string nomeFantasia = null, string cnpj = null,
+            int idRepresentante = 0, DateTime ? dataInico = null, DateTime ? dataFim = null)
         {
             try
             {
@@ -90,8 +90,14 @@ namespace Projeto.DAL.Persistencia
                     "inscricaoMunicipal, classe, c.dataCadastro, c.idRepresentante, r.nome from Cliente c " +
                     "inner join Representante r on c.idRepresentante = r.idRepresentante where c.dataCadastro >= @dataInico and c.dataCadastro <= @dataFim ";
 
-                if (dataInico == DateTime.MinValue)
+                if (dataInico == DateTime.MinValue || dataInico == null)
                     dataInico = (DateTime)SqlDateTime.MinValue;
+
+                if (dataFim == DateTime.MinValue || dataFim == null)
+                    dataFim = (DateTime)SqlDateTime.MaxValue;
+
+                if (idCliente != 0)
+                    query += "and idCliente = @idCliente ";
 
                 if (codCliente != 0)
                     query += "and codCliente = @codCliente ";
@@ -112,6 +118,7 @@ namespace Projeto.DAL.Persistencia
                     query += "and c.idRepresentante = @idRepresentante ";
 
                 cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithNullValue("@idCliente", idCliente);
                 cmd.Parameters.AddWithNullValue("@codCliente", codCliente);
                 cmd.Parameters.AddWithNullValue("@codun", codun);
                 cmd.Parameters.AddWithNullValue("@razaoSocial", razaoSocial);
@@ -213,7 +220,7 @@ namespace Projeto.DAL.Persistencia
                 AbrirConexao();
 
                 string query = "select idEndereco, logradouro, numero, complemento, bairro, municipio, " +
-                        "uf, cep, telefone1, telefone2, email, tipo FROM Endereco where idCliente = @idCliente";
+                        "uf, cep, telefone1, telefone2, email, tipo, dataCadastro FROM Endereco where idCliente = @idCliente";
                 cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@idCliente", idCliente);
                 dr = cmd.ExecuteReader();
@@ -235,6 +242,7 @@ namespace Projeto.DAL.Persistencia
                     e.telefone2 = dr["telefone2"].ToString();
                     e.email = dr["email"].ToString();
                     e.tipo = dr["tipo"].ToString();
+                    e.dataCadastro = dr["dataCadastro"].ToString();
 
                     lista.Add(e);
                 }
@@ -260,8 +268,8 @@ namespace Projeto.DAL.Persistencia
 
                 string query = "update Cliente set codCliente = @codCliente, codun = @codun, razaoSocial = @razaoSocial, " +
                     "nomeFantasia = @nomeFantasia, cnpj = @cnpj, inscricaoEstadual = @inscricaoEstadual, " +
-                    "inscricaoMunicipal = @inscricaoMunicipal, classe = @classe, idRepresentante = @idRepresentante " +
-                    "where idCliente = @idCliente";
+                    "inscricaoMunicipal = @inscricaoMunicipal, classe = @classe, idRepresentante = @idRepresentante, " +
+                    "dataCadastro = @dataCadastro where idCliente = @idCliente";
                 cmd = new SqlCommand(query, con, tr);
                 cmd.Parameters.AddWithNullValue("@codCliente", c.codCliente);
                 cmd.Parameters.AddWithNullValue("@codun", c.codun);
@@ -272,6 +280,7 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithNullValue("@inscricaoMunicipal", c.inscricaoMunicipal);
                 cmd.Parameters.AddWithValue("@classe", c.classe);
                 cmd.Parameters.AddWithValue("@idRepresentante", c.representante.idRepresentante);
+                cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
                 cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
                 cmd.ExecuteNonQuery();
 
@@ -279,7 +288,8 @@ namespace Projeto.DAL.Persistencia
                 {
                     query = "update Endereco set logradouro = @logradouro, numero = @numero, complemento = @complemento, " +
                         "bairro = @bairro, municipio = @municipio, uf = @uf, cep = @cep, telefone1 = @telefone1, " +
-                        "telefone2 = @telefone2, email = @email, tipo = @tipo, idCliente = @idCliente where idEndereco = @idEndereco";
+                        "telefone2 = @telefone2, email = @email, tipo = @tipo, dataCadastro = @dataCadastro " +
+                        "where idEndereco = @idEndereco and idCliente = @idCliente";
                     cmd = new SqlCommand(query, con, tr);
                     cmd.Parameters.AddWithValue("@logradouro", e.logradouro);
                     cmd.Parameters.AddWithValue("@numero", e.numero);
@@ -292,6 +302,7 @@ namespace Projeto.DAL.Persistencia
                     cmd.Parameters.AddWithNullValue("@telefone2", e.telefone2);
                     cmd.Parameters.AddWithNullValue("@email", e.email);
                     cmd.Parameters.AddWithValue("@tipo", e.tipo);
+                    cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
                     cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
                     cmd.Parameters.AddWithValue("@idEndereco", e.idEndereco);
                     cmd.ExecuteNonQuery();

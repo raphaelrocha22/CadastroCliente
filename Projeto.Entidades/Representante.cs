@@ -11,7 +11,7 @@ namespace Projeto.Entidades
     {
         public int idRepresentante { get; set; }
         public string nome { get; set; }
-        public TipoRepresentante tipoRepresentante { get; set; }
+        public string tipoRepresentante { get; set; }
         public bool ativo { get; set; }
     }
 }

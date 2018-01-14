@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Persistencia\ClienteDAL.cs" />
+    <Compile Include="Persistencia\RepresentanteDAL.cs" />
     <Compile Include="Persistencia\UsuarioDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\Conexao.cs" />

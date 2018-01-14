@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Projeto.DAL.Persistencia;
 using Projeto.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
@@ -72,5 +74,25 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 
         [JsonProperty("status")]
         public string status { get; set; }
+
+        public int idSessao { get; set; }
+
+        public List<SelectListItem> ListagemRepresentante
+        {
+            get
+            {
+                var lista = new List<SelectListItem>();
+                var d = new RepresentanteDAL();
+                
+                foreach (var r in d.ListaRepresentante(idSessao))
+                {
+                    var item = new SelectListItem();
+                    item.Value = r.idRepresentante.ToString();
+                    item.Text = r.nome.ToString();
+                    lista.Add(item);
+                }
+                return lista;
+            }
+        }
     }
 }
