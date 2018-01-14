@@ -20,9 +20,7 @@
             cnpj: $('#txtCnpj').val().replace(/\.|-|[/]/g, ''),
             dataInicio: $('#txtDataInicio').val(),
             dataFim: $('#txtDataFim').val() + " 23:59:59",
-            representante: {
-                idRepresentante: $('#optRepresentante').val()
-            }
+            idRepresentante: $('#optRepresentante').val()
         };
         $.ajax({
             type: "POST",
@@ -43,7 +41,7 @@
                     conteudo += "<td>" + m.razaoSocial + "</td>";
                     conteudo += "<td>" + m.nomeFantasia + "</td>";
                     conteudo += "<td>" + m.classe + "</td>";
-                    conteudo += "<td>" + m.representante.nome + "</td>";
+                    conteudo += "<td>" + m.nomeRepresentante + "</td>";
                     conteudo += "<td>";
                     conteudo += "<button data-target='#janelaDetalhes' data-toggle='modal' onclick='exibirDetalhes(" + m.idCliente + ")' class='btn btn-success btn-sm'>Detalhes</button>";
                     conteudo += "&nbsp;";
@@ -69,11 +67,7 @@ function exibirDetalhes(id) {
         type: "POST",
         url: '/AreaRestrita/Cliente/Consulta',
         data: model = {
-            idCliente: id,
-            //abrir espaco de memoria para representante
-            representante: {
-                idRepresentante: 0
-            }
+            idCliente: id
         },
         success: function (model) {
             $.each(model, function (i, m) {
@@ -87,7 +81,7 @@ function exibirDetalhes(id) {
                 $("#detalhes_estadual").html(m.inscricaoEstadual);
                 $("#detalhes_municipal").html(m.inscricaoMunicipal);
                 $("#detalhes_classe").html(m.classe);
-                $("#detalhes_representante").html(m.representante.nome);
+                $("#detalhes_representante").html(m.nomeRepresentante);
 
                 $("#detalhes_cadastro_dataCadastro").html(m.enderecoCadastro.dataCadastro);
                 $("#detalhes_cadastro_logradouro").html(m.enderecoCadastro.logradouro);
@@ -95,7 +89,7 @@ function exibirDetalhes(id) {
                 $("#detalhes_cadastro_complemento").html(m.enderecoCadastro.complemento);
                 $("#detalhes_cadastro_bairro").html(m.enderecoCadastro.bairro);
                 $("#detalhes_cadastro_municipio").html(m.enderecoCadastro.municipio);
-                $("#detalhes_cadastro_uf").html(m.enderecoCadastro.UF);
+                $("#detalhes_cadastro_uf").html(m.enderecoCadastro.uf);
                 $("#detalhes_cadastro_cep").html(m.enderecoCadastro.cep);
                 $("#detalhes_cadastro_telefone1").html(m.enderecoCadastro.telefone1);
                 $("#detalhes_cadastro_telefone2").html(m.enderecoCadastro.telefone2);
@@ -107,7 +101,7 @@ function exibirDetalhes(id) {
                 $("#detalhes_cobranca_complemento").html(m.enderecoCobranca.complemento);
                 $("#detalhes_cobranca_bairro").html(m.enderecoCobranca.bairro);
                 $("#detalhes_cobranca_municipio").html(m.enderecoCobranca.municipio);
-                $("#detalhes_cobranca_uf").html(m.enderecoCobranca.UF);
+                $("#detalhes_cobranca_uf").html(m.enderecoCobranca.uf);
                 $("#detalhes_cobranca_cep").html(m.enderecoCobranca.cep);
                 $("#detalhes_cobranca_telefone1").html(m.enderecoCobranca.telefone1);
                 $("#detalhes_cobranca_telefone2").html(m.enderecoCobranca.telefone2);
@@ -119,7 +113,7 @@ function exibirDetalhes(id) {
                 $("#detalhes_entrega_complemento").html(m.enderecoEntrega.complemento);
                 $("#detalhes_entrega_bairro").html(m.enderecoEntrega.bairro);
                 $("#detalhes_entrega_municipio").html(m.enderecoEntrega.municipio);
-                $("#detalhes_entrega_uf").html(m.enderecoEntrega.UF);
+                $("#detalhes_entrega_uf").html(m.enderecoEntrega.uf);
                 $("#detalhes_entrega_cep").html(m.enderecoEntrega.cep);
                 $("#detalhes_entrega_telefone1").html(m.enderecoEntrega.telefone1);
                 $("#detalhes_entrega_telefone2").html(m.enderecoEntrega.telefone2);

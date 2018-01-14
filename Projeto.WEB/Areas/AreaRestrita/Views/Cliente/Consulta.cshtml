@@ -1,4 +1,4 @@
-﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Cliente.ClienteViewModel
+﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Cliente.ConsultaViewModel
 @{
     ViewBag.Title = "Consulta";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
@@ -44,7 +44,7 @@
 
                     <div class="col-md-3">
                         <label>Representante</label>
-                        @Html.DropDownListFor(m => m.representante, Model.ListagemRepresentante, "- Selecione -", new { @class = "form-control", @id = "optRepresentante" })
+                        @Html.DropDownListFor(m => m.nomeRepresentante, Model.ListagemRepresentante, "- Selecione -", new { @class = "form-control", @id = "optRepresentante" })
                     </div>
 
                     <div class="col-md-2">

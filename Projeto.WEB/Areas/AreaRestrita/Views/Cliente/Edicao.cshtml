@@ -1,4 +1,4 @@
-﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Cliente.ClienteViewModel
+﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Cliente.EdicaoViewModel
 @{
     ViewBag.Title = "Edicao";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
@@ -34,7 +34,7 @@
 
             <div class="col-md-3">
                 <label>*Representante</label>
-                @Html.DropDownListFor(m => m.representante, Model.ListagemRepresentante, "- Selecione -", new { @class = "form-control", @id = "optRepresentante" })
+                @Html.DropDownListFor(m => m.nomeRepresentante, Model.ListagemRepresentante, "- Selecione -", new { @class = "form-control", @id = "optRepresentante" })
             </div>
 
             <div class="col-md-3">
@@ -99,7 +99,7 @@
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.UF, new { @id = "cadastro_UF", @class = "form-control", @placeholder = "Digite aqui", @name = "UF" })
+                    @Html.TextBoxFor(m => m.enderecoCadastro.uf, new { @id = "cadastro_UF", @class = "form-control", @placeholder = "Digite aqui", @name = "UF" })
                 </div>
             </div>
 
@@ -155,7 +155,7 @@
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.UF, new { @id = "cobranca_UF", @class = "form-control cobranca", @placeholder = "Digite aqui", @name = "UF" })
+                    @Html.TextBoxFor(m => m.enderecoCobranca.uf, new { @id = "cobranca_UF", @class = "form-control cobranca", @placeholder = "Digite aqui", @name = "UF" })
                 </div>
             </div>
 
@@ -212,7 +212,7 @@
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.UF, new { @id = "entrega_UF", @class = "form-control entrega", @placeholder = "Digite aqui", @name = "UF" })
+                    @Html.TextBoxFor(m => m.enderecoEntrega.uf, new { @id = "entrega_UF", @class = "form-control entrega", @placeholder = "Digite aqui", @name = "UF" })
                 </div>
             </div>
 

@@ -5,7 +5,7 @@
         idEnderecoCadastro = $('#idEnderecoCadastro').val();
         idEnderecoCobranca = $('#idEnderecoCobranca').val();
         idEnderecoEntrega = $('#idEnderecoEntrega').val();
-        url = "/AreaRestrita/Cliente/Edicao"
+        url = "/AreaRestrita/Cliente/Edicao";
     });
 
     $('#btnCadastrar').click(function () {
@@ -13,12 +13,12 @@
         idEnderecoCadastro = 0;
         idEnderecoCobranca = 0;
         idEnderecoEntrega = 0;
-        url = "/AreaRestrita/Cliente/Cadastro"
+        url = "/AreaRestrita/Cliente/Cadastro";
     });
 
     jQuery.validator.addMethod("cnpj", function (value, element) {
         var rgx = new RegExp("^[0-9]{14}$");
-        return rgx.test(value.replace(/\.|-|[/]/g, ''))
+        return rgx.test(value.replace(/\.|-|[/]/g, ''));
     }, "Formato inválido. Digite apenas números de 14 caractéres");
 
     $('#formCadastroCliente').validate({
@@ -26,7 +26,7 @@
         validClass: "my-valid-class",
         rules: {
             classe: { required: true },
-            representante: { required: true },
+            nomeRepresentante: { required: true },
             cnpj: { required: true, cnpj: true },
             codun: { digits: true },
             razaoSocial: { required: true },
@@ -52,7 +52,7 @@
         },
         messages: {
             classe: { required: 'Campo obrigatorio' },
-            representante: { required: 'Campo obrigatorio' },
+            nomeRepresentante: { required: 'Campo obrigatorio' },
             cnpj: { required: 'Campo obrigatorio' },
             codun: { digits: 'Insira apenas números', required: 'Campo obrigatorio' },
             razaoSocial: { required: 'Campo obrigatorio' },
@@ -124,6 +124,7 @@
                 inscricaoEstadual: $('#txtInscEstadual').val(),
                 inscricaoMunicipal: $('#txtInscMunicipal').val(),
                 classe: $('#optClasse').val(),
+                idRepresentante: $('#optRepresentante').val(),
                 enderecoCadastro: {
                     idEndereco: idEnderecoCadastro,
                     tipo: 'Cadastro',
@@ -165,9 +166,6 @@
                     email: $('#entrega_Email').val(),
                     telefone1: $('#entrega_Telefone1').val(),
                     telefone2: $('#entrega_Telefone2').val()
-                },
-                representante: {
-                    idRepresentante: $('#optRepresentante').val()
                 }
             };
             $.ajax({
@@ -178,7 +176,7 @@
                     alert(mensagem);
                 },
                 Error: function (e) {
-                    alert(e.message)
+                    alert(e.message);
                 }
             });
         }
@@ -186,7 +184,7 @@
 
     $('#btnConsultaCNPJ').click(function () {
 
-        var cnpj = $('#txtCnpj').val().replace(/\.|-|[/]/g, '')
+        var cnpj = $('#txtCnpj').val().replace(/\.|-|[/]/g, '');
 
         var rgx = new RegExp("^[0-9]{14}$");
         if (rgx.test(cnpj)) {
@@ -205,18 +203,18 @@
                     if (m.status !== "ERROR") {
                         $("#txtRazaoSocial").val(m.razaoSocial);
                         $("#txtNomeFantasia").val(m.nomeFantasia);
-                        $("#cadastro_Logradouro").val(m.logradouro);
-                        $("#cadastro_Numero").val(m.numero);
-                        $("#cadastro_Complemento").val(m.complemento);
-                        $("#cadastro_Bairro").val(m.bairro);
-                        $("#cadastro_Municipio").val(m.municipio);
-                        $("#cadastro_UF").val(m.uf);
-                        $("#cadastro_CEP").val(m.cep);
-                        $("#cadastro_Email").val(m.email);
-                        $("#cadastro_Telefone1").val(m.telefone1);
+                        $("#cadastro_Logradouro").val(m.enderecoCadastro.logradouro);
+                        $("#cadastro_Numero").val(m.enderecoCadastro.numero);
+                        $("#cadastro_Complemento").val(m.enderecoCadastro.complemento);
+                        $("#cadastro_Bairro").val(m.enderecoCadastro.bairro);
+                        $("#cadastro_Municipio").val(m.enderecoCadastro.municipio);
+                        $("#cadastro_UF").val(m.enderecoCadastro.uf);
+                        $("#cadastro_CEP").val(m.enderecoCadastro.cep);
+                        $("#cadastro_Email").val(m.enderecoCadastro.email);
+                        $("#cadastro_Telefone1").val(m.enderecoCadastro.telefone1);
                     }
                     else {
-                        alert("CNPJ não encontrado!")
+                        alert("CNPJ não encontrado!");
                     }
                 },
                 error: function (event) {
@@ -224,16 +222,16 @@
                 },
                 complete: function () {
                     $('#btnConsultaCNPJ').prop('value', 'Consultar pelo CNPJ').prop('disabled', false);
-                },
+                }
             });
         }
         else {
-            alert("CNPJ inválido, informe apenas caracteres numéricos com 14 caractéres")
+            alert("CNPJ inválido, informe apenas caracteres numéricos com 14 caractéres");
         }
     });
 
     $('#check_Cobranca_Cadastro').click(function () {
-        if ((this).checked) {
+        if (this.checked) {
             $('.cobranca').prop('disabled', true);
             $('#check_Entrega_Cobranca').prop('checked', false).prop('disabled', true);
         }
@@ -244,7 +242,7 @@
     });
 
     $('#check_Entrega_Cadastro').click(function () {
-        if ((this).checked) {
+        if (this.checked) {
             $('.entrega').prop('disabled', true);
             $('#check_Entrega_Cobranca').prop('checked', false);
         }
@@ -255,7 +253,7 @@
     });
 
     $('#check_Entrega_Cobranca').click(function () {
-        if ((this).checked) {
+        if (this.checked) {
             $('.entrega').prop('disabled', true);
             $('#check_Entrega_Cadastro').prop('checked', false);
             $('#check_Cobranca_Cadastro').prop('checked', false).prop('disabled', true);

@@ -20,6 +20,6 @@ namespace Projeto.Entidades
         public string telefone1 { get; set; }
         public string telefone2 { get; set; }
         public string email { get; set; }
-        public string dataCadastro { get; set; }
+        public DateTime dataCadastro { get; set; }
     }
 }

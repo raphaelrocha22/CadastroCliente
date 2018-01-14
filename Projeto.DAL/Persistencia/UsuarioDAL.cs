@@ -32,7 +32,6 @@ namespace Projeto.DAL.Persistencia
                 u.nome = (string)dr["nome"];
                 u.login = (string)dr["login"];
             }
-            
             FecharConexao();
             return u;
         }

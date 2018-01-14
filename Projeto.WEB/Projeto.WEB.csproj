@@ -224,20 +224,18 @@
     <Compile Include="Areas\AreaRestrita\AreaRestritaAreaRegistration.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\ClienteController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
-    <Compile Include="Areas\AreaRestrita\Models\Cliente\ClienteViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Cliente\CadastroViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Cliente\GenericClass.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Cliente\JsonCNPJ.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Cliente\ConsultaViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Cliente\EdicaoViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Cliente\EnderecoViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ClienteViewModel.cs" />
     <Compile Include="Models\Home\UpdateViewModel.cs" />
     <Compile Include="Models\Home\LoginViewModel.cs" />
-    <Compile Include="Models\JsonClass\JSONHelper.cs" />
-    <Compile Include="Models\JsonClass\AtividadePrincipal.cs" />
-    <Compile Include="Models\JsonClass\AtividadesSecundarias.cs" />
-    <Compile Include="Models\JsonClass\Extra.cs" />
-    <Compile Include="Models\JsonClass\Modelo.cs" />
-    <Compile Include="Models\JsonClass\Qsa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

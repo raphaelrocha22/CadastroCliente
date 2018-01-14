@@ -13,5 +13,7 @@ namespace Projeto.Entidades
         public string login { get; set; }
         public string senha { get; set; }
         public bool ativo { get; set; }
+
+        public List<Representante> representantes { get; set; }
     }
 }

@@ -242,7 +242,7 @@ namespace Projeto.DAL.Persistencia
                     e.telefone2 = dr["telefone2"].ToString();
                     e.email = dr["email"].ToString();
                     e.tipo = dr["tipo"].ToString();
-                    e.dataCadastro = dr["dataCadastro"].ToString();
+                    e.dataCadastro = (DateTime)dr["dataCadastro"];
 
                     lista.Add(e);
                 }
@@ -319,6 +319,5 @@ namespace Projeto.DAL.Persistencia
                 FecharConexao();
             }
         }
-
     }
 }
