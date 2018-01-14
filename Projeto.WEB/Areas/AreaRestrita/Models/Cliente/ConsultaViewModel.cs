@@ -7,15 +7,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
     public class ConsultaViewModel:GenericClass
     {
-        public int idCliente { get; set; }
-
-        public int codCliente { get; set; }
-
-        public DateTime dataInicio { get; set; }
-
-        public DateTime dataFim { get; set; }
-
-        public string dataCadastro { get; set; }
+        public int IdCliente { get; set; }
+        public int CodCliente { get; set; }
+        public DateTime DataInicio { get; set; }
+        public DateTime DataFim { get; set; }
+        public string DataCadastro { get; set; }
+        public string Classe { get; set; }
 
     }
 }

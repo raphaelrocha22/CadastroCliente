@@ -8,12 +8,12 @@ namespace Projeto.Entidades
 {
     public class Usuario
     {
-        public int idUsuario { get; set; }
-        public string nome { get; set; }
-        public string login { get; set; }
-        public string senha { get; set; }
-        public bool ativo { get; set; }
+        public int IdUsuario { get; set; }
+        public string Nome { get; set; }
+        public string Login { get; set; }
+        public string Senha { get; set; }
+        public bool Ativo { get; set; }
 
-        public List<Representante> representantes { get; set; }
+        public List<Representante> Representantes { get; set; }
     }
 }

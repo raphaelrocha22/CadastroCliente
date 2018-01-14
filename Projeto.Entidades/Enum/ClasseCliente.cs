@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projeto.Entidades.Enum
 {
-    public enum ModalidadeCliente
+    public enum ClasseCliente
     {
         Ótica = 1,
         Médico = 2,

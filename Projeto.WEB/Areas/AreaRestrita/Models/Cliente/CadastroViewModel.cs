@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Projeto.DAL.Persistencia;
+using Projeto.Entidades.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
     public class CadastroViewModel:GenericClass
     {
-        public string status { get; set; }
+        public string Status { get; set; }
+        public ClasseCliente Classe { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
     $('#btnSalvar').click(function () {
         idCliente = $('#idCliente').val();
+        codCliente = $('#txtCodCliente').val();
         idEnderecoCadastro = $('#idEnderecoCadastro').val();
         idEnderecoCobranca = $('#idEnderecoCobranca').val();
         idEnderecoEntrega = $('#idEnderecoEntrega').val();
@@ -10,6 +11,7 @@
 
     $('#btnCadastrar').click(function () {
         idCliente = 0;
+        codCliente = 0;
         idEnderecoCadastro = 0;
         idEnderecoCobranca = 0;
         idEnderecoEntrega = 0;
@@ -25,16 +27,17 @@
         errorClass: "my-error-class",
         validClass: "my-valid-class",
         rules: {
-            classe: { required: true },
-            nomeRepresentante: { required: true },
+            classe: { required: true, min: 1 },
+            representante: { required: true, min: 1 },
             cnpj: { required: true, cnpj: true },
             codun: { digits: true },
+            codCliente: { digits: true },
             razaoSocial: { required: true },
             logradouro: { required: true },
             numero: { required: true },
             bairro: { required: true },
             municipio: { required: true },
-            UF: { rangelength: [2, 2], required: true },
+            uf: { rangelength: [2, 2], required: true },
             cep: { required: true },
             email: { email: true },
             cobranca_logradouro: { required: ".cobranca:enabled" },
@@ -51,29 +54,30 @@
             entrega_cep: { required: ".entrega:enabled" }
         },
         messages: {
-            classe: { required: 'Campo obrigatorio' },
-            nomeRepresentante: { required: 'Campo obrigatorio' },
+            classe: { required: 'Campo obrigatorio', min: 'Campo obrigatorio' },
+            representante: { required: 'Campo obrigatorio', min: 'Campo obrigatorio' },
             cnpj: { required: 'Campo obrigatorio' },
-            codun: { digits: 'Insira apenas números', required: 'Campo obrigatorio' },
+            codun: { digits: 'Insira apenas números' },
+            codCliente: { digits: 'Insira apenas números' },
             razaoSocial: { required: 'Campo obrigatorio' },
             logradouro: { required: 'Campo obrigatorio' },
             numero: { required: 'Campo obrigatorio' },
             bairro: { required: 'Campo obrigatorio' },
             municipio: { required: 'Campo obrigatorio' },
-            UF: { rangelength: 'Informe a sigla de 2 dígitos', required: 'Obrigatorio' },
+            uf: { rangelength: 'Informe a sigla de 2 dígitos', required: 'Obrigatorio' },
             cep: { required: 'Campo obrigatorio' },
             email: { email: 'E-mail inválido' },
             cobranca_logradouro: { required: 'Campo obrigatorio' },
             cobranca_numero: { required: 'Campo obrigatorio' },
             cobranca_bairro: { required: 'Campo obrigatorio' },
             cobranca_municipio: { required: 'Campo obrigatorio' },
-            cobranca_UF: { rangelength: [2, 2], required: 'Campo obrigatorio' },
+            cobranca_UF: { rangelength: 'Informe a sigla de 2 dígitos', required: 'Obrigatorio' },
             cobranca_cep: { required: 'Campo obrigatorio' },
             entrega_logradouro: { required: 'Campo obrigatorio' },
             entrega_numero: { required: 'Campo obrigatorio' },
             entrega_bairro: { required: 'Campo obrigatorio' },
             entrega_municipio: { required: 'Campo obrigatorio' },
-            entrega_UF: { rangelength: [2, 2], required: 'Campo obrigatorio' },
+            entrega_UF: { rangelength: 'Informe a sigla de 2 dígitos', required: 'Obrigatorio' },
             entrega_cep: { required: 'Campo obrigatorio' }
         },
         submitHandler: function (form) {
@@ -116,56 +120,57 @@
             }
 
             var model = {
-                idCliente: idCliente,
-                codun: $('#txtCodun').val(),
-                razaoSocial: $('#txtRazaoSocial').val(),
-                nomeFantasia: $('#txtNomeFantasia').val(),
-                cnpj: $('#txtCnpj').val().replace(/\.|-|[/]/g, ''),
-                inscricaoEstadual: $('#txtInscEstadual').val(),
-                inscricaoMunicipal: $('#txtInscMunicipal').val(),
-                classe: $('#optClasse').val(),
-                idRepresentante: $('#optRepresentante').val(),
-                enderecoCadastro: {
-                    idEndereco: idEnderecoCadastro,
-                    tipo: 'Cadastro',
-                    logradouro: $('#cadastro_Logradouro').val(),
-                    numero: $('#cadastro_Numero').val(),
-                    complemento: $('#cadastro_Complemento').val(),
-                    bairro: $('#cadastro_Bairro').val(),
-                    municipio: $('#cadastro_Municipio').val(),
+                IdCliente: idCliente,
+                Codun: $('#txtCodun').val(),
+                CodCliente: codCliente,
+                RazaoSocial: $('#txtRazaoSocial').val(),
+                NomeFantasia: $('#txtNomeFantasia').val(),
+                Cnpj: $('#txtCnpj').val().replace(/\.|-|[/]/g, ''),
+                InscricaoEstadual: $('#txtInscEstadual').val(),
+                InscricaoMunicipal: $('#txtInscMunicipal').val(),
+                Classe: $('#optClasse').val(),
+                IdRepresentante: $('#optRepresentante').val(),
+                EnderecoCadastro: {
+                    IdEndereco: idEnderecoCadastro,
+                    Tipo: 'Cadastro',
+                    Logradouro: $('#cadastro_Logradouro').val(),
+                    Numero: $('#cadastro_Numero').val(),
+                    Complemento: $('#cadastro_Complemento').val(),
+                    Bairro: $('#cadastro_Bairro').val(),
+                    Municipio: $('#cadastro_Municipio').val(),
                     UF: $('#cadastro_UF').val(),
-                    cep: $('#cadastro_CEP').val(),
-                    email: $('#cadastro_Email').val(),
-                    telefone1: $('#cadastro_Telefone1').val(),
-                    telefone2: $('#cadastro_Telefone2').val()
+                    Cep: $('#cadastro_CEP').val(),
+                    Email: $('#cadastro_Email').val(),
+                    Telefone1: $('#cadastro_Telefone1').val(),
+                    Telefone2: $('#cadastro_Telefone2').val()
                 },
-                enderecoCobranca: {
-                    idEndereco: idEnderecoCobranca,
-                    tipo: 'Cobranca',
-                    logradouro: $('#cobranca_Logradouro').val(),
-                    numero: $('#cobranca_Numero').val(),
-                    complemento: $('#cobranca_Complemento').val(),
-                    bairro: $('#cobranca_Bairro').val(),
-                    municipio: $('#cobranca_Municipio').val(),
+                EnderecoCobranca: {
+                    IdEndereco: idEnderecoCobranca,
+                    Tipo: 'Cobranca',
+                    Logradouro: $('#cobranca_Logradouro').val(),
+                    Numero: $('#cobranca_Numero').val(),
+                    Complemento: $('#cobranca_Complemento').val(),
+                    Bairro: $('#cobranca_Bairro').val(),
+                    Municipio: $('#cobranca_Municipio').val(),
                     UF: $('#cobranca_UF').val(),
-                    cep: $('#cobranca_CEP').val(),
-                    email: $('#cobranca_Email').val(),
-                    telefone1: $('#cobranca_Telefone1').val(),
-                    telefone2: $('#cobranca_Telefone2').val()
+                    Cep: $('#cobranca_CEP').val(),
+                    Email: $('#cobranca_Email').val(),
+                    Telefone1: $('#cobranca_Telefone1').val(),
+                    Telefone2: $('#cobranca_Telefone2').val()
                 },
-                enderecoEntrega: {
-                    idEndereco: idEnderecoEntrega,
-                    tipo: 'Entrega',
-                    logradouro: $('#entrega_Logradouro').val(),
-                    numero: $('#entrega_Numero').val(),
-                    complemento: $('#entrega_Complemento').val(),
-                    bairro: $('#entrega_Bairro').val(),
-                    municipio: $('#entrega_Municipio').val(),
+                EnderecoEntrega: {
+                    IdEndereco: idEnderecoEntrega,
+                    Tipo: 'Entrega',
+                    Logradouro: $('#entrega_Logradouro').val(),
+                    Numero: $('#entrega_Numero').val(),
+                    Complemento: $('#entrega_Complemento').val(),
+                    Bairro: $('#entrega_Bairro').val(),
+                    Municipio: $('#entrega_Municipio').val(),
                     UF: $('#entrega_UF').val(),
-                    cep: $('#entrega_CEP').val(),
-                    email: $('#entrega_Email').val(),
-                    telefone1: $('#entrega_Telefone1').val(),
-                    telefone2: $('#entrega_Telefone2').val()
+                    Cep: $('#entrega_CEP').val(),
+                    Email: $('#entrega_Email').val(),
+                    Telefone1: $('#entrega_Telefone1').val(),
+                    Telefone2: $('#entrega_Telefone2').val()
                 }
             };
             $.ajax({
@@ -193,27 +198,30 @@
                 type: 'POST',
                 url: '/AreaRestrita/Cliente/ConsultarCNPJ',
                 data: model = {
-                    cnpj: cnpj
+                    Cnpj: cnpj
                 },
                 beforeSend: function () {
                     $('#btnConsultaCNPJ').prop('value', 'Aguarde...').prop('disabled', true);
                 },
                 success:
                 function (m) {
-                    if (m.status !== "ERROR") {
-                        $("#txtRazaoSocial").val(m.razaoSocial);
-                        $("#txtNomeFantasia").val(m.nomeFantasia);
-                        $("#cadastro_Logradouro").val(m.enderecoCadastro.logradouro);
-                        $("#cadastro_Numero").val(m.enderecoCadastro.numero);
-                        $("#cadastro_Complemento").val(m.enderecoCadastro.complemento);
-                        $("#cadastro_Bairro").val(m.enderecoCadastro.bairro);
-                        $("#cadastro_Municipio").val(m.enderecoCadastro.municipio);
-                        $("#cadastro_UF").val(m.enderecoCadastro.uf);
-                        $("#cadastro_CEP").val(m.enderecoCadastro.cep);
-                        $("#cadastro_Email").val(m.enderecoCadastro.email);
-                        $("#cadastro_Telefone1").val(m.enderecoCadastro.telefone1);
+                    if (m.Status !== "ERROR") {
+                        $("#txtRazaoSocial").val(m.RazaoSocial);
+                        $("#txtNomeFantasia").val(m.NomeFantasia);
+                        $("#cadastro_Logradouro").val(m.EnderecoCadastro.Logradouro);
+                        $("#cadastro_Numero").val(m.EnderecoCadastro.Numero);
+                        $("#cadastro_Complemento").val(m.EnderecoCadastro.Complemento);
+                        $("#cadastro_Bairro").val(m.EnderecoCadastro.Bairro);
+                        $("#cadastro_Municipio").val(m.EnderecoCadastro.Municipio);
+                        $("#cadastro_UF").val(m.EnderecoCadastro.UF);
+                        $("#cadastro_CEP").val(m.EnderecoCadastro.Cep);
+                        $("#cadastro_Email").val(m.EnderecoCadastro.Email);
+                        $("#cadastro_Telefone1").val(m.EnderecoCadastro.Telefone1);
                     }
                     else {
+                        $('#formCadastroCliente').each(function () {
+                            this.reset();
+                        });
                         alert("CNPJ não encontrado!");
                     }
                 },

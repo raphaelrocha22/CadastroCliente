@@ -20,15 +20,15 @@
                 <div class="row">
                     <div class="col-md-2">
                         <label>CodCliente</label>
-                        <input type="text" id="txtCodCliente" class="form-control" placeholder="Digite aqui" name="codCliente" />
+                        <input type="text" id="txtCodCliente" class="form-control" placeholder="Digite aqui" name="CodCliente" />
                     </div>
                     <div class="col-md-2">
                         <label>CODUN</label>
-                        <input type="text" id="txtCodun" class="form-control" placeholder="Digite aqui" name="codun" />
+                        <input type="text" id="txtCodun" class="form-control" placeholder="Digite aqui" name="Codun" />
                     </div>
                     <div class="col-md-4">
                         <label>Razão Social</label>
-                        <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" name="razaoSocial" />
+                        <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" name="RazaoSocial" />
                     </div>
                     <div class="col-md-4">
                         <label>Nome Fantasia</label>
@@ -39,12 +39,12 @@
                 <div class="row" style="margin-top:15px">
                     <div class="col-md-3">
                         <label>CNPJ</label>
-                        <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" name="cnpj" />
+                        <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" name="Cnpj" />
                     </div>
 
                     <div class="col-md-3">
                         <label>Representante</label>
-                        @Html.DropDownListFor(m => m.nomeRepresentante, Model.ListagemRepresentante, "- Selecione -", new { @class = "form-control", @id = "optRepresentante" })
+                        @Html.DropDownListFor(m => m.IdRepresentante, Model.ListagemRepresentante, "- Selecione -", new { Class = "form-control", id = "optRepresentante" })
                     </div>
 
                     <div class="col-md-2">

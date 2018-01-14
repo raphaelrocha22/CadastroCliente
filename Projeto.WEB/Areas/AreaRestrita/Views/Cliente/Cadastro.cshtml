@@ -17,20 +17,12 @@
         <div class="row">
             <div class="col-md-2">
                 <label>*Classe:</label>
-                <select id="optClasse" class="form-control" name="classe">
-                    <option value="">- Selecione -</option>
-                    <option>Ótica</option>
-                    <option>Médico</option>
-                    <option>Laboratório</option>
-                    <option>Distribuidor</option>
-                    <option>Funcionário</option>
-                    <option>Particular</option>
-                </select>
+                @Html.EnumDropDownListFor(m => m.Classe,"- Selecione -", new { Class = "form-control", id = "optClasse", Name = "classe" })
             </div>
 
             <div class="col-md-3">
                 <label>*Representante</label>
-                @Html.DropDownListFor(m => m.nomeRepresentante, Model.ListagemRepresentante,"- Selecione -",new { @class = "form-control", @id = "optRepresentante" })
+                @Html.DropDownListFor(m => m.IdRepresentante, Model.ListagemRepresentante,"- Selecione -",new {Class = "form-control", id = "optRepresentante", Name = "representante" })
             </div>
 
             <div class="col-md-3">
@@ -95,7 +87,7 @@
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    <input type="text" id="cadastro_UF" class="form-control" placeholder="Digite aqui" name="UF" />
+                    <input type="text" id="cadastro_UF" class="form-control" placeholder="Digite aqui" name="uf" />
                 </div>
             </div>
 
@@ -151,7 +143,7 @@
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    <input type="text" id="cobranca_UF" class="form-control cobranca" placeholder="Digite aqui" name="UF" />
+                    <input type="text" id="cobranca_UF" class="form-control cobranca" placeholder="Digite aqui" name="cobranca_UF" />
                 </div>
             </div>
 
@@ -208,7 +200,7 @@
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    <input type="text" id="entrega_UF" class="form-control entrega" placeholder="Digite aqui" name="UF" />
+                    <input type="text" id="entrega_UF" class="form-control entrega" placeholder="Digite aqui" name="entrega_UF" />
                 </div>
             </div>
 

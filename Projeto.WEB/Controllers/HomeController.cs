@@ -26,11 +26,11 @@ namespace Projeto.WEB.Controllers
                 try
                 {
                     var d = new UsuarioDAL();
-                    Usuario u = d.ObterUsuarioSenha(model.login, model.senha);
+                    Usuario u = d.ObterUsuarioSenha(model.Login, model.Senha);
 
                     if (u != null)
                     {
-                        var ticket = new FormsAuthenticationTicket(u.login, false, 60);
+                        var ticket = new FormsAuthenticationTicket(u.Login, false, 60);
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
                         Response.Cookies.Add(cookie);
 
@@ -64,11 +64,11 @@ namespace Projeto.WEB.Controllers
                 try
                 {
                     var d = new UsuarioDAL();
-                    Usuario u = d.ObterUsuarioSenha(model.login, model.senhaAntiga);
+                    Usuario u = d.ObterUsuarioSenha(model.Login, model.SenhaAntiga);
 
                     if (u != null)
                     {
-                        d.AtualizarSenha(model.senha, u.idUsuario);
+                        d.AtualizarSenha(model.Senha, u.IdUsuario);
 
                         ViewBag.Resultado = true;
                         ViewBag.Mensagem = "Senha alterada com sucesso";

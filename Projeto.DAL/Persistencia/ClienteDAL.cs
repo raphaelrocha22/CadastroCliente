@@ -1,5 +1,6 @@
 ﻿using Projeto.DAL.Repositorio;
 using Projeto.Entidades;
+using Projeto.Entidades.Enum;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -34,35 +35,35 @@ namespace Projeto.DAL.Persistencia
                 string query = "insert into Cliente (codun,razaoSocial,nomeFantasia,cnpj,inscricaoEstadual,inscricaoMunicipal,classe,idRepresentante, ativo, dataCadastro) " +
                     "values (@codun,@razaoSocial,@nomeFantasia,@cnpj,@inscricaoEstadual,@inscricaoMunicipal,@classe,@idRepresentante,@ativo,@dataCadastro) SELECT SCOPE_IDENTITY()";
                 cmd = new SqlCommand(query, con, tr);
-                cmd.Parameters.AddWithNullValue("@codun", c.codun);
-                cmd.Parameters.AddWithValue("@razaoSocial", c.razaoSocial);
-                cmd.Parameters.AddWithNullValue("@nomeFantasia", c.nomeFantasia);
-                cmd.Parameters.AddWithValue("@cnpj", c.cnpj);
-                cmd.Parameters.AddWithNullValue("@inscricaoEstadual", c.inscricaoEstadual);
-                cmd.Parameters.AddWithNullValue("inscricaoMunicipal", c.inscricaoMunicipal);
-                cmd.Parameters.AddWithValue("@classe", c.classe);
-                cmd.Parameters.AddWithValue("idRepresentante", c.representante.idRepresentante);
-                cmd.Parameters.AddWithValue("@ativo", c.ativo);
+                cmd.Parameters.AddWithNullValue("@codun", c.Codun);
+                cmd.Parameters.AddWithValue("@razaoSocial", c.RazaoSocial);
+                cmd.Parameters.AddWithNullValue("@nomeFantasia", c.NomeFantasia);
+                cmd.Parameters.AddWithValue("@cnpj", c.Cnpj);
+                cmd.Parameters.AddWithNullValue("@inscricaoEstadual", c.InscricaoEstadual);
+                cmd.Parameters.AddWithNullValue("inscricaoMunicipal", c.InscricaoMunicipal);
+                cmd.Parameters.AddWithValue("@classe", c.Classe.ToString());
+                cmd.Parameters.AddWithValue("idRepresentante", c.Representante.IdRepresentante);
+                cmd.Parameters.AddWithValue("@ativo", c.Ativo);
                 cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
-                c.idCliente = Convert.ToInt32(cmd.ExecuteScalar());
+                c.IdCliente = Convert.ToInt32(cmd.ExecuteScalar());
 
-                foreach (var e in c.endereco)
+                foreach (var e in c.Enderecos)
                 {
                     query = "insert into Endereco (logradouro,numero,complemento,bairro,municipio,uf,cep,telefone1,telefone2,email,tipo,dataCadastro,idCliente) " +
                         "values (@logradouro,@numero,@complemento,@bairro,@municipio,@uf,@cep,@telefone1,@telefone2,@email,@tipo,@dataCadastro,@idCliente)";
                     cmd = new SqlCommand(query, con, tr);
-                    cmd.Parameters.AddWithValue("@logradouro", e.logradouro);
-                    cmd.Parameters.AddWithValue("@numero", e.numero);
-                    cmd.Parameters.AddWithNullValue("@complemento", e.complemento);
-                    cmd.Parameters.AddWithValue("@bairro", e.bairro);
-                    cmd.Parameters.AddWithValue("@municipio", e.municipio);
+                    cmd.Parameters.AddWithValue("@logradouro", e.Logradouro);
+                    cmd.Parameters.AddWithValue("@numero", e.Numero);
+                    cmd.Parameters.AddWithNullValue("@complemento", e.Complemento);
+                    cmd.Parameters.AddWithValue("@bairro", e.Bairro);
+                    cmd.Parameters.AddWithValue("@municipio", e.Municipio);
                     cmd.Parameters.AddWithValue("@uf", e.UF);
-                    cmd.Parameters.AddWithValue("@cep", e.cep);
-                    cmd.Parameters.AddWithNullValue("@telefone1", e.telefone1);
-                    cmd.Parameters.AddWithNullValue("@telefone2", e.telefone2);
-                    cmd.Parameters.AddWithNullValue("@email", e.email);
-                    cmd.Parameters.AddWithValue("@tipo", e.tipo);
-                    cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
+                    cmd.Parameters.AddWithValue("@cep", e.Cep);
+                    cmd.Parameters.AddWithNullValue("@telefone1", e.Telefone1);
+                    cmd.Parameters.AddWithNullValue("@telefone2", e.Telefone2);
+                    cmd.Parameters.AddWithNullValue("@email", e.Email);
+                    cmd.Parameters.AddWithValue("@tipo", e.Tipo);
+                    cmd.Parameters.AddWithValue("@idCliente", c.IdCliente);
                     cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
@@ -135,19 +136,20 @@ namespace Projeto.DAL.Persistencia
                 while (dr.Read())
                 {
                     var c = new Cliente();
-                    c.representante = new Representante();
+                    c.Representante = new Representante();
 
-                    c.idCliente = (int)dr["idCliente"];
-                    c.codCliente = (int)dr["codCliente"];
-                    c.razaoSocial = dr["razaoSocial"].ToString();
-                    c.nomeFantasia = dr["nomeFantasia"].ToString();
-                    c.cnpj = dr["cnpj"].ToString();
-                    c.inscricaoEstadual = dr["inscricaoEstadual"].ToString();
-                    c.inscricaoMunicipal = dr["inscricaoMunicipal"].ToString();
-                    c.classe = dr["classe"].ToString();
-                    c.dataCadastro = (DateTime)dr["dataCadastro"];
-                    c.representante.idRepresentante = (int)dr["idRepresentante"];
-                    c.representante.nome = dr["nome"].ToString();
+                    c.IdCliente = (int)dr["idCliente"];
+                    c.CodCliente = (int)dr["codCliente"];
+                    c.Codun = (int)dr["codun"];
+                    c.RazaoSocial = dr["razaoSocial"].ToString();
+                    c.NomeFantasia = dr["nomeFantasia"].ToString();
+                    c.Cnpj = dr["cnpj"].ToString();
+                    c.InscricaoEstadual = dr["inscricaoEstadual"].ToString();
+                    c.InscricaoMunicipal = dr["inscricaoMunicipal"].ToString();
+                    c.Classe =(ClasseCliente)Enum.Parse(typeof(ClasseCliente),dr["classe"].ToString());
+                    c.DataCadastro = (DateTime)dr["dataCadastro"];
+                    c.Representante.IdRepresentante = (int)dr["idRepresentante"];
+                    c.Representante.Nome = dr["nome"].ToString();
 
                     lista.Add(c);
                 }
@@ -181,19 +183,19 @@ namespace Projeto.DAL.Persistencia
                 if (dr.Read())
                 {
                     var c = new Cliente();
-                    c.representante = new Representante();
+                    c.Representante = new Representante();
 
-                    c.idCliente = (int)dr["idCliente"];
-                    c.codCliente = (int)dr["codCliente"];
-                    c.razaoSocial = dr["razaoSocial"].ToString();
-                    c.nomeFantasia = dr["nomeFantasia"].ToString();
-                    c.cnpj = dr["cnpj"].ToString();
-                    c.inscricaoEstadual = dr["inscricaoEstadual"].ToString();
-                    c.inscricaoMunicipal = dr["inscricaoMunicipal"].ToString();
-                    c.classe = dr["classe"].ToString();
-                    c.dataCadastro = (DateTime)dr["dataCadastro"];
-                    c.representante.idRepresentante = (int)dr["idRepresentante"];
-                    c.representante.nome = dr["nome"].ToString();
+                    c.IdCliente = (int)dr["idCliente"];
+                    c.CodCliente = (int)dr["codCliente"];
+                    c.RazaoSocial = dr["razaoSocial"].ToString();
+                    c.NomeFantasia = dr["nomeFantasia"].ToString();
+                    c.Cnpj = dr["cnpj"].ToString();
+                    c.InscricaoEstadual = dr["inscricaoEstadual"].ToString();
+                    c.InscricaoMunicipal = dr["inscricaoMunicipal"].ToString();
+                    c.Classe = (ClasseCliente)Enum.Parse(typeof(ClasseCliente),dr["classe"].ToString());
+                    c.DataCadastro = (DateTime)dr["dataCadastro"];
+                    c.Representante.IdRepresentante = (int)dr["idRepresentante"];
+                    c.Representante.Nome = dr["nome"].ToString();
 
                     return c;
                 }
@@ -230,19 +232,19 @@ namespace Projeto.DAL.Persistencia
                 while (dr.Read())
                 {
                     var e = new Endereco();
-                    e.idEndereco = (int)dr["idEndereco"];
-                    e.logradouro = dr["logradouro"].ToString();
-                    e.numero = dr["numero"].ToString();
-                    e.complemento = dr["complemento"].ToString();
-                    e.bairro = dr["bairro"].ToString();
-                    e.municipio = dr["municipio"].ToString();
+                    e.IdEndereco = (int)dr["idEndereco"];
+                    e.Logradouro = dr["logradouro"].ToString();
+                    e.Numero = dr["numero"].ToString();
+                    e.Complemento = dr["complemento"].ToString();
+                    e.Bairro = dr["bairro"].ToString();
+                    e.Municipio = dr["municipio"].ToString();
                     e.UF = dr["uf"].ToString();
-                    e.cep = dr["cep"].ToString();
-                    e.telefone1 = dr["telefone1"].ToString();
-                    e.telefone2 = dr["telefone2"].ToString();
-                    e.email = dr["email"].ToString();
-                    e.tipo = dr["tipo"].ToString();
-                    e.dataCadastro = (DateTime)dr["dataCadastro"];
+                    e.Cep = dr["cep"].ToString();
+                    e.Telefone1 = dr["telefone1"].ToString();
+                    e.Telefone2 = dr["telefone2"].ToString();
+                    e.Email = dr["email"].ToString();
+                    e.Tipo = dr["tipo"].ToString();
+                    e.DataCadastro = (DateTime)dr["dataCadastro"];
 
                     lista.Add(e);
                 }
@@ -271,40 +273,40 @@ namespace Projeto.DAL.Persistencia
                     "inscricaoMunicipal = @inscricaoMunicipal, classe = @classe, idRepresentante = @idRepresentante, " +
                     "dataCadastro = @dataCadastro where idCliente = @idCliente";
                 cmd = new SqlCommand(query, con, tr);
-                cmd.Parameters.AddWithNullValue("@codCliente", c.codCliente);
-                cmd.Parameters.AddWithNullValue("@codun", c.codun);
-                cmd.Parameters.AddWithValue("@razaoSocial", c.razaoSocial);
-                cmd.Parameters.AddWithNullValue("@nomeFantasia", c.nomeFantasia);
-                cmd.Parameters.AddWithValue("@cnpj", c.cnpj);
-                cmd.Parameters.AddWithNullValue("@inscricaoEstadual", c.inscricaoEstadual);
-                cmd.Parameters.AddWithNullValue("@inscricaoMunicipal", c.inscricaoMunicipal);
-                cmd.Parameters.AddWithValue("@classe", c.classe);
-                cmd.Parameters.AddWithValue("@idRepresentante", c.representante.idRepresentante);
+                cmd.Parameters.AddWithNullValue("@codCliente", c.CodCliente);
+                cmd.Parameters.AddWithNullValue("@codun", c.Codun);
+                cmd.Parameters.AddWithValue("@razaoSocial", c.RazaoSocial);
+                cmd.Parameters.AddWithNullValue("@nomeFantasia", c.NomeFantasia);
+                cmd.Parameters.AddWithValue("@cnpj", c.Cnpj);
+                cmd.Parameters.AddWithNullValue("@inscricaoEstadual", c.InscricaoEstadual);
+                cmd.Parameters.AddWithNullValue("@inscricaoMunicipal", c.InscricaoMunicipal);
+                cmd.Parameters.AddWithValue("@classe", c.Classe.ToString());
+                cmd.Parameters.AddWithValue("@idRepresentante", c.Representante.IdRepresentante);
                 cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
-                cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
+                cmd.Parameters.AddWithValue("@idCliente", c.IdCliente);
                 cmd.ExecuteNonQuery();
 
-                foreach (var e in c.endereco)
+                foreach (var e in c.Enderecos)
                 {
                     query = "update Endereco set logradouro = @logradouro, numero = @numero, complemento = @complemento, " +
                         "bairro = @bairro, municipio = @municipio, uf = @uf, cep = @cep, telefone1 = @telefone1, " +
                         "telefone2 = @telefone2, email = @email, tipo = @tipo, dataCadastro = @dataCadastro " +
                         "where idEndereco = @idEndereco and idCliente = @idCliente";
                     cmd = new SqlCommand(query, con, tr);
-                    cmd.Parameters.AddWithValue("@logradouro", e.logradouro);
-                    cmd.Parameters.AddWithValue("@numero", e.numero);
-                    cmd.Parameters.AddWithNullValue("@complemento", e.complemento);
-                    cmd.Parameters.AddWithValue("@bairro", e.bairro);
-                    cmd.Parameters.AddWithValue("@municipio", e.municipio);
+                    cmd.Parameters.AddWithValue("@logradouro", e.Logradouro);
+                    cmd.Parameters.AddWithValue("@numero", e.Numero);
+                    cmd.Parameters.AddWithNullValue("@complemento", e.Complemento);
+                    cmd.Parameters.AddWithValue("@bairro", e.Bairro);
+                    cmd.Parameters.AddWithValue("@municipio", e.Municipio);
                     cmd.Parameters.AddWithValue("@uf", e.UF);
-                    cmd.Parameters.AddWithValue("@cep", e.cep);
-                    cmd.Parameters.AddWithNullValue("@telefone1", e.telefone1);
-                    cmd.Parameters.AddWithNullValue("@telefone2", e.telefone2);
-                    cmd.Parameters.AddWithNullValue("@email", e.email);
-                    cmd.Parameters.AddWithValue("@tipo", e.tipo);
+                    cmd.Parameters.AddWithValue("@cep", e.Cep);
+                    cmd.Parameters.AddWithNullValue("@telefone1", e.Telefone1);
+                    cmd.Parameters.AddWithNullValue("@telefone2", e.Telefone2);
+                    cmd.Parameters.AddWithNullValue("@email", e.Email);
+                    cmd.Parameters.AddWithValue("@tipo", e.Tipo);
                     cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
-                    cmd.Parameters.AddWithValue("@idEndereco", e.idEndereco);
+                    cmd.Parameters.AddWithValue("@idCliente", c.IdCliente);
+                    cmd.Parameters.AddWithValue("@idEndereco", e.IdEndereco);
                     cmd.ExecuteNonQuery();
                 }
                 tr.Commit();

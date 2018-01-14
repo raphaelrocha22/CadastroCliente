@@ -11,22 +11,22 @@ namespace Projeto.WEB.Models.Home
         [RegularExpression("^[a-z0-9]{4,50}$", ErrorMessage = "Login inválido")]
         [Required(ErrorMessage = "Por favor, informe o Login do usuário.")]
         [Display(Name = "Login")]
-        public string login { get; set; }
+        public string Login { get; set; }
 
         [RegularExpression("^[a-z0-9@&]{4,50}$", ErrorMessage = "Senha inválida")]
         [Required(ErrorMessage = "Por favor, informe a Senha Antiga.")]
         [Display(Name = "Senha Antiga")]
-        public string senhaAntiga { get; set; }
+        public string SenhaAntiga { get; set; }
 
         [RegularExpression("^[a-z0-9@&]{4,50}$", ErrorMessage = "Senha inválida")]
         [Required(ErrorMessage = "Por favor, informe a Senha do usuário.")]
         [Display(Name = "Senha")]
-        public string senha { get; set; }
+        public string Senha { get; set; }
 
         [Compare("senha", ErrorMessage = "Senhas não conferem")]
         [Required(ErrorMessage = "Por favor, confirme sua senha")]
         [Display(Name = "Confirmar senha")]
-        public string senhaConfirm { get; set; }
+        public string SenhaConfirm { get; set; }
 
         
     }

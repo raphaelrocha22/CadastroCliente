@@ -12,40 +12,37 @@
 <hr />
 
 <form id="formCadastroCliente">
-    @Html.HiddenFor(m => m.idCliente, new { @id = "idCliente" })
-    @Html.HiddenFor(m => m.enderecoCadastro.idEndereco, new { @id = "idEnderecoCadastro" })
-    @Html.HiddenFor(m => m.enderecoCobranca.idEndereco, new { @id = "idEnderecoCobranca" })
-    @Html.HiddenFor(m => m.enderecoEntrega.idEndereco, new { @id = "idEnderecoEntrega" })
+    @Html.HiddenFor(m => m.IdCliente, new { id = "idCliente" })
+    @Html.HiddenFor(m => m.EnderecoCadastro.IdEndereco, new { id = "idEnderecoCadastro" })
+    @Html.HiddenFor(m => m.EnderecoCobranca.IdEndereco, new { id = "idEnderecoCobranca" })
+    @Html.HiddenFor(m => m.EnderecoEntrega.IdEndereco, new { id = "idEnderecoEntrega" })
     <div class="col-md-12">
 
         <div class="row">
             <div class="col-md-2">
                 <label>*Classe:</label>
-                <select id="optClasse" class="form-control" name="classe">
-                    <option value="">- Selecione -</option>
-                    <option>Ótica</option>
-                    <option>Médico</option>
-                    <option>Laboratório</option>
-                    <option>Distribuidor</option>
-                    <option>Funcionário</option>
-                    <option>Particular</option>
-                </select>
+                @Html.EnumDropDownListFor(m => m.Classe, " - Selecione -", new { Class = "form-control", id = "optClasse", Name = "classe" })
             </div>
 
             <div class="col-md-3">
                 <label>*Representante</label>
-                @Html.DropDownListFor(m => m.nomeRepresentante, Model.ListagemRepresentante, "- Selecione -", new { @class = "form-control", @id = "optRepresentante" })
+                @Html.DropDownListFor(m => m.IdRepresentante, Model.ListagemRepresentante, "- Selecione -", new { Class = "form-control", id = "optRepresentante", Name = "representante" })
             </div>
 
             <div class="col-md-3">
                 <label>*CNPJ</label>
-                @Html.TextBoxFor(m => m.cnpj, new { @id = "txtCnpj", @class = "form-control", @placeholder = "Digite aqui", @name = "cnpj" })
+                @Html.TextBoxFor(m => m.Cnpj, new { id = "txtCnpj", Class = "form-control", placeholder = "Digite aqui", Name = "cnpj" })
                 <input type="button" id="btnConsultaCNPJ" class="btn btn-success btn-xs" value="Consultar pelo CNPJ" />
             </div>
 
             <div class="col-md-2">
                 <label>CODUN</label>
-                @Html.TextBoxFor(m => m.codun, new { @id = "txtCodun", @class = "form-control", @placeholder = "Digite aqui", @name = "codun" })
+                @Html.TextBoxFor(m => m.Codun, new { id = "txtCodun", Class = "form-control", placeholder = "Digite aqui", Name = "codun" })
+            </div>
+
+            <div class="col-md-2">
+                <label>Cod Cliente</label>
+                @Html.TextBoxFor(m => m.CodCliente, new { id = "txtCodCliente", Class = "form-control", placeholder = "Digite aqui", Name = "codCliente" })
             </div>
         </div>
         <hr />
@@ -53,19 +50,19 @@
         <div class="row" style="margin-top:15px">
             <div class="col-md-4">
                 <label>*Razão Social</label>
-                @Html.TextBoxFor(m => m.razaoSocial, new { @id = "txtRazaoSocial", @class = "form-control", @placeholder = "Digite aqui", @name = "razaoSocial" })
+                @Html.TextBoxFor(m => m.RazaoSocial, new { id = "txtRazaoSocial", Class = "form-control", placeholder = "Digite aqui", Name = "razaoSocial" })
             </div>
             <div class="col-md-4">
                 <label>Nome Fantasia</label>
-                @Html.TextBoxFor(m => m.nomeFantasia, new { @id = "txtNomeFantasia", @class = "form-control", @placeholder = "Digite aqui" })
+                @Html.TextBoxFor(m => m.NomeFantasia, new { id = "txtNomeFantasia", Class = "form-control", placeholder = "Digite aqui" })
             </div>
             <div class="col-md-2">
                 <label>*Inscrição Estadual</label>
-                @Html.TextBoxFor(m => m.inscricaoEstadual, new { @id = "txtInscEstadual", @class = "form-control", @placeholder = "Digite aqui" })
+                @Html.TextBoxFor(m => m.InscricaoEstadual, new { id = "txtInscEstadual", Class = "form-control", placeholder = "Digite aqui" })
             </div>
             <div class="col-md-2">
                 <label>*Inscrição Municipal</label>
-                @Html.TextBoxFor(m => m.inscricaoMunicipal, new { @id = "txtInscMunicipal", @class = "form-control", @placeholder = "Digite aqui" })
+                @Html.TextBoxFor(m => m.InscricaoMunicipal, new { id = "txtInscMunicipal", Class = "form-control", placeholder = "Digite aqui" })
             </div>
         </div>
         <hr />
@@ -79,46 +76,46 @@
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
                     <label>*Logradouro</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.logradouro, new { @id = "cadastro_Logradouro", @class = "form-control", @placeholder = "Digite aqui", @name = "logradouro" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Logradouro, new { Class = "form-control", id = "cadastro_Logradouro", placeholder = "Digite aqui", Name = "logradouro" })
                 </div>
                 <div class="col-md-2">
                     <label>*Número</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.numero, new { @id = "cadastro_Numero", @class = "form-control", @placeholder = "Digite aqui", name = "numero" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Numero, new { id = "cadastro_Numero", Class = "form-control", placeholder = "Digite aqui", Name = "numero" })
                 </div>
                 <div class="col-md-2">
                     <label>Complemento</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.complemento, new { @id = "cadastro_Complemento", @class = "form-control", @placeholder = "Digite aqui" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Complemento, new { id = "cadastro_Complemento", Class = "form-control", placeholder = "Digite aqui" })
                 </div>
                 <div class="col-md-2">
                     <label>*Bairro</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.bairro, new { @id = "cadastro_Bairro", @class = "form-control", @placeholder = "Digite aqui", @name = "bairro" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Bairro, new { id = "cadastro_Bairro", Class = "form-control", placeholder = "Digite aqui", Name = "bairro" })
                 </div>
                 <div class="col-md-2">
                     <label>*Munícipio</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.municipio, new { @id = "cadastro_Municipio", @class = "form-control", @placeholder = "Digite aqui", @name = "municipio" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Municipio, new { id = "cadastro_Municipio", Class = "form-control", placeholder = "Digite aqui", Name = "municipio" })
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.uf, new { @id = "cadastro_UF", @class = "form-control", @placeholder = "Digite aqui", @name = "UF" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.UF, new { id = "cadastro_UF", Class = "form-control", placeholder = "Digite aqui", Name = "uf" })
                 </div>
             </div>
 
             <div class="row" style="margin-top:15px">
                 <div class="col-md-2">
                     <label>*CEP</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.cep, new { @id = "cadastro_CEP", @class = "form-control", @placeholder = "Digite aqui", @name = "cep" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Cep, new { id = "cadastro_CEP", Class = "form-control", placeholder = "Digite aqui", Name = "cep" })
                 </div>
                 <div class="col-md-3">
                     <label>E-mail</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.email, new { @id = "cadastro_Email", @class = "form-control", @placeholder = "Digite aqui", @name = "email" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Email, new { id = "cadastro_Email", Class = "form-control", placeholder = "Digite aqui", Name = "email" })
                 </div>
                 <div class="col-md-2">
                     <label>Telefone1</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.telefone1, new { @id = "cadastro_Telefone1", @class = "form-control", @placeholder = "Digite aqui" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Telefone1, new { id = "cadastro_Telefone1", Class = "form-control", placeholder = "Digite aqui" })
                 </div>
                 <div class="col-md-2">
                     <label>Telefone2</label>
-                    @Html.TextBoxFor(m => m.enderecoCadastro.telefone2, new { @id = "cadastro_Telefone2", @class = "form-control", @placeholder = "Digite aqui" })
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Telefone2, new { id = "cadastro_Telefone2", Class = "form-control", placeholder = "Digite aqui" })
                 </div>
             </div>
         </div>
@@ -135,46 +132,46 @@
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
                     <label>*Logradouro</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.logradouro, new { @id = "cobranca_Logradouro", @class = "form-control cobranca", @placeholder = "Digite aqui", @name = "cobranca_logradouro" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Logradouro, new { id = "cobranca_Logradouro", Class = "form-control cobranca", placeholder = "Digite aqui", Name = "cobranca_logradouro" })
                 </div>
                 <div class="col-md-2">
                     <label>*Número</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.numero, new { @id = "cobranca_Numero", @class = "form-control cobranca", @placeholder = "Digite aqui", name = "cobranca_numero" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Numero, new { id = "cobranca_Numero", Class = "form-control cobranca", placeholder = "Digite aqui", Name = "cobranca_numero" })
                 </div>
                 <div class="col-md-2">
                     <label>Complemento</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.complemento, new { @id = "cobranca_Complemento", @class = "form-control cobranca", @placeholder = "Digite aqui" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Complemento, new { id = "cobranca_Complemento", Class = "form-control cobranca", placeholder = "Digite aqui" })
                 </div>
                 <div class="col-md-2">
                     <label>*Bairro</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.bairro, new { @id = "cobranca_Bairro", @class = "form-control cobranca", @placeholder = "Digite aqui", @name = "cobranca_bairro" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Bairro, new { id = "cobranca_Bairro", Class = "form-control cobranca", placeholder = "Digite aqui", Name = "cobranca_bairro" })
                 </div>
                 <div class="col-md-2">
                     <label>*Munícipio</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.municipio, new { @id = "cobranca_Municipio", @class = "form-control cobranca", @placeholder = "Digite aqui", @name = "cobranca_municipio" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Municipio, new { id = "cobranca_Municipio", Class = "form-control cobranca", placeholder = "Digite aqui", Name = "cobranca_municipio" })
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.uf, new { @id = "cobranca_UF", @class = "form-control cobranca", @placeholder = "Digite aqui", @name = "UF" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.UF, new { id = "cobranca_UF", Class = "form-control cobranca", placeholder = "Digite aqui", Name = "cobranca_UF" })
                 </div>
             </div>
 
             <div class="row" style="margin-top:15px">
                 <div class="col-md-2">
                     <label>*CEP</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.cep, new { @id = "cobranca_CEP", @class = "form-control cobranca", @placeholder = "Digite aqui", @name = "cobranca_cep" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Cep, new { id = "cobranca_CEP", Class = "form-control cobranca", placeholder = "Digite aqui", Name = "cobranca_cep" })
                 </div>
                 <div class="col-md-3">
                     <label>E-mail</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.email, new { @id = "cobranca_Email", @class = "form-control cobranca", @placeholder = "Digite aqui", @name = "email" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Email, new { id = "cobranca_Email", Class = "form-control cobranca", placeholder = "Digite aqui", Name = "email" })
                 </div>
                 <div class="col-md-2">
                     <label>Telefone1</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.telefone1, new { @id = "cobranca_Telefone1", @class = "form-control cobranca", @placeholder = "Digite aqui" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Telefone1, new { id = "cobranca_Telefone1", Class = "form-control cobranca", placeholder = "Digite aqui" })
                 </div>
                 <div class="col-md-2">
                     <label>Telefone2</label>
-                    @Html.TextBoxFor(m => m.enderecoCobranca.telefone2, new { @id = "cobranca_Telefone2", @class = "form-control cobranca", @placeholder = "Digite aqui" })
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Telefone2, new { id = "cobranca_Telefone2", Class = "form-control cobranca", placeholder = "Digite aqui" })
                 </div>
             </div>
         </div>
@@ -192,46 +189,46 @@
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
                     <label>*Logradouro</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.logradouro, new { @id = "entrega_Logradouro", @class = "form-control entrega", @placeholder = "Digite aqui", @name = "entrega_logradouro" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Logradouro, new { id = "entrega_Logradouro", Class = "form-control entrega", placeholder = "Digite aqui", Name = "entrega_logradouro" })
                 </div>
                 <div class="col-md-2">
                     <label>*Número</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.numero, new { @id = "entrega_Numero", @class = "form-control entrega", @placeholder = "Digite aqui", name = "entrega_numero" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Numero, new { id = "entrega_Numero", Class = "form-control entrega", placeholder = "Digite aqui", Name = "entrega_numero" })
                 </div>
                 <div class="col-md-2">
                     <label>Complemento</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.complemento, new { @id = "entrega_Complemento", @class = "form-control entrega", @placeholder = "Digite aqui" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Complemento, new { id = "entrega_Complemento", Class = "form-control entrega", placeholder = "Digite aqui" })
                 </div>
                 <div class="col-md-2">
                     <label>*Bairro</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.bairro, new { @id = "entrega_Bairro", @class = "form-control entrega", @placeholder = "Digite aqui", @name = "entrega_bairro" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Bairro, new { id = "entrega_Bairro", Class = "form-control entrega", placeholder = "Digite aqui", Name = "entrega_bairro" })
                 </div>
                 <div class="col-md-2">
                     <label>*Munícipio</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.municipio, new { @id = "entrega_Municipio", @class = "form-control entrega", @placeholder = "Digite aqui", @name = "entrega_municipio" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Municipio, new { id = "entrega_Municipio", Class = "form-control entrega", placeholder = "Digite aqui", Name = "entrega_municipio" })
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.uf, new { @id = "entrega_UF", @class = "form-control entrega", @placeholder = "Digite aqui", @name = "UF" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.UF, new { id = "entrega_UF", Class = "form-control entrega", placeholder = "Digite aqui", Name = "entrega_UF" })
                 </div>
             </div>
 
             <div class="row" style="margin-top:15px">
                 <div class="col-md-2">
                     <label>*CEP</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.cep, new { @id = "entrega_CEP", @class = "form-control entrega", @placeholder = "Digite aqui", @name = "entrega_cep" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Cep, new { id = "entrega_CEP", Class = "form-control entrega", placeholder = "Digite aqui", Name = "entrega_cep" })
                 </div>
                 <div class="col-md-3">
                     <label>E-mail</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.email, new { @id = "entrega_Email", @class = "form-control entrega", @placeholder = "Digite aqui", @name = "email" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Email, new { id = "entrega_Email", Class = "form-control entrega", placeholder = "Digite aqui", Name = "email" })
                 </div>
                 <div class="col-md-2">
                     <label>Telefone1</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.telefone1, new { @id = "entrega_Telefone1", @class = "form-control entrega", @placeholder = "Digite aqui" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Telefone1, new { id = "entrega_Telefone1", Class = "form-control entrega", placeholder = "Digite aqui" })
                 </div>
                 <div class="col-md-2">
                     <label>Telefone2</label>
-                    @Html.TextBoxFor(m => m.enderecoEntrega.telefone2, new { @id = "entrega_Telefone2", @class = "form-control entrega", @placeholder = "Digite aqui" })
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Telefone2, new { id = "entrega_Telefone2", Class = "form-control entrega", placeholder = "Digite aqui" })
                 </div>
             </div>
         </div>

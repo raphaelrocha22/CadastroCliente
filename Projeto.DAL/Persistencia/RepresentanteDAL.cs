@@ -29,9 +29,9 @@ namespace Projeto.DAL.Persistencia
                 while (dr.Read())
                 {
                     var r = new Representante();
-                    r.idRepresentante = (int)dr["idRepresentante"];
-                    r.nome = (string)dr["nome"];
-                    r.tipoRepresentante = (string)dr["tipoRepresentante"];
+                    r.IdRepresentante = (int)dr["idRepresentante"];
+                    r.Nome = (string)dr["nome"];
+                    r.TipoRepresentante = (string)dr["tipoRepresentante"];
 
                     lista.Add(r);
                 }

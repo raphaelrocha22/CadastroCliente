@@ -23,26 +23,26 @@
 
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><strong>@@</strong></span>
-                        @Html.TextBoxFor(model => model.login, new { @class = "form-control", @placeholder = "Login" })
-                        <span class="text-danger">@Html.ValidationMessageFor(model => model.login)</span>
+                        @Html.TextBoxFor(model => model.Login, new { @class = "form-control", @placeholder = "Login" })
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.Login)</span>
                     </div>
 
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        @Html.PasswordFor(m => m.senhaAntiga, new { @class = "form-control", @placeholder = "Senha Antiga" })
-                        <span class="text-danger">@Html.ValidationMessageFor(model => model.senhaAntiga)</span>
+                        @Html.PasswordFor(m => m.SenhaAntiga, new { @class = "form-control", @placeholder = "Senha Antiga" })
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.SenhaAntiga)</span>
                     </div>
 
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        @Html.PasswordFor(m => m.senha, new { @class = "form-control", @placeholder = "Senha Nova" })
-                        <span class="text-danger">@Html.ValidationMessageFor(model => model.senha)</span>
+                        @Html.PasswordFor(m => m.Senha, new { @class = "form-control", @placeholder = "Senha Nova" })
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.Senha)</span>
                     </div>
 
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        @Html.PasswordFor(m => m.senhaConfirm, new { @class = "form-control", @placeholder = "Confirme Senha Nova" })
-                        <span class="text-danger">@Html.ValidationMessageFor(model => model.senhaConfirm)</span>
+                        @Html.PasswordFor(m => m.SenhaConfirm, new { @class = "form-control", @placeholder = "Confirme Senha Nova" })
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.SenhaConfirm)</span>
                     </div>
 
                     <div style="margin-top:10px" class="form-group">

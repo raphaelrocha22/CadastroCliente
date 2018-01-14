@@ -28,9 +28,9 @@ namespace Projeto.DAL.Persistencia
             if (dr.Read())
             {
                 u = new Usuario();
-                u.idUsuario = (int)dr["idUsuario"];
-                u.nome = (string)dr["nome"];
-                u.login = (string)dr["login"];
+                u.IdUsuario = (int)dr["idUsuario"];
+                u.Nome = (string)dr["nome"];
+                u.Login = (string)dr["login"];
             }
             FecharConexao();
             return u;

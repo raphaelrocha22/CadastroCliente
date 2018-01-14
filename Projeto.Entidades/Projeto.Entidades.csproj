@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Cliente.cs" />
     <Compile Include="Endereco.cs" />
-    <Compile Include="Enum\ModalidadeCliente.cs" />
+    <Compile Include="Enum\ClasseCliente.cs" />
     <Compile Include="Enum\TipoCliente.cs" />
     <Compile Include="Enum\TipoRepresentante.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

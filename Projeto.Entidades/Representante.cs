@@ -9,11 +9,11 @@ namespace Projeto.Entidades
 {
     public class Representante
     {
-        public int idRepresentante { get; set; }
-        public string nome { get; set; }
-        public string tipoRepresentante { get; set; }
-        public bool ativo { get; set; }
+        public int IdRepresentante { get; set; }
+        public string Nome { get; set; }
+        public string TipoRepresentante { get; set; }
+        public bool Ativo { get; set; }
 
-        public List<Cliente> clientes { get; set; }
+        public List<Cliente> Clientes { get; set; }
     }
 }

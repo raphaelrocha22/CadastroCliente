@@ -12,39 +12,39 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
     public class JsonCNPJ
     {
         [JsonProperty("nome")]
-        public string razaoSocial { get; set; }
+        public string RazaoSocial { get; set; }
 
         [JsonProperty("fantasia")]
-        public string nomeFantasia { get; set; }
+        public string NomeFantasia { get; set; }
 
         [JsonProperty("logradouro")]
-        public string logradouro { get; set; }
+        public string Logradouro { get; set; }
 
         [JsonProperty("numero")]
-        public string numero { get; set; }
+        public string Numero { get; set; }
 
         [JsonProperty("complemento")]
-        public string complemento { get; set; }
+        public string Complemento { get; set; }
 
         [JsonProperty("bairro")]
-        public string bairro { get; set; }
+        public string Bairro { get; set; }
 
         [JsonProperty("municipio")]
-        public string municipio { get; set; }
+        public string Municipio { get; set; }
 
         [JsonProperty("uf")]
-        public string uf { get; set; }
+        public string UF { get; set; }
 
         [JsonProperty("cep")]
-        public string cep { get; set; }
+        public string Cep { get; set; }
 
         [JsonProperty("email")]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [JsonProperty("telefone")]
-        public string telefone1 { get; set; }
+        public string Telefone1 { get; set; }
 
         [JsonProperty("status")]
-        public string status { get; set; }
+        public string Status { get; set; }
     }
 }
