@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cliente.cs" />
+    <Compile Include="ClubR.cs" />
     <Compile Include="Endereco.cs" />
     <Compile Include="Enum\ClasseCliente.cs" />
+    <Compile Include="Enum\ModalidadeClubR.cs" />
     <Compile Include="Enum\TipoCliente.cs" />
     <Compile Include="Enum\TipoRepresentante.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

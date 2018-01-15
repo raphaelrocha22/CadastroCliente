@@ -223,6 +223,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\AreaRestrita\AreaRestritaAreaRegistration.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\ClienteController.cs" />
+    <Compile Include="Areas\AreaRestrita\Controllers\ClubRController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\CadastroViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\GenericClass.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Areas\AreaRestrita\Models\Cliente\ConsultaViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\EdicaoViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\EnderecoViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\ClubR\Cadastrar.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -252,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\AreaRestrita\Views\ClubR\" />
     <Folder Include="Areas\AreaRestrita\Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
