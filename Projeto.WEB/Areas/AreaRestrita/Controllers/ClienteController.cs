@@ -39,7 +39,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             {
                 var c = new Cliente();
                 c.Enderecos = new List<Endereco>();
-                c.Representante = new Representante();
+                c.Representante = new Representante(model.IdRepresentante);
 
                 c.Codun = model.Codun;
                 c.RazaoSocial = model.RazaoSocial;
@@ -48,53 +48,49 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 c.InscricaoEstadual = model.InscricaoEstadual;
                 c.InscricaoMunicipal = model.InscricaoMunicipal;
                 c.Classe = model.Classe;
-                c.Representante.IdRepresentante = model.IdRepresentante;
                 c.Ativo = true;
 
-                c.Enderecos.Add(new Endereco
-                {
-                    Tipo = model.EnderecoCadastro.Tipo,
-                    Logradouro = model.EnderecoCadastro.Logradouro,
-                    Numero = model.EnderecoCadastro.Numero,
-                    Complemento = model.EnderecoCadastro.Complemento,
-                    Bairro = model.EnderecoCadastro.Bairro,
-                    Municipio = model.EnderecoCadastro.Municipio,
-                    UF = model.EnderecoCadastro.UF,
-                    Cep = model.EnderecoCadastro.Cep,
-                    Email = model.EnderecoCadastro.Email,
-                    Telefone1 = model.EnderecoCadastro.Telefone1,
-                    Telefone2 = model.EnderecoCadastro.Telefone2
-                });
+                c.Enderecos.Add(new Endereco(
+                    model.EnderecoCadastro.Tipo,
+                    model.EnderecoCadastro.Logradouro,
+                    model.EnderecoCadastro.Numero,
+                    model.EnderecoCadastro.Complemento,
+                    model.EnderecoCadastro.Bairro,
+                    model.EnderecoCadastro.Municipio,
+                    model.EnderecoCadastro.UF,
+                    model.EnderecoCadastro.Cep,
+                    model.EnderecoCadastro.Telefone1,
+                    model.EnderecoCadastro.Telefone2,
+                    model.EnderecoCadastro.Email)
+                );
 
-                c.Enderecos.Add(new Endereco
-                {
-                    Tipo = model.EnderecoCobranca.Tipo,
-                    Logradouro = model.EnderecoCobranca.Logradouro,
-                    Numero = model.EnderecoCobranca.Numero,
-                    Complemento = model.EnderecoCobranca.Complemento,
-                    Bairro = model.EnderecoCobranca.Bairro,
-                    Municipio = model.EnderecoCobranca.Municipio,
-                    UF = model.EnderecoCobranca.UF,
-                    Cep = model.EnderecoCobranca.Cep,
-                    Email = model.EnderecoCobranca.Email,
-                    Telefone1 = model.EnderecoCobranca.Telefone1,
-                    Telefone2 = model.EnderecoCobranca.Telefone2
-                });
+                c.Enderecos.Add(new Endereco(
+                    model.EnderecoCobranca.Tipo,
+                    model.EnderecoCobranca.Logradouro,
+                    model.EnderecoCobranca.Numero,
+                    model.EnderecoCobranca.Complemento,
+                    model.EnderecoCobranca.Bairro,
+                    model.EnderecoCobranca.Municipio,
+                    model.EnderecoCobranca.UF,
+                    model.EnderecoCobranca.Cep,
+                    model.EnderecoCobranca.Telefone1,
+                    model.EnderecoCobranca.Telefone2,
+                    model.EnderecoCobranca.Email)
+                );
 
-                c.Enderecos.Add(new Endereco
-                {
-                    Tipo = model.EnderecoEntrega.Tipo,
-                    Logradouro = model.EnderecoEntrega.Logradouro,
-                    Numero = model.EnderecoEntrega.Numero,
-                    Complemento = model.EnderecoEntrega.Complemento,
-                    Bairro = model.EnderecoEntrega.Bairro,
-                    Municipio = model.EnderecoEntrega.Municipio,
-                    UF = model.EnderecoEntrega.UF,
-                    Cep = model.EnderecoEntrega.Cep,
-                    Email = model.EnderecoEntrega.Email,
-                    Telefone1 = model.EnderecoEntrega.Telefone1,
-                    Telefone2 = model.EnderecoEntrega.Telefone2
-                });
+                c.Enderecos.Add(new Endereco(
+                    model.EnderecoEntrega.Tipo,
+                    model.EnderecoEntrega.Logradouro,
+                    model.EnderecoEntrega.Numero,
+                    model.EnderecoEntrega.Complemento,
+                    model.EnderecoEntrega.Bairro,
+                    model.EnderecoEntrega.Municipio,
+                    model.EnderecoEntrega.UF,
+                    model.EnderecoEntrega.Cep,
+                    model.EnderecoEntrega.Email,
+                    model.EnderecoEntrega.Telefone1,
+                    model.EnderecoEntrega.Telefone2)
+                );
 
                 var d = new ClienteDAL();
                 if (!d.VerificarCNPJ(c.Cnpj))
@@ -164,8 +160,8 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 var lista = new List<ConsultaViewModel>();
 
                 var d = new ClienteDAL();
-                foreach (var c in d.ObterClientes(model.IdCliente, model.CodCliente, model.Codun, model.RazaoSocial, 
-                    model.NomeFantasia, model.Cnpj,model.IdRepresentante, model.DataInicio, model.DataFim))
+                foreach (var c in d.ObterClientes(model.IdCliente, model.CodCliente, model.Codun, model.RazaoSocial,
+                    model.NomeFantasia, model.Cnpj, model.IdRepresentante, model.DataInicio, model.DataFim))
                 {
                     model = new ConsultaViewModel();
                     model.EnderecoCadastro = new EnderecoViewModel();
@@ -201,7 +197,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                                 model.EnderecoCadastro.Telefone1 = item.Telefone1;
                                 model.EnderecoCadastro.Telefone2 = item.Telefone2;
                                 model.EnderecoCadastro.Tipo = item.Tipo;
-                                model.EnderecoCadastro.DataCadastro = item.DataCadastro.ToString("dd/MM/yyyy hh:mm");
+                                model.EnderecoCadastro.DataCadastro = item.DataCadastro.ToString();
                                 break;
 
                             case ("Cobranca"):
@@ -217,7 +213,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                                 model.EnderecoCobranca.Telefone1 = item.Telefone1;
                                 model.EnderecoCobranca.Telefone2 = item.Telefone2;
                                 model.EnderecoCobranca.Tipo = item.Tipo;
-                                model.EnderecoCobranca.DataCadastro = item.DataCadastro.ToString("dd/MM/yyyy hh:mm");
+                                model.EnderecoCobranca.DataCadastro = item.DataCadastro.ToString();
                                 break;
 
                             case ("Entrega"):
@@ -233,7 +229,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                                 model.EnderecoEntrega.Telefone1 = item.Telefone1;
                                 model.EnderecoEntrega.Telefone2 = item.Telefone2;
                                 model.EnderecoEntrega.Tipo = item.Tipo;
-                                model.EnderecoEntrega.DataCadastro = item.DataCadastro.ToString("dd/MM/yyyy hh:mm");
+                                model.EnderecoEntrega.DataCadastro = item.DataCadastro.ToString();
                                 break;
                         }
                     }
@@ -340,7 +336,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 var c = new Cliente();
                 c.Enderecos = new List<Endereco>();
 
-                c.Representante = new Representante { IdRepresentante = model.IdRepresentante };
+                c.Representante = new Representante(model.IdRepresentante);
                 c.IdCliente = model.IdCliente;
                 c.Codun = model.Codun;
                 c.RazaoSocial = model.RazaoSocial;
@@ -351,52 +347,49 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 c.InscricaoMunicipal = model.InscricaoMunicipal;
                 c.Classe = model.Classe;
                 c.Ativo = true;
-                c.Enderecos.Add(new Endereco
-                {
-                    IdEndereco = model.EnderecoCadastro.IdEndereco,
-                    Tipo = model.EnderecoCadastro.Tipo,
-                    Logradouro = model.EnderecoCadastro.Logradouro,
-                    Numero = model.EnderecoCadastro.Numero,
-                    Complemento = model.EnderecoCadastro.Complemento,
-                    Bairro = model.EnderecoCadastro.Bairro,
-                    Municipio = model.EnderecoCadastro.Municipio,
-                    UF = model.EnderecoCadastro.UF,
-                    Cep = model.EnderecoCadastro.Cep,
-                    Email = model.EnderecoCadastro.Email,
-                    Telefone1 = model.EnderecoCadastro.Telefone1,
-                    Telefone2 = model.EnderecoCadastro.Telefone2
-                });
-                c.Enderecos.Add(new Endereco
-                {
-                    IdEndereco = model.EnderecoCobranca.IdEndereco,
-                    Tipo = model.EnderecoCobranca.Tipo,
-                    Logradouro = model.EnderecoCobranca.Logradouro,
-                    Numero = model.EnderecoCobranca.Numero,
-                    Complemento = model.EnderecoCobranca.Complemento,
-                    Bairro = model.EnderecoCobranca.Bairro,
-                    Municipio = model.EnderecoCobranca.Municipio,
-                    UF = model.EnderecoCobranca.UF,
-                    Cep = model.EnderecoCobranca.Cep,
-                    Email = model.EnderecoCobranca.Email,
-                    Telefone1 = model.EnderecoCobranca.Telefone1,
-                    Telefone2 = model.EnderecoCobranca.Telefone2
-                });
-                c.Enderecos.Add(new Endereco
-                {
-                    IdEndereco = model.EnderecoEntrega.IdEndereco,
-                    Tipo = model.EnderecoEntrega.Tipo,
-                    Logradouro = model.EnderecoEntrega.Logradouro,
-                    Numero = model.EnderecoEntrega.Numero,
-                    Complemento = model.EnderecoEntrega.Complemento,
-                    Bairro = model.EnderecoEntrega.Bairro,
-                    Municipio = model.EnderecoEntrega.Municipio,
-                    UF = model.EnderecoEntrega.UF,
-                    Cep = model.EnderecoEntrega.Cep,
-                    Email = model.EnderecoEntrega.Email,
-                    Telefone1 = model.EnderecoEntrega.Telefone1,
-                    Telefone2 = model.EnderecoEntrega.Telefone2
-                });
-                
+                c.Enderecos.Add(new Endereco(
+                    model.EnderecoCadastro.IdEndereco,
+                    model.EnderecoCadastro.Tipo,
+                    model.EnderecoCadastro.Logradouro,
+                    model.EnderecoCadastro.Numero,
+                    model.EnderecoCadastro.Complemento,
+                    model.EnderecoCadastro.Bairro,
+                    model.EnderecoCadastro.Municipio,
+                    model.EnderecoCadastro.UF,
+                    model.EnderecoCadastro.Cep,
+                    model.EnderecoCadastro.Telefone1,
+                    model.EnderecoCadastro.Telefone2,
+                    model.EnderecoCadastro.Email)
+                );
+                c.Enderecos.Add(new Endereco(
+                    model.EnderecoCobranca.IdEndereco,
+                    model.EnderecoCobranca.Tipo,
+                    model.EnderecoCobranca.Logradouro,
+                    model.EnderecoCobranca.Numero,
+                    model.EnderecoCobranca.Complemento,
+                    model.EnderecoCobranca.Bairro,
+                    model.EnderecoCobranca.Municipio,
+                    model.EnderecoCobranca.UF,
+                    model.EnderecoCobranca.Cep,
+                    model.EnderecoCobranca.Telefone1,
+                    model.EnderecoCobranca.Telefone2,
+                    model.EnderecoCobranca.Email)
+                );
+                c.Enderecos.Add(new Endereco(
+                    model.EnderecoEntrega.IdEndereco,
+                    model.EnderecoEntrega.Tipo,
+                    model.EnderecoEntrega.Logradouro,
+                    model.EnderecoEntrega.Numero,
+                    model.EnderecoEntrega.Complemento,
+                    model.EnderecoEntrega.Bairro,
+                    model.EnderecoEntrega.Municipio,
+                    model.EnderecoEntrega.UF,
+                    model.EnderecoEntrega.Cep,
+                    model.EnderecoEntrega.Telefone1,
+                    model.EnderecoEntrega.Telefone2,
+                    model.EnderecoEntrega.Email)
+                );
+
                 var d = new ClienteDAL();
                 d.AtualizarCliente(c);
 

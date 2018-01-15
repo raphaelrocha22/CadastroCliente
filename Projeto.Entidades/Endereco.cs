@@ -21,5 +21,35 @@ namespace Projeto.Entidades
         public string Telefone2 { get; set; }
         public string Email { get; set; }
         public DateTime DataCadastro { get; set; }
+
+        public Endereco()
+        {
+
+        }
+
+        public Endereco(string tipo, string logradouro, string numero,
+            string complemento, string bairro, string municipio, string uf, string cep,
+            string telefone1, string telefone2, string email)
+        {
+            Tipo = tipo;
+            Logradouro = logradouro;
+            Numero = numero;
+            Complemento = complemento;
+            Bairro = bairro;
+            Municipio = municipio;
+            UF = uf;
+            Cep = cep;
+            Telefone1 = telefone1;
+            Telefone2 = telefone2;
+            Email = email;
+        }
+
+        public Endereco(int idEndereco, string tipo, string logradouro, string numero,
+            string complemento, string bairro, string municipio, string uf, string cep,
+            string telefone1, string telefone2, string email)
+            : this(tipo, logradouro, numero, complemento, bairro, municipio, uf, cep, telefone1, telefone2, email)
+        {
+            IdEndereco = idEndereco;
+        }
     }
 }

@@ -15,5 +15,15 @@ namespace Projeto.Entidades
         public bool Ativo { get; set; }
 
         public List<Cliente> Clientes { get; set; }
+
+        public Representante()
+        {
+
+        }
+
+        public Representante(int idRepresentante)
+        {
+            IdRepresentante = idRepresentante;
+        }
     }
 }
