@@ -9,7 +9,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
     public class ClubRController : Controller
     {
         // GET: AreaRestrita/ClubR
-        public ActionResult Index()
+        public ActionResult Cadastro()
         {
             return View();
         }

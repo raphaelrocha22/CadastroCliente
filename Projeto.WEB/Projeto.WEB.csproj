@@ -192,6 +192,7 @@
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Areas\AreaRestrita\Views\Cliente\Edicao.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\ClubR\Cadastro.cshtml" />
     <None Include="Properties\PublishProfiles\cadastroclienterbr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Imagens\logoRodenstock.png" />
@@ -254,7 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\AreaRestrita\Views\ClubR\" />
     <Folder Include="Areas\AreaRestrita\Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
