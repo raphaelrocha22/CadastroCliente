@@ -468,7 +468,7 @@
     <Compile Include="Areas\AreaRestrita\Models\Cliente\ConsultaViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\EdicaoViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\EnderecoViewModel.cs" />
-    <Compile Include="Areas\AreaRestrita\Models\ClubR\Cadastrar.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\ClubR\CadastroViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
 {
-    public class Cadastrar
+    public class CadastroViewModel
     {
         public int Codun { get; set; }
         public int NumeroContrato { get; set; }
