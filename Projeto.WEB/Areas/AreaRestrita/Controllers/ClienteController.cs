@@ -87,9 +87,9 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     model.EnderecoEntrega.Municipio,
                     model.EnderecoEntrega.UF,
                     model.EnderecoEntrega.Cep,
-                    model.EnderecoEntrega.Email,
                     model.EnderecoEntrega.Telefone1,
-                    model.EnderecoEntrega.Telefone2)
+                    model.EnderecoEntrega.Telefone2,
+                    model.EnderecoCobranca.Email)
                 );
 
                 var d = new ClienteDAL();

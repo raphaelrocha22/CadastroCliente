@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
-    public class GenericClass
+    public abstract class GenericClass
     {
         public string Cnpj { get; set; }
         public int Codun { get; set; }

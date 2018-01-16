@@ -35,22 +35,22 @@
 
                     conteudo += "<tr>";
 
-                    conteudo += "<td class='hidden'>" + m.IdCliente + "</td>";
                     conteudo += "<td>" + m.CodCliente + "</td>";
                     conteudo += "<td>" + m.Codun + "</td>";
                     conteudo += "<td>" + m.RazaoSocial + "</td>";
                     conteudo += "<td>" + m.NomeFantasia + "</td>";
                     conteudo += "<td>" + m.Classe + "</td>";
-                    conteudo += "<td>" + m.NomeRepresentante + "</td>";
+                    conteudo += "<td>" + m.NomeRepresentante.toString() + "</td>";
                     conteudo += "<td>";
-                    conteudo += "<button data-target='#janelaDetalhes' data-toggle='modal' onclick='exibirDetalhes(" + m.IdCliente + ")' class='btn btn-success btn-sm'>Detalhes</button>";
+                    conteudo += "<button data-target='#janelaDetalhes' data-toggle='modal' onclick='exibirDetalhes(" + m.IdCliente + ")' class='btn btn-success btn-xs'>Detalhes</button>";
                     conteudo += "&nbsp;";
-                    conteudo += "<a href='/AreaRestrita/Cliente/Edicao/" + m.IdCliente + "' class='btn btn-primary btn-sm'>Editar</a>";
+                    conteudo += "<a href='/AreaRestrita/Cliente/Edicao/" + m.IdCliente + "' class='btn btn-primary btn-xs'>Editar</a>";
+                    conteudo += "</td>";
 
                     conteudo += "</tr>";
                 });
                 $("#tabela tbody").html(conteudo);
-                $("#quantidade").html(lista.length);
+                $('#tabela').DataTable();
             },
             error: function (e) {
                 console.log(e.status);
@@ -60,6 +60,8 @@
             }
         });
     });
+
+    
 });
 
 function exibirDetalhes(id) {
