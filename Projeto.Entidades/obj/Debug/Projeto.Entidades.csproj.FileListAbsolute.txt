@@ -1,11 +1,11 @@
-H:\Cadastro Cliente\Projeto.Entidades\bin\Debug\Projeto.Entidades.dll
-H:\Cadastro Cliente\Projeto.Entidades\bin\Debug\Projeto.Entidades.pdb
-H:\Cadastro Cliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.csproj.CoreCompileInputs.cache
-H:\Cadastro Cliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.dll
-H:\Cadastro Cliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.pdb
 E:\Projetos\CadastroCliente\Projeto.Entidades\bin\Debug\Projeto.Entidades.dll
 E:\Projetos\CadastroCliente\Projeto.Entidades\bin\Debug\Projeto.Entidades.pdb
 E:\Projetos\CadastroCliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.csprojResolveAssemblyReference.cache
 E:\Projetos\CadastroCliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.csproj.CoreCompileInputs.cache
 E:\Projetos\CadastroCliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.dll
 E:\Projetos\CadastroCliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.pdb
+H:\Cadastro Cliente\Projeto.Entidades\bin\Debug\Projeto.Entidades.dll
+H:\Cadastro Cliente\Projeto.Entidades\bin\Debug\Projeto.Entidades.pdb
+H:\Cadastro Cliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.csproj.CoreCompileInputs.cache
+H:\Cadastro Cliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.dll
+H:\Cadastro Cliente\Projeto.Entidades\obj\Debug\Projeto.Entidades.pdb

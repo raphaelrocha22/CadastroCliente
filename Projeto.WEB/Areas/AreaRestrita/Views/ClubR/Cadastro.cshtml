@@ -5,154 +5,122 @@
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<link href="~/Content/CssCustom.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Cadastrar</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Codun, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Codun, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Codun, "", new { @class = "text-danger" })
+<h4>Cadastro Cliente ClubR</h4>
+<hr />
+
+<form id="cadastroClubR">
+    <div class="col-md-12">
+
+        <div class="row">
+            <div class="col-md-1">
+                <label>CODUN</label>
+                <input type="text" id="txtCodun" class="form-control" name="codun" />
+            </div>
+            <div class="col-md-2">
+                <label>Modalidade</label>
+                @Html.EnumDropDownListFor(m => m.ModalidadeClubR,"- Selecione -", new { Class = "form-control", id="optModalidade"})
+            </div>
+            <div class="col-md-1">
+                <label>Contrato</label>
+                <input type="text" id="txtNumeroContrato" class="form-control" readonly />
+            </div>
+            <div class="col-md-4">
+                <label>Nome do Responsável</label>
+                <input type="text" id="txtNomeResponsavel" class="form-control" name="nomeResponsavel" />
+            </div>
+            <div class="col-md-2">
+                <label>CPF do Responsável</label>
+                <input type="text" id="txtCpfResponsavel" class="form-control" name="cpfResponsavel" />
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NumeroContrato, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NumeroContrato, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NumeroContrato, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NomeResponsavel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NomeResponsavel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NomeResponsavel, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CpfResponsavel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CpfResponsavel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CpfResponsavel, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataNegociacao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataNegociacao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataNegociacao, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataFim, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataFim, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataFim, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MediaHistorica, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MediaHistorica, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MediaHistorica, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PeriodoMeses, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PeriodoMeses, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PeriodoMeses, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MetaPeriodo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MetaPeriodo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MetaPeriodo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Desconto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Desconto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Desconto, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Crescimento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Crescimento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Crescimento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PrazoPagamento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PrazoPagamento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PrazoPagamento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RebateValor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RebateValor, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RebateValor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RebatePercent, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RebatePercent, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RebatePercent, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Ativo)
-                    @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
+        <div class="row" style="margin-top:15px">
+            <div class="col-md-2">
+                <label>Data Negociação</label>
+                <div class='input-group date'>
+                    <input type="text" class="form-control" id="txtDataNegociacao" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
             </div>
-        </div>
+            <div class="col-md-2">
+                <label>Data Inicio</label>
+                <div class='input-group date'>
+                    <input type="text" class="form-control" id="txtDataInicio" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Contrato, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Contrato, "", new { @class = "text-danger" })
+            <div class="col-md-2">
+                <label>Período</label>
+                <select class="form-control" id="optPeriodo">
+                    <option value="3">Trimestral</option>
+                    <option value="6">Semestral</option>
+                    <option value="12">Anual</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label>Data Fim</label>
+                <div class='input-group date'>
+                    <input type="text" class="form-control" id="txtDataFim" readonly />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label>Média Histórica</label>
+                <input type="number" class="form-control" id="txtMediaHistoria" />
+            </div>
+            <div class="col-md-2">
+                <label>Meta Período</label>
+                <input type="number" class="form-control" id="txtMetaPeriodo" />
+            </div>
+        </div>
+        <div class="row" style="margin-top:15px">
+            <div class="col-md-2">
+                <label>Crescimento Proposto</label>
+                <select class="form-control" id="optCrescimento">
+                    <option value="0.25">25%</option>
+                    <option value="0.5">50%</option>
+                    <option value="1">100%</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Prazo Pagamento</label>
+                <select class="form-control" id="optPrazoPagamento">
+                    <option>Normal</option>
+                    <option>9 vezes</option>
+                    <option>30 dias</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Desconto</label>
+                <select class="form-control" id="optDesconto">
+                    <option value="0.25">22%</option>
+                    <option value="0.3">30%</option>
+                    <option value="0.33">33%</option>
+                    <option value="0.36">36%</option>
+                    <option value="0.4">40%</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label>Contrato Assinado</label>
+                <input type="file" id="file" class="form-control" />
+            </div>
+        </div>
+        <div class="row" style="margin-top:15px">
+            <div class="col-md-2">
+                <input type="submit" value="Cadastrar" id="btnCadastrar" class="btn btn-primary" />
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+
+
+
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+</form>

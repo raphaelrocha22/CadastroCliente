@@ -363,6 +363,7 @@
     <Content Include="Scripts\Cliente\cadastro.js" />
     <Content Include="Scripts\Cliente\consulta.js" />
     <Content Include="Scripts\Cliente\editar.js" />
+    <Content Include="Scripts\ClubR\cadastro.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />

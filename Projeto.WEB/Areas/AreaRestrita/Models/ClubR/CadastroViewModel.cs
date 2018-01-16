@@ -15,6 +15,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
         public string CpfResponsavel { get; set; }
         public ModalidadeClubR ModalidadeClubR { get; set; }
         public DateTime DataNegociacao { get; set; }
+        public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
         public decimal MediaHistorica { get; set; }
         public int PeriodoMeses { get; set; }
