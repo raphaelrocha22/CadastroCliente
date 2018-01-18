@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Projeto.Entidades.Enum
 {
-    public enum TipoCliente
+    public enum TipoEndereco
     {
-        PessoaFisica = 1,
-        PessoaJuridica = 2
+        Cadastro = 1,
+        Cobranca = 2,
+        Entrega = 3
     }
 }

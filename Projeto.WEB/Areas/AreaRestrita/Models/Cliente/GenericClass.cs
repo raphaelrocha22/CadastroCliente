@@ -1,4 +1,5 @@
 ﻿using Projeto.DAL.Persistencia;
+using Projeto.Entidades;
 using Projeto.Entidades.Enum;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,18 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
         public EnderecoViewModel EnderecoCadastro { get; set; }
         public EnderecoViewModel EnderecoCobranca { get; set; }
         public EnderecoViewModel EnderecoEntrega { get; set; }
-        public int IdSessao { get; set; }
         public int IdRepresentante { get; set; }
         public string NomeRepresentante { get; set; }
+
+        public int IdUsuario
+        {
+            get
+            {
+                Usuario u = (Usuario)HttpContext.Current.Session["usuario"];
+                return u.IdUsuario;
+            }
+            set { }
+        }
 
         public List<SelectListItem> ListagemRepresentante
         {
@@ -30,7 +40,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
                 var lista = new List<SelectListItem>();
                 var d = new RepresentanteDAL();
 
-                foreach (var r in d.ListaRepresentante(IdSessao))
+                foreach (var r in d.ListaRepresentante(IdUsuario))
                 {
                     var item = new SelectListItem();
                     item.Value = r.IdRepresentante.ToString();

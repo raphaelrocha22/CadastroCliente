@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Projeto.WEB.Models.Home
 {
@@ -23,11 +19,9 @@ namespace Projeto.WEB.Models.Home
         [Display(Name = "Senha")]
         public string Senha { get; set; }
 
-        [Compare("senha", ErrorMessage = "Senhas não conferem")]
+        [Compare("Senha", ErrorMessage = "Senhas não conferem")]
         [Required(ErrorMessage = "Por favor, confirme sua senha")]
         [Display(Name = "Confirmar senha")]
         public string SenhaConfirm { get; set; }
-
-        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projeto.Entidades.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Projeto.Entidades
     public class Endereco
     {
         public int IdEndereco { get; set; }
-        public string Tipo { get; set; }
+        public TipoEndereco Tipo { get; set; }
         public string Logradouro { get; set; }
         public string Numero { get; set; }
         public string Complemento { get; set; }
@@ -27,7 +28,7 @@ namespace Projeto.Entidades
 
         }
 
-        public Endereco(string tipo, string logradouro, string numero,
+        public Endereco(TipoEndereco tipo, string logradouro, string numero,
             string complemento, string bairro, string municipio, string uf, string cep,
             string telefone1, string telefone2, string email)
         {
@@ -44,7 +45,7 @@ namespace Projeto.Entidades
             Email = email;
         }
 
-        public Endereco(int idEndereco, string tipo, string logradouro, string numero,
+        public Endereco(int idEndereco, TipoEndereco tipo, string logradouro, string numero,
             string complemento, string bairro, string municipio, string uf, string cep,
             string telefone1, string telefone2, string email)
             : this(tipo, logradouro, numero, complemento, bairro, municipio, uf, cep, telefone1, telefone2, email)

@@ -1,76 +1,72 @@
 ﻿$(document).ready(function () {
 
-    $('#txtDataInicio').datetimepicker({
-        locale: 'pt-br',
-        format: 'DD/MM/YYYY'
-    });
-
-    $('#txtDataFim').datetimepicker({
+    $('.date').datetimepicker({
         locale: 'pt-br',
         format: 'DD/MM/YYYY'
     });
 
     $('#btnConsultar').click(function () {
-
-        var model = {
-            CodCliente: $('#txtCodCliente').val(),
-            Codun: $('#txtCodun').val(),
-            RazaoSocial: $('#txtRazaoSocial').val(),
-            NomeFantasia: $('#txtNomeFantasia').val(),
-            Cnpj: $('#txtCnpj').val().replace(/\.|-|[/]/g, ''),
-            DataInicio: $('#txtDataInicio').val(),
-            DataFim: $('#txtDataFim').val() + " 23:59:59",
-            IdRepresentante: $('#optRepresentante').val()
-        };
-        $.ajax({
-            type: "POST",
-            url: "/AreaRestrita/Cliente/Consulta",
-            data: model,
-            beforeSend: function () {
-                $('#btnConsultar').prop('value', 'Aguarde...').prop('disabled', true);
-            },
-            success: function (lista) {
-                var conteudo = "";
-                $.each(lista, function (i, m) {
-
-                    conteudo += "<tr>";
-
-                    conteudo += "<td>" + m.CodCliente + "</td>";
-                    conteudo += "<td>" + m.Codun + "</td>";
-                    conteudo += "<td>" + m.RazaoSocial + "</td>";
-                    conteudo += "<td>" + m.NomeFantasia + "</td>";
-                    conteudo += "<td>" + m.Classe + "</td>";
-                    conteudo += "<td>" + m.NomeRepresentante.toString() + "</td>";
-                    conteudo += "<td>";
-                    conteudo += "<button data-target='#janelaDetalhes' data-toggle='modal' onclick='exibirDetalhes(" + m.IdCliente + ")' class='btn btn-success btn-xs'>Detalhes</button>";
-                    conteudo += "&nbsp;";
-                    conteudo += "<a href='/AreaRestrita/Cliente/Edicao/" + m.IdCliente + "' class='btn btn-primary btn-xs'>Editar</a>";
-                    conteudo += "</td>";
-
-                    conteudo += "</tr>";
-                });
-                $("#tabela tbody").html(conteudo);
-                $('#tabela').DataTable();
-            },
-            error: function (e) {
-                console.log(e.status);
-            },
-            complete: function () {
-                $('#btnConsultar').prop('value', 'Consultar').prop('disabled', false);
-            }
-        });
-    });
-
-    
+        Consultar();
+    });    
 });
+
+function Consultar() {
+
+    var model = {
+        CodCliente: $('#txtCodCliente').val(),
+        Codun: $('#txtCodun').val(),
+        RazaoSocial: $('#txtRazaoSocial').val(),
+        NomeFantasia: $('#txtNomeFantasia').val(),
+        Cnpj: $('#txtCnpj').val().replace(/\.|-|[/]/g, ''),
+        DataInicio: $('#txtDataInicio').val(),
+        DataFim: $('#txtDataFim').val() + " 23:59:59",
+        IdRepresentante: $('#optRepresentante').val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/AreaRestrita/Cliente/Consulta",
+        data: model,
+        beforeSend: function () {
+            $('#btnConsultar').prop('value', 'Aguarde...').prop('disabled', true);
+        },
+        success: function (lista) {
+            var conteudo = "";
+            
+            $.each(lista, function (i, m) {
+
+                conteudo += "<tr>";
+
+                conteudo += "<td>" + m.CodCliente + "</td>";
+                conteudo += "<td>" + m.Codun + "</td>";
+                conteudo += "<td>" + m.RazaoSocial + "</td>";
+                conteudo += "<td>" + m.NomeFantasia + "</td>";
+                conteudo += "<td>" + m.Classe + "</td>";
+                conteudo += "<td>" + m.NomeRepresentante + "</td>";
+                conteudo += "<td>";
+                conteudo += "<button data-target='#janelaDetalhes' data-toggle='modal' onclick='exibirDetalhes(" + m.IdCliente + ")' class='btn btn-success btn-xs'>Detalhes</button>";
+                conteudo += "&nbsp;";
+                conteudo += "<a href='/AreaRestrita/Cliente/Edicao/" + m.IdCliente + "' class='btn btn-primary btn-xs'>Editar</a>";
+                conteudo += "</td>";
+
+                conteudo += "</tr>";
+            });
+            $("#tabela tbody").html(conteudo);
+            $('#tabela').DataTable();
+        },
+        error: function (e) {
+            alert(e.status);
+        },
+        complete: function () {
+            $('#btnConsultar').prop('value', 'Consultar').prop('disabled', false);
+        }
+    });
+};
 
 function exibirDetalhes(id) {
     $.ajax({
         type: "POST",
         url: '/AreaRestrita/Cliente/Consulta',
-        data: model = {
-            IdCliente: id
-        },
+        data: "id=" + id,
         success: function (model) {
             $.each(model, function (i, m) {
 
@@ -126,4 +122,4 @@ function exibirDetalhes(id) {
             alert(e.status);
         }
     });
-}
+};

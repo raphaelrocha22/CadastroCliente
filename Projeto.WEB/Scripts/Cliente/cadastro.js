@@ -177,65 +177,25 @@
                 type: "POST",
                 url: url,
                 data: model,
+                beforeSend: function () {
+                    $('#btnCadastrar').prop('value', 'Aguarde...').prop('disabled', true);
+                },
                 success: function (mensagem) {
                     alert(mensagem);
                 },
-                Error: function (e) {
+                error: function (e) {
                     alert(e.message);
+                },
+                complete: function () {
+                    $('#btnCadastrar').prop('value', 'Cadastrar').prop('disabled', false);
                 }
             });
         }
     });
 
     $('#btnConsultaCNPJ').click(function () {
-
         var cnpj = $('#txtCnpj').val().replace(/\.|-|[/]/g, '');
-
-        var rgx = new RegExp("^[0-9]{14}$");
-        if (rgx.test(cnpj)) {
-
-            $.ajax({
-                type: 'POST',
-                url: '/AreaRestrita/Cliente/ConsultarCNPJ',
-                data: model = {
-                    Cnpj: cnpj
-                },
-                beforeSend: function () {
-                    $('#btnConsultaCNPJ').prop('value', 'Aguarde...').prop('disabled', true);
-                },
-                success:
-                function (m) {
-                    if (m.Status !== "ERROR") {
-                        $("#txtRazaoSocial").val(m.RazaoSocial);
-                        $("#txtNomeFantasia").val(m.NomeFantasia);
-                        $("#cadastro_Logradouro").val(m.EnderecoCadastro.Logradouro);
-                        $("#cadastro_Numero").val(m.EnderecoCadastro.Numero);
-                        $("#cadastro_Complemento").val(m.EnderecoCadastro.Complemento);
-                        $("#cadastro_Bairro").val(m.EnderecoCadastro.Bairro);
-                        $("#cadastro_Municipio").val(m.EnderecoCadastro.Municipio);
-                        $("#cadastro_UF").val(m.EnderecoCadastro.UF);
-                        $("#cadastro_CEP").val(m.EnderecoCadastro.Cep);
-                        $("#cadastro_Email").val(m.EnderecoCadastro.Email);
-                        $("#cadastro_Telefone1").val(m.EnderecoCadastro.Telefone1);
-                    }
-                    else {
-                        $('#formCadastroCliente').each(function () {
-                            this.reset();
-                        });
-                        alert("CNPJ não encontrado!");
-                    }
-                },
-                error: function (event) {
-                    alert(event.message);
-                },
-                complete: function () {
-                    $('#btnConsultaCNPJ').prop('value', 'Consultar pelo CNPJ').prop('disabled', false);
-                }
-            });
-        }
-        else {
-            alert("CNPJ inválido, informe apenas caracteres numéricos com 14 caractéres");
-        }
+        ConsultarCNPJ(cnpj);
     });
 
     $('#check_Cobranca_Cadastro').click(function () {
@@ -274,3 +234,50 @@
         }
     });
 });
+
+function ConsultarCNPJ(cnpj) {
+    
+    var rgx = new RegExp("^[0-9]{14}$");
+    if (rgx.test(cnpj)) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/AreaRestrita/Cliente/ConsultarCNPJ',
+            data: "cnpj=" + cnpj,
+            beforeSend: function () {
+                $('#btnConsultaCNPJ').prop('value', 'Aguarde...').prop('disabled', true);
+            },
+            success:
+            function (m) {
+                if (m.Status !== "ERROR") {
+                    $("#txtRazaoSocial").val(m.RazaoSocial);
+                    $("#txtNomeFantasia").val(m.NomeFantasia);
+                    $("#cadastro_Logradouro").val(m.EnderecoCadastro.Logradouro);
+                    $("#cadastro_Numero").val(m.EnderecoCadastro.Numero);
+                    $("#cadastro_Complemento").val(m.EnderecoCadastro.Complemento);
+                    $("#cadastro_Bairro").val(m.EnderecoCadastro.Bairro);
+                    $("#cadastro_Municipio").val(m.EnderecoCadastro.Municipio);
+                    $("#cadastro_UF").val(m.EnderecoCadastro.UF);
+                    $("#cadastro_CEP").val(m.EnderecoCadastro.Cep);
+                    $("#cadastro_Email").val(m.EnderecoCadastro.Email);
+                    $("#cadastro_Telefone1").val(m.EnderecoCadastro.Telefone1);
+                }
+                else {
+                    $('#formCadastroCliente').each(function () {
+                        this.reset();
+                    });
+                    alert("CNPJ não encontrado!");
+                }
+            },
+            error: function (e) {
+                alert(e.message);
+            },
+            complete: function () {
+                $('#btnConsultaCNPJ').prop('value', 'Consultar pelo CNPJ').prop('disabled', false);
+            }
+        });
+    }
+    else {
+        alert("CNPJ inválido, informe apenas caracteres numéricos com 14 caractéres");
+    }
+};

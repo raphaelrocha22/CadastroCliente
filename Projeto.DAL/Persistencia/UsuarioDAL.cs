@@ -1,12 +1,6 @@
 ﻿using Projeto.DAL.Repositorio;
 using Projeto.Entidades;
-using Projeto.Util;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Projeto.DAL.Persistencia
 {
@@ -19,7 +13,6 @@ namespace Projeto.DAL.Persistencia
             string query = "select idUsuario,nome,login from Usuario where login = @login and senha = @senha";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@login", login);
-            string tt = Criptografia.EncriptarSenha(senha);
             cmd.Parameters.AddWithValue("@senha",Criptografia.EncriptarSenha(senha));
             dr = cmd.ExecuteReader();
 

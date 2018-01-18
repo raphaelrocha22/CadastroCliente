@@ -45,7 +45,7 @@
     <Compile Include="Endereco.cs" />
     <Compile Include="Enum\ClasseCliente.cs" />
     <Compile Include="Enum\ModalidadeClubR.cs" />
-    <Compile Include="Enum\TipoCliente.cs" />
+    <Compile Include="Enum\TipoEndereco.cs" />
     <Compile Include="Enum\TipoRepresentante.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Representante.cs" />

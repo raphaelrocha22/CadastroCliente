@@ -24,7 +24,6 @@ namespace Projeto.DAL.Persistencia
             return qtd > 0;
         }
 
-
         public void CadastrarCliente(Cliente c)
         {
             try
@@ -62,7 +61,7 @@ namespace Projeto.DAL.Persistencia
                     cmd.Parameters.AddWithNullValue("@telefone1", e.Telefone1);
                     cmd.Parameters.AddWithNullValue("@telefone2", e.Telefone2);
                     cmd.Parameters.AddWithNullValue("@email", e.Email);
-                    cmd.Parameters.AddWithValue("@tipo", e.Tipo);
+                    cmd.Parameters.AddWithValue("@tipo", e.Tipo.ToString());
                     cmd.Parameters.AddWithValue("@idCliente", c.IdCliente);
                     cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
                     cmd.ExecuteNonQuery();
@@ -114,9 +113,11 @@ namespace Projeto.DAL.Persistencia
                 
                 if (cnpj != null)
                     query += "and cnpj = @cnpj ";
-                                
+
                 if (idRepresentante != 0)
                     query += "and c.idRepresentante = @idRepresentante ";
+
+                /// Implementar a pesquisa por Estado, Cidade e Bairro
 
                 cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithNullValue("@idCliente", idCliente);
@@ -126,7 +127,6 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithNullValue("@nomeFantasia", nomeFantasia);
                 cmd.Parameters.AddWithNullValue("@cnpj", cnpj);
                 cmd.Parameters.AddWithNullValue("@idRepresentante", idRepresentante);
-                cmd.Parameters.AddWithNullValue("@ativo", true);
                 cmd.Parameters.AddWithNullValue("@dataInico", dataInico);
                 cmd.Parameters.AddWithNullValue("@dataFim", dataFim);
                 dr = cmd.ExecuteReader();
@@ -153,57 +153,7 @@ namespace Projeto.DAL.Persistencia
 
                     lista.Add(c);
                 }
-
                 return lista;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-                FecharConexao();
-            }
-        }
-
-
-        public Cliente ObterCliente(int id)
-        {
-            try
-            {
-                AbrirConexao();
-
-                string query = "select idCliente, ISNULL(codCliente,0) codCliente, codun, razaoSocial, nomeFantasia, cnpj, inscricaoEstadual, " +
-                    "inscricaoMunicipal, classe, c.dataCadastro, c.idRepresentante, r.nome from Cliente c " +
-                    "inner join Representante r on c.idRepresentante = r.idRepresentante where c.idCliente = @idcliente";
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@idCliente",id);
-                dr = cmd.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    var c = new Cliente();
-                    c.Representante = new Representante();
-
-                    c.IdCliente = (int)dr["idCliente"];
-                    c.CodCliente = (int)dr["codCliente"];
-                    c.RazaoSocial = dr["razaoSocial"].ToString();
-                    c.NomeFantasia = dr["nomeFantasia"].ToString();
-                    c.Cnpj = dr["cnpj"].ToString();
-                    c.InscricaoEstadual = dr["inscricaoEstadual"].ToString();
-                    c.InscricaoMunicipal = dr["inscricaoMunicipal"].ToString();
-                    c.Classe = (ClasseCliente)Enum.Parse(typeof(ClasseCliente),dr["classe"].ToString());
-                    c.DataCadastro = (DateTime)dr["dataCadastro"];
-                    c.Representante.IdRepresentante = (int)dr["idRepresentante"];
-                    c.Representante.Nome = dr["nome"].ToString();
-
-                    return c;
-                }
-                else
-                {
-                    throw new Exception("Cod Cliente não encontrado");
-                }
-                
             }
             catch (Exception e)
             {
@@ -243,7 +193,7 @@ namespace Projeto.DAL.Persistencia
                     e.Telefone1 = dr["telefone1"].ToString();
                     e.Telefone2 = dr["telefone2"].ToString();
                     e.Email = dr["email"].ToString();
-                    e.Tipo = dr["tipo"].ToString();
+                    e.Tipo = (TipoEndereco)Enum.Parse(typeof(TipoEndereco),dr["tipo"].ToString());
                     e.DataCadastro = (DateTime)dr["dataCadastro"];
 
                     lista.Add(e);
@@ -259,8 +209,7 @@ namespace Projeto.DAL.Persistencia
                 FecharConexao();
             }
         }
-
-
+        
         public void AtualizarCliente(Cliente c)
         {
             try
@@ -303,7 +252,7 @@ namespace Projeto.DAL.Persistencia
                     cmd.Parameters.AddWithNullValue("@telefone1", e.Telefone1);
                     cmd.Parameters.AddWithNullValue("@telefone2", e.Telefone2);
                     cmd.Parameters.AddWithNullValue("@email", e.Email);
-                    cmd.Parameters.AddWithValue("@tipo", e.Tipo);
+                    cmd.Parameters.AddWithValue("@tipo", e.Tipo.ToString());
                     cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
                     cmd.Parameters.AddWithValue("@idCliente", c.IdCliente);
                     cmd.Parameters.AddWithValue("@idEndereco", e.IdEndereco);

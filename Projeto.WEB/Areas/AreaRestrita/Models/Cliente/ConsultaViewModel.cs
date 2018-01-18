@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
@@ -11,6 +8,9 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
         public int CodCliente { get; set; }
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
+        /// <summary>
+        /// string por causa da exibição na tela via Jquery
+        /// </summary>
         public string DataCadastro { get; set; }
         public string Classe { get; set; }
 

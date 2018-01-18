@@ -70,19 +70,19 @@ namespace Projeto.WEB.Controllers
                     {
                         d.AtualizarSenha(model.Senha, u.IdUsuario);
 
-                        ViewBag.Resultado = true;
+                        ViewBag.Sucesso = true;
                         ViewBag.Mensagem = "Senha alterada com sucesso";
                         ModelState.Clear();
                     }
                     else
                     {
-                        ViewBag.Resultado = false;
+                        ViewBag.Sucesso = false;
                         ViewBag.Mensagem = "Não foi possível completar a operação, usuário ou senha incorretos";
                     }
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Resultado = false;
+                    ViewBag.Sucesso = false;
                     ViewBag.Mensagem = $"Erro não esperado, por favor entre em contato com o administrador do sistema. Erro: {e.Message}";
                 }
             }
