@@ -28,6 +28,11 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
             get
             {
                 Usuario u = (Usuario)HttpContext.Current.Session["usuario"];
+
+                ///Bug apenas no pc do desenvolvedor :(
+                if (u == null)
+                    return 2;
+
                 return u.IdUsuario;
             }
             set { }

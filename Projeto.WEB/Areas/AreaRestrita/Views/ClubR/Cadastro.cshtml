@@ -5,8 +5,14 @@
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
+
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
 <link href="~/Content/CssCustom.css" rel="stylesheet" />
 <script src="~/Scripts/jquery.validate.min.js"></script>
+
+<script src="~/Scripts/ClubR/cadastro.js"></script>
 
 <h4>Cadastro Cliente ClubR</h4>
 <hr />
@@ -19,15 +25,11 @@
                 <label>CODUN</label>
                 <input type="text" id="txtCodun" class="form-control" name="codun" />
             </div>
-            <div class="col-md-2">
-                <label>Modalidade</label>
-                @Html.EnumDropDownListFor(m => m.ModalidadeClubR,"- Selecione -", new { Class = "form-control", id="optModalidade"})
-            </div>
-            <div class="col-md-1">
-                <label>Contrato</label>
-                <input type="text" id="txtNumeroContrato" class="form-control" readonly />
-            </div>
             <div class="col-md-4">
+                <label>Razao Social</label>
+                <input type="text" id="txtRazaoSocial" class="form-control" name="razaoSocial" />
+            </div>
+            <div class="col-md-3">
                 <label>Nome do Responsável</label>
                 <input type="text" id="txtNomeResponsavel" class="form-control" name="nomeResponsavel" />
             </div>
@@ -35,83 +37,80 @@
                 <label>CPF do Responsável</label>
                 <input type="text" id="txtCpfResponsavel" class="form-control" name="cpfResponsavel" />
             </div>
-        </div>
-
-        <div class="row" style="margin-top:15px">
             <div class="col-md-2">
                 <label>Data Negociação</label>
-                <div class='input-group date'>
-                    <input type="text" class="form-control" id="txtDataNegociacao" />
+                <div class='input-group'>
+                    <input type="text" class="form-control date" id="txtDataNegociacao" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
             </div>
+        </div>
+        <div class="row" style="margin-top:15px">
             <div class="col-md-2">
-                <label>Data Inicio</label>
-                <div class='input-group date'>
-                    <input type="text" class="form-control" id="txtDataInicio" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
+                <label>Modalidade</label>
+                @Html.EnumDropDownListFor(m => m.ModalidadeClubR, "- Selecione -", new { Class = "form-control", id = "optModalidade" })
             </div>
-
             <div class="col-md-2">
                 <label>Período</label>
                 <select class="form-control" id="optPeriodo">
-                    <option value="3">Trimestral</option>
-                    <option value="6">Semestral</option>
-                    <option value="12">Anual</option>
+                    <option value="">-Selecione a Modalidade Primeiro-</option>
                 </select>
             </div>
-
             <div class="col-md-2">
-                <label>Data Fim</label>
-                <div class='input-group date'>
-                    <input type="text" class="form-control" id="txtDataFim" readonly />
+                <label>Data Inicio Contrato</label>
+                <div class='input-group'>
+                    <input type="text" class="form-control date" id="txtDataInicio" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
             </div>
             <div class="col-md-2">
-                <label>Média Histórica</label>
-                <input type="number" class="form-control" id="txtMediaHistoria" />
+                <label>Data Fim Contrato</label>
+                <div class='input-group'>
+                    <input type="text" class="form-control date" id="txtDataFim" readonly />
+                </div>
             </div>
             <div class="col-md-2">
-                <label>Meta Período</label>
-                <input type="number" class="form-control" id="txtMetaPeriodo" />
+                <label>Média Mensal Histórica</label>
+                <input type="number" class="form-control" id="txtMediaHistoria" placeholder="Digite aqui" />
+            </div>
+            <div class="col-md-2">
+                <label>Meta para o Período</label>
+                <input type="number" class="form-control" id="txtMetaPeriodo" placeholder="Digite aqui" />
             </div>
         </div>
         <div class="row" style="margin-top:15px">
             <div class="col-md-2">
                 <label>Crescimento Proposto</label>
-                <select class="form-control" id="optCrescimento">
-                    <option value="0.25">25%</option>
-                    <option value="0.5">50%</option>
-                    <option value="1">100%</option>
-                </select>
+                <input type="text" class="form-control" id="txtCrescimentoProposto" readonly />
             </div>
             <div class="col-md-2">
                 <label>Prazo Pagamento</label>
                 <select class="form-control" id="optPrazoPagamento">
                     <option>Normal</option>
-                    <option>9 vezes</option>
-                    <option>30 dias</option>
+                    <option>9 Vezes</option>
+                    <option>30 Dias</option>
                 </select>
             </div>
             <div class="col-md-2">
                 <label>Desconto</label>
-                <select class="form-control" id="optDesconto">
-                    <option value="0.25">22%</option>
-                    <option value="0.3">30%</option>
-                    <option value="0.33">33%</option>
-                    <option value="0.36">36%</option>
-                    <option value="0.4">40%</option>
-                </select>
+                <select class="form-control" id="optDesconto"></select>
             </div>
-            <div class="col-md-4">
-                <label>Contrato Assinado</label>
-                <input type="file" id="file" class="form-control" />
+            <div class="col-md-2">
+                <label>Rebate Percentual</label>
+                <input type="text" class="form-control" id="txtRebatePercent" readonly />
             </div>
+            <div class="col-md-2">
+                <label>Rebate Valor</label>
+                <input type="number" class="form-control" id="txtRebateValor" readonly />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Contrato Assinado</label>
+            <input type="file" id="file" class="form-control" />
         </div>
         <div class="row" style="margin-top:15px">
             <div class="col-md-2">

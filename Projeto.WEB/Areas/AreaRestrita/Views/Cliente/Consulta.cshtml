@@ -4,8 +4,9 @@
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
-<script src="~/Scripts/moment-with-locales.js"></script>
-<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 
 <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
 <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
@@ -53,7 +54,7 @@
 
                     <div class="col-md-2">
                         <label>Data Inicio</label>
-                        <div class='input-group date'>
+                        <div class='input-group'>
                             <input type="text" class="form-control date" id="txtDataInicio" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
@@ -63,7 +64,7 @@
 
                     <div class="col-md-2">
                         <label>Data Fim</label>
-                        <div class='input-group date'>
+                        <div class='input-group'>
                             <input type="text" class="form-control date" id="txtDataFim" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>

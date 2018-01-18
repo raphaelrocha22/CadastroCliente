@@ -1,13 +1,11 @@
 ﻿$(document).ready(function () {
 
-    $('.date').datetimepicker({
-        locale: 'pt-br',
-        format: 'DD/MM/YYYY'
+    $('.date').datepicker({
     });
 
     $('#btnConsultar').click(function () {
         Consultar();
-    });    
+    });
 });
 
 function Consultar() {
@@ -31,7 +29,7 @@ function Consultar() {
         },
         success: function (lista) {
             var conteudo = "";
-            
+
             $.each(lista, function (i, m) {
 
                 conteudo += "<tr>";
@@ -66,7 +64,9 @@ function exibirDetalhes(id) {
     $.ajax({
         type: "POST",
         url: '/AreaRestrita/Cliente/Consulta',
-        data: "id=" + id,
+        data: model = {
+            IdCliente: id
+        },
         success: function (model) {
             $.each(model, function (i, m) {
 
