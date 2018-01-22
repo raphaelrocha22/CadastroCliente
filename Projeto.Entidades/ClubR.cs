@@ -10,6 +10,7 @@ namespace Projeto.Entidades
     public class ClubR
     {
         public int IdClubR { get; set; }
+        public string Programa { get; set; }
         public int Codun { get; set; }
         public int NumeroContrato { get; set; }
         public string NomeResponsavel { get; set; }
@@ -21,12 +22,12 @@ namespace Projeto.Entidades
         public decimal MediaHistorica { get; set; }
         public int PeriodoMeses { get; set; }
         public decimal MetaPeriodo { get; set; }
-        public double Desconto { get; set; }
-        public double Crescimento { get; set; }
+        public decimal Desconto { get; set; }
+        public decimal Crescimento { get; set; }
         public string PrazoPagamento { get; set; }
         public decimal RebateValor { get; set; }
-        public double RebatePercent { get; set; }
+        public decimal RebatePercent { get; set; }
         public bool Ativo { get; set; }
-        public int Contrato { get; set; }
+        public string Contrato { get; set; }
     }
 }

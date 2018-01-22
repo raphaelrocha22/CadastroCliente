@@ -14,10 +14,12 @@
 
 <script src="~/Scripts/ClubR/cadastro.js"></script>
 
+<script src="~/Scripts/jQuery-Mask-Plugin-v1.7.7-0/jquery.mask.js"></script>
+
 <h4>Cadastro Cliente ClubR</h4>
 <hr />
 
-<form id="cadastroClubR">
+<form id="cadastroClubR" enctype="multipart/form-data" method="post">
     <div class="col-md-12">
 
         <div class="row">
@@ -75,11 +77,11 @@
             </div>
             <div class="col-md-2">
                 <label>Média Mensal Histórica</label>
-                <input type="number" class="form-control" id="txtMediaHistoria" placeholder="Digite aqui" />
+                <input type="text" class="form-control money" id="txtMediaHistorica" placeholder="Digite aqui" />
             </div>
             <div class="col-md-2">
                 <label>Meta para o Período</label>
-                <input type="number" class="form-control" id="txtMetaPeriodo" placeholder="Digite aqui" />
+                <input type="text" class="form-control money" id="txtMetaPeriodo" placeholder="Digite aqui" />
             </div>
         </div>
         <div class="row" style="margin-top:15px">
@@ -105,21 +107,22 @@
             </div>
             <div class="col-md-2">
                 <label>Rebate Valor</label>
-                <input type="number" class="form-control" id="txtRebateValor" readonly />
+                <input type="text" class="form-control" id="txtRebateValor" readonly />
             </div>
         </div>
-        <div class="col-md-4">
-            <label>Contrato Assinado</label>
-            <input type="file" id="file" class="form-control" />
-        </div>
         <div class="row" style="margin-top:15px">
+            <div class="col-md-3">
+                <label>Contrato Assinado</label>
+                <input type="file" id="uplFile" class="form-control" name="contrato" />
+            </div>
+            <div class="col-md-4">
+                <textarea id="txtObservacao" placeholder="Observação..." class="form-control"></textarea>
+            </div>
+
             <div class="col-md-2">
                 <input type="submit" value="Cadastrar" id="btnCadastrar" class="btn btn-primary" />
             </div>
         </div>
-
-
-
 
     </div>
 </form>

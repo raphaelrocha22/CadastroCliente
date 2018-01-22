@@ -406,7 +406,34 @@
     <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\.gitignore" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\.ruby-version" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\.travis.yml" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\bower.json" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\component.json" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\deploy.rb" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\jquery.mask.min.js.gz" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\LICENSE" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\mask.jquery.json" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\package.json" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\README.md" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\CHANGELOG.txt" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\Gruntfile.js" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\jquery.mask.js" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\jquery.mask.min.js" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\jquery.mask.test.js" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\qunit.css" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\qunit.js" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\test-for-jquery-1.11.1.html" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\test-for-jquery-1.7.2.html" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\test-for-jquery-1.8.3.html" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\test-for-jquery-1.9.1.html" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\test-for-jquery-2.1.1.html" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\test-for-zepto.html" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\zepto\data.js" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\zepto\event.js" />
+    <Content Include="Scripts\jQuery-Mask-Plugin-v1.7.7-0\test\zepto\zepto.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -451,6 +478,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Imagens\ClubR\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Projeto.DAL\Projeto.DAL.csproj">

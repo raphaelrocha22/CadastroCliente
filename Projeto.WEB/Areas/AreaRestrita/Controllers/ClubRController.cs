@@ -1,4 +1,5 @@
-﻿using Projeto.Entidades.Enum;
+﻿using Projeto.Entidades;
+using Projeto.Entidades.Enum;
 using Projeto.WEB.Areas.AreaRestrita.Models.ClubR;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         }
 
         public JsonResult Rebate(CadastroViewModel model)
-        {
+      {
             decimal crescimento = Convert.ToDecimal(model.CrescimentoProposto);
 
             var listaRebates = GenericClass.Modalidade_Crescimento_Rebate();
@@ -43,26 +44,49 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return Json(rebate);
         }
 
-        //public ActionResult Teste2()
-        //{
-        //    //var busca = GenericClass.Modalidade_Prazo().Where(c => c.PrazoPagamento.Equals("Anual")).ToList();
+        public JsonResult MetaMinima(CadastroViewModel model)
+        {
+            var listaMetas = GenericClass.Modalidade_MediaMinima_MetaMinima();
+            var mediaMetaMinima = listaMetas.Where(m => m.ModalidadeClubR.Equals(model.ModalidadeClubR)).ToList();
 
-        //    var modalidade_Prazo = GenericClass.Modalidade_Prazo();
-        //    var modalidade_Crescimento_Rebate = GenericClass.Modalidade_Crescimento_Rebate();
-        //    var modalidade_MediaMinima_MetaMinima = GenericClass.Modalidade_MediaMinima_MetaMinima();
-
-        //    var modalidade = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Ouro");
-        //    var result_prazo = modalidade_Prazo.Where(m => m.ModalidadeClubR.Equals(modalidade)).ToList();
-        //    var result_rebate = modalidade_Crescimento_Rebate.Where(m => m.ModalidadeClubR.Equals(modalidade)).ToList();
-        //    var result_mediaMeta = modalidade_MediaMinima_MetaMinima.Where(m => m.ModalidadeClubR.Equals(modalidade)).ToList();
-            
-        //    return View();
-        //}
+            return Json(mediaMetaMinima);
+        }
 
         [HttpPost]
         public JsonResult Cadastro(CadastroViewModel model)
         {
-            return Json("mensagem");
+            try
+            {
+                var c = new ClubR();
+                c.Programa = "ClubR";
+                c.Codun = model.Codun;
+                c.NumeroContrato = model.NumeroContrato;
+                c.NomeResponsavel = model.NomeResponsavel;
+                c.CpfResponsavel = model.CpfResponsavel;
+                c.Modalidade = model.ModalidadeClubR;
+                c.DataNegociacao = model.DataNegociacao;
+                c.DataInicio = model.DataInicioContrato;
+                c.DataFim = model.DataFimContrato;
+                c.MediaHistorica = model.MediaHistorica;
+                c.PeriodoMeses = model.PeriodoMeses;
+                c.MetaPeriodo = model.MetaPeriodo;
+                c.Desconto = model.Desconto;
+                c.Crescimento = Convert.ToDecimal(model.CrescimentoProposto);
+                c.PrazoPagamento = model.PrazoPagamento;
+                c.RebateValor = model.RebateValor;
+                c.Ativo = model.Ativo;
+                c.Programa = model.Programa;
+                c.Contrato = $"{c.Programa}-{model.Codun}-{model.NumeroContrato}";
+
+                string pasta = HttpContext.Server.MapPath("/Imagens/ClubR/");
+                model.Contrato.SaveAs(pasta + c.Contrato);
+
+                return Json("mensagem");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
         }
     }
 }

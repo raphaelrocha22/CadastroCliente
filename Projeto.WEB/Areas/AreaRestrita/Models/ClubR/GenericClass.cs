@@ -9,16 +9,29 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
 {
     public class GenericClass
     {
+        public string Programa { get; set; }
+        public int NumeroContrato { get; set; }
+        public int Codun { get; set; }
+        public string RazaoSocial { get; set; }
+        public string NomeResponsavel { get; set; }
+        public string CpfResponsavel { get; set; }
+        public DateTime DataNegociacao { get; set; }
         public ModalidadeClubR ModalidadeClubR { get; set; }
         public int PeriodoMeses { get; set; }
-        public string PrazoContrato { get; set; }
-        public decimal crescimentoMinimo { get; set; }
-        public decimal crescimentoMaximo { get; set; }
-        public decimal RebatePercent { get; set; }
+        public DateTime DataInicioContrato { get; set; }
+        public DateTime DataFimContrato { get; set; }
         public decimal MediaHistorica { get; set; }
         public decimal MetaPeriodo { get; set; }
+        public string CrescimentoProposto { get; set; }
         public string PrazoPagamento { get; set; }
         public decimal Desconto { get; set; }
+        public decimal RebatePercent { get; set; }
+        public decimal RebateValor { get; set; }
+        public bool Ativo { get; set; }
+
+        public decimal crescimentoMinimo { get; set; }
+        public decimal crescimentoMaximo { get; set; }
+        public string PrazoContrato { get; set; }
 
         public static List<GenericClass> Modalidade_PrazoContrato()
         {
