@@ -1,33 +1,31 @@
 ﻿$(document).ready(function () {
 
     $('#btnCadastrar').click(function () {
+        debugger;
         var formData = new FormData($("#uplFile")[0]);
         var model = {
-            NumeroContrato: 1,
             Codun: $('#txtCodun').val(),
+            NumeroContrato: $('#txtNumeroContrato').val(),
             RazaoSocial: $("#txtRazaoSocial").val(),
             NomeResponsavel: $("#txtNomeResponsavel").val(),
             CpfResponsavel: $("#txtCpfResponsavel").val(),
-            DataNegociacao: $("#txtDataNegociacao").val(),
+            //DataNegociacao: $("#txtDataNegociacao").val(),
             ModalidadeClubR: $("#optModalidade").val(),
-            PeriodoMeses: $("#optPeriodo").val(),
-            DataInicioContrato: $("#txtDataInicio").val(),
-            DataFimContrato: $("#txtDataFim").val(),
-            MediaHistorica: $("#txtMediaHistorica").val(),
-            MetaPeriodo: $("#txtMetaPeriodo").val(),
-            CrescimentoProposto: $("#txtCrescimentoProposto").val(),
+            PeriodoMeses: parseInt($("#optPeriodo").val()),
+            //DataInicioContrato: $("#txtDataInicio").val(),
+            //DataFimContrato: $("#txtDataFim").val(),
+            MediaHistorica: ($("#txtMediaHistorica").val()).replace('.', ''),
+            MetaPeriodo: ($("#txtMetaPeriodo").val()).replace('.',''),
+            CrescimentoProposto: ($("#txtCrescimentoProposto").val()).replace('%','').replace('.',','),
             PrazoPagamento: $("#optPrazoPagamento").val(),
-            Desconto: $("#optDesconto").val(),
-            RebatePercent: $("#txtRebatePercent").val(),
-            RebateValor: $("#txtRebateValor").val(),
+            Desconto: ($("#optDesconto").val()).replace('.',','),
+            RebatePercent: ($("#txtRebatePercent").val()).replace('%','').replace('.',','),
             Contrato: formData,
-            Obervacao: $("#txtObservacao").val(),
-            Ativo: true
+            Obervacao: $("#txtObservacao").val()
         };
         $.ajax({
             type: 'POST',
             url: '/AreaRestrita/ClubR/Cadastro',
-            dataType: 'JSON',
             data: model,
             success: function (data) {
                 alert("OK");
@@ -38,7 +36,23 @@
         });
     });
 
-    $('.money').mask('000.000.000.000.000,00', { reverse: true });
+    $("#txtCodun").change(function () {
+        $.ajax({
+            type: 'POST',
+            url: '/AreaRestrita/ClubR/NumeroContrato',
+            data: model = {
+                Codun: $("#txtCodun").val()
+            },
+            success: function (numeroContrato) {
+                $("#txtNumeroContrato").val(numeroContrato);
+            },
+            error: function (e) {
+                console.log(e.status);
+            }
+        });
+    });
+
+    $('.money').mask('000.000.000.000.000', { reverse: true });
 
     $('.date').datepicker({
     });

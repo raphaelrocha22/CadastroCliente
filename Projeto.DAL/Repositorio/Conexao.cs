@@ -19,6 +19,6 @@ namespace Projeto.DAL.Repositorio
         protected void FecharConexao()
         {
             con.Close();
-        }        
+        }
     }
 }

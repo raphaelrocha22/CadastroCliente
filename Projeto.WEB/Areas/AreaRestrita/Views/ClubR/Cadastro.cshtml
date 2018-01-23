@@ -27,7 +27,11 @@
                 <label>CODUN</label>
                 <input type="text" id="txtCodun" class="form-control" name="codun" />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-1">
+                <label>Contrato</label>
+                <input type="text" id="txtNumeroContrato" class="form-control" name="numeroContrato" readonly />
+            </div>
+            <div class="col-md-3">
                 <label>Razao Social</label>
                 <input type="text" id="txtRazaoSocial" class="form-control" name="razaoSocial" />
             </div>
@@ -92,9 +96,9 @@
             <div class="col-md-2">
                 <label>Prazo Pagamento</label>
                 <select class="form-control" id="optPrazoPagamento">
-                    <option>Normal</option>
-                    <option>9 Vezes</option>
-                    <option>30 Dias</option>
+                    <option value="Normal">Normal</option>
+                    <option value="9 Vezes">9 Vezes</option>
+                    <option value="30 Dias">30 Dias</option>
                 </select>
             </div>
             <div class="col-md-2">

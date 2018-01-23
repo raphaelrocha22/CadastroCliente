@@ -29,5 +29,6 @@ namespace Projeto.Entidades
         public decimal RebatePercent { get; set; }
         public bool Ativo { get; set; }
         public string Contrato { get; set; }
+        public string Observacao { get; set; }
     }
 }

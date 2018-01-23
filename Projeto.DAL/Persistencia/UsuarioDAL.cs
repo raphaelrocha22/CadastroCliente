@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace Projeto.DAL.Persistencia
 {
-    public class UsuarioDAL:Conexao
+    public class UsuarioDAL : Conexao
     {
         public Usuario ObterUsuarioSenha(string login, string senha)
         {
@@ -13,7 +13,7 @@ namespace Projeto.DAL.Persistencia
             string query = "select idUsuario,nome,login from Usuario where login = @login and senha = @senha";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@login", login);
-            cmd.Parameters.AddWithValue("@senha",Criptografia.EncriptarSenha(senha));
+            cmd.Parameters.AddWithValue("@senha", Criptografia.EncriptarSenha(senha));
             dr = cmd.ExecuteReader();
 
             Usuario u = null;
@@ -35,7 +35,7 @@ namespace Projeto.DAL.Persistencia
 
             string query = "update Usuario set senha = @senhaNova where idUsuario = @id";
             cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@senhaNova",Criptografia.EncriptarSenha(senhaNova));
+            cmd.Parameters.AddWithValue("@senhaNova", Criptografia.EncriptarSenha(senhaNova));
             cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery();
 

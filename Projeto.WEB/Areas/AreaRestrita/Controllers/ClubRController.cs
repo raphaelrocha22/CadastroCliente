@@ -1,8 +1,10 @@
-﻿using Projeto.Entidades;
+﻿using Projeto.DAL.Persistencia;
+using Projeto.Entidades;
 using Projeto.Entidades.Enum;
 using Projeto.WEB.Areas.AreaRestrita.Models.ClubR;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +18,13 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         public ActionResult Cadastro()
         {
             return View();
+        }
+
+        public JsonResult NumeroContrato(CadastroViewModel model)
+        {
+            var d = new ClubRDAL();
+            int numeroContrato = d.NumeroContrato(model.Codun);
+            return Json(numeroContrato);
         }
 
         public JsonResult PrazosContrato(CadastroViewModel model)
@@ -70,18 +79,19 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 c.MediaHistorica = model.MediaHistorica;
                 c.PeriodoMeses = model.PeriodoMeses;
                 c.MetaPeriodo = model.MetaPeriodo;
-                c.Desconto = model.Desconto;
+                c.Desconto = Convert.ToDecimal(model.Desconto);
                 c.Crescimento = Convert.ToDecimal(model.CrescimentoProposto);
                 c.PrazoPagamento = model.PrazoPagamento;
-                c.RebateValor = model.RebateValor;
-                c.Ativo = model.Ativo;
-                c.Programa = model.Programa;
-                c.Contrato = $"{c.Programa}-{model.Codun}-{model.NumeroContrato}";
+                c.RebatePercent = Convert.ToDecimal(model.RebatePercent)/100;
+                c.RebateValor = c.MetaPeriodo * c.RebatePercent;
+                c.Ativo = true;
+                c.Contrato = $"{c.Programa}-{c.Codun}-{c.NumeroContrato}";
 
                 string pasta = HttpContext.Server.MapPath("/Imagens/ClubR/");
-                model.Contrato.SaveAs(pasta + c.Contrato);
+                string extesao = Path.GetExtension(model.Contrato.FileName);
+                model.Contrato.SaveAs(pasta + c.Contrato+extesao);
 
-                return Json("mensagem");
+                return Json(c);
             }
             catch (Exception e)
             {
