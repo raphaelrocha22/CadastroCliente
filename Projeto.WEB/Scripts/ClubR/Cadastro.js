@@ -1,41 +1,5 @@
 ﻿$(document).ready(function () {
 
-    $('#btnCadastrar').click(function () {
-        debugger;
-        var formData = new FormData($("#uplFile")[0]);
-        var model = {
-            Codun: $('#txtCodun').val(),
-            NumeroContrato: $('#txtNumeroContrato').val(),
-            RazaoSocial: $("#txtRazaoSocial").val(),
-            NomeResponsavel: $("#txtNomeResponsavel").val(),
-            CpfResponsavel: $("#txtCpfResponsavel").val(),
-            //DataNegociacao: $("#txtDataNegociacao").val(),
-            ModalidadeClubR: $("#optModalidade").val(),
-            PeriodoMeses: parseInt($("#optPeriodo").val()),
-            //DataInicioContrato: $("#txtDataInicio").val(),
-            //DataFimContrato: $("#txtDataFim").val(),
-            MediaHistorica: ($("#txtMediaHistorica").val()).replace('.', ''),
-            MetaPeriodo: ($("#txtMetaPeriodo").val()).replace('.',''),
-            CrescimentoProposto: ($("#txtCrescimentoProposto").val()).replace('%','').replace('.',','),
-            PrazoPagamento: $("#optPrazoPagamento").val(),
-            Desconto: ($("#optDesconto").val()).replace('.',','),
-            RebatePercent: ($("#txtRebatePercent").val()).replace('%','').replace('.',','),
-            Contrato: formData,
-            Obervacao: $("#txtObservacao").val()
-        };
-        $.ajax({
-            type: 'POST',
-            url: '/AreaRestrita/ClubR/Cadastro',
-            data: model,
-            success: function (data) {
-                alert("OK");
-            },
-            error: function (e) {
-                console.log(e.status);
-            }
-        });
-    });
-
     $("#txtCodun").change(function () {
         $.ajax({
             type: 'POST',
@@ -53,6 +17,7 @@
     });
 
     $('.money').mask('000.000.000.000.000', { reverse: true });
+    $('.cpf').mask('000.000.000-00', { reverse: true });
 
     $('.date').datepicker({
     });
@@ -98,6 +63,7 @@ function CalcularDataFim() {
     if ($('#optPeriodo').val() !== "" && $("#txtDataInicio").val() !== "") {
         var d = $.datepicker.parseDate('dd/mm/yy', $("#txtDataInicio").val());
         d.setMonth(d.getMonth() + parseInt($("#optPeriodo").val()));
+        d.setDate(d.getDate() - 1);
         $('#txtDataFim').datepicker('setDate', d);
     }
 }

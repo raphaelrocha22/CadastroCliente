@@ -44,7 +44,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         }
 
         public JsonResult Rebate(CadastroViewModel model)
-      {
+        {
             decimal crescimento = Convert.ToDecimal(model.CrescimentoProposto);
 
             var listaRebates = GenericClass.Modalidade_Crescimento_Rebate();
@@ -62,41 +62,48 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         }
 
         [HttpPost]
-        public JsonResult Cadastro(CadastroViewModel model)
+        public ActionResult Cadastro(CadastroViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var c = new ClubR();
-                c.Programa = "ClubR";
-                c.Codun = model.Codun;
-                c.NumeroContrato = model.NumeroContrato;
-                c.NomeResponsavel = model.NomeResponsavel;
-                c.CpfResponsavel = model.CpfResponsavel;
-                c.Modalidade = model.ModalidadeClubR;
-                c.DataNegociacao = model.DataNegociacao;
-                c.DataInicio = model.DataInicioContrato;
-                c.DataFim = model.DataFimContrato;
-                c.MediaHistorica = model.MediaHistorica;
-                c.PeriodoMeses = model.PeriodoMeses;
-                c.MetaPeriodo = model.MetaPeriodo;
-                c.Desconto = Convert.ToDecimal(model.Desconto);
-                c.Crescimento = Convert.ToDecimal(model.CrescimentoProposto);
-                c.PrazoPagamento = model.PrazoPagamento;
-                c.RebatePercent = Convert.ToDecimal(model.RebatePercent)/100;
-                c.RebateValor = c.MetaPeriodo * c.RebatePercent;
-                c.Ativo = true;
-                c.Contrato = $"{c.Programa}-{c.Codun}-{c.NumeroContrato}";
+                try
+                {
+                    var c = new ClubR();
+                    c.Programa = "ClubR";
+                    c.Codun = model.Codun;
+                    c.NumeroContrato = model.NumeroContrato;
+                    c.NomeResponsavel = model.NomeResponsavel;
+                    c.CpfResponsavel = model.CpfResponsavel;
+                    c.Modalidade = model.ModalidadeClubR;
+                    c.DataNegociacao = model.DataNegociacao;
+                    c.DataInicio = model.DataInicioContrato;
+                    c.DataFim = model.DataFimContrato;
+                    c.MediaHistorica = Convert.ToDecimal(model.MediaHistorica.Replace(".", ""));
+                    c.PeriodoMeses = model.PeriodoMeses;
+                    c.MetaPeriodo = Convert.ToDecimal(model.MetaPeriodo.Replace(".", ""));
+                    c.Desconto = Convert.ToDecimal(model.Desconto.Replace(".",","));
+                    c.Crescimento = Convert.ToDecimal(model.CrescimentoProposto.Replace("%", "").Replace(".", ","));
+                    c.PrazoPagamento = model.PrazoPagamento;
+                    c.RebatePercent = Convert.ToDecimal(model.RebatePercent.Replace("%","")) / 100;
+                    c.RebateValor = c.MetaPeriodo * c.RebatePercent;
+                    c.Ativo = true;
+                    c.Observacao = model.Obervacao;
+                    c.Contrato = $"{c.Programa}-{c.Codun}-{c.NumeroContrato}";
 
-                string pasta = HttpContext.Server.MapPath("/Imagens/ClubR/");
-                string extesao = Path.GetExtension(model.Contrato.FileName);
-                model.Contrato.SaveAs(pasta + c.Contrato+extesao);
+                    var d = new ClubRDAL();
+                    d.Cadastrar(c);
 
-                return Json(c);
+                    string pasta = HttpContext.Server.MapPath("/Imagens/ClubR/");
+                    string extesao = Path.GetExtension(model.Contrato.FileName);
+                    model.Contrato.SaveAs(pasta + c.Contrato + extesao);
+                                        
+                }
+                catch (Exception e)
+                {
+                    return Json(e.Message);
+                }
             }
-            catch (Exception e)
-            {
-                return Json(e.Message);
-            }
+            return View(new CadastroViewModel());
         }
     }
 }
