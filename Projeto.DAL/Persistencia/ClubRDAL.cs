@@ -57,7 +57,7 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithValue("@rebatePercent", c.RebatePercent);
                 cmd.Parameters.AddWithValue("@ativo", c.Ativo);
                 cmd.Parameters.AddWithValue("@contrato", c.Contrato);
-                cmd.Parameters.AddWithValue("@observacao", c.Observacao);
+                cmd.Parameters.AddWithNullValue("@observacao", c.Observacao);
                 cmd.ExecuteNonQuery();
 
                 tr.Commit();

@@ -49,6 +49,11 @@
 
     $('#txtMetaPeriodo').change(function () {
         Crescimento();
+        Rebate();
+    });
+
+    $('#optRebatePercent').change(function () {
+        Rebate();
     });
 
     $('#optPrazoPagamento').change(function () {
@@ -116,29 +121,7 @@ function Crescimento() {
         var mediaHistorica = parseFloat($("#txtMediaHistorica").val());
         var crescimento = (((mediaMensalPeriodo / mediaHistorica) - 1) * 100).toFixed(1);
         $("#txtCrescimentoProposto").val(crescimento + "%");
-
-        Rebate();
     }
-}
-
-function Rebate() {
-    $.ajax({
-        type: "POST",
-        url: '/AreaRestrita/ClubR/Rebate',
-        data: model = {
-            ModalidadeClubR: $("#optModalidade").val(),
-            CrescimentoProposto: (($("#txtCrescimentoProposto").val().replace('%', '') / 100).toFixed(3)).replace('.', ',')
-        },
-        success: function (data) {
-            $.each(data, function (i, d) {
-                $("#txtRebatePercent").val((d.RebatePercent * 100) + "%");
-                $("#txtRebateValor").val(parseFloat($("#txtMetaPeriodo").val()) * d.RebatePercent);
-            });
-        },
-        error: function (e) {
-            console.log(e.status);
-        }
-    });
 }
 
 function MetaMinima() {
@@ -158,4 +141,12 @@ function MetaMinima() {
             console.log(e.status);
         }
     });
+}
+
+function Rebate() {
+    if ($("#optRebatePercent").val() != "" && $('#txtMetaPeriodo').val() != "") {
+        var rebatePercent = $("#optRebatePercent").val();
+        var Meta = ($("#txtMetaPeriodo").val()).replace('.', '');
+        $('#txtRebateValor').val(rebatePercent * Meta);
+    }
 }

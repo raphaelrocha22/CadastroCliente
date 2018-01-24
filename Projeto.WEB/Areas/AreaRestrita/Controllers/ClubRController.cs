@@ -43,16 +43,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return Json(descontos);
         }
 
-        public JsonResult Rebate(CadastroViewModel model)
-        {
-            decimal crescimento = Convert.ToDecimal(model.CrescimentoProposto);
-
-            var listaRebates = GenericClass.Modalidade_Crescimento_Rebate();
-            var rebate = listaRebates.Where(m => m.ModalidadeClubR.Equals(model.ModalidadeClubR) && crescimento >= m.crescimentoMinimo && crescimento <= m.crescimentoMaximo).ToList();
-
-            return Json(rebate);
-        }
-
         public JsonResult MetaMinima(CadastroViewModel model)
         {
             var listaMetas = GenericClass.Modalidade_MediaMinima_MetaMinima();
@@ -96,14 +86,17 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     string pasta = HttpContext.Server.MapPath("/Imagens/ClubR/");
                     string extesao = Path.GetExtension(model.Contrato.FileName);
                     model.Contrato.SaveAs(pasta + c.Contrato + extesao);
+
+                    ModelState.Clear();
+                    ViewBag.Mensagem = $"Cliente {model.RazaoSocial}, CODUN {model.Codun} cadastrado com sucesso no programa ClubR";                  
                                         
                 }
                 catch (Exception e)
                 {
-                    return Json(e.Message);
+                    ViewBag.Mensagem = "Erro: " + e.Message;
                 }
             }
-            return View(new CadastroViewModel());
+            return View();
         }
     }
 }
