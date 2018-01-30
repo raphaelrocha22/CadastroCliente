@@ -17,6 +17,7 @@
     });
 
     $('.money').mask('000.000.000.000.000', { reverse: true });
+
     $('.cpf').mask('000.000.000-00', { reverse: true });
 
     $('.date').datepicker({
@@ -58,10 +59,13 @@
 
     $('#optPrazoPagamento').change(function () {
         Descontos();
+        $("#optDesconto").val("");
+        $("#txtMarkUP").val("");
     });
 
-    $('#optPrazoPagamento').val("Normal");
-    Descontos();
+    $('#optDesconto').change(function () {
+        MarkUP();
+    });
 });
 
 function CalcularDataFim() {
@@ -103,6 +107,7 @@ function Descontos() {
         success: function (data) {
             var selectbox = $('#optDesconto');
             selectbox.find('option').remove();
+            $('<option>').val("").text("-Selecione-").appendTo(selectbox);
             $.each(data, function (i, d) {
                 $('<option>').val(d.Desconto).text(((d.Desconto) * 100).toFixed(1) + "%").appendTo(selectbox);
             });
@@ -114,9 +119,7 @@ function Descontos() {
 }
 
 function Crescimento() {
-
     if ($('#txtMediaHistoria').val() !== "" && $('#txtMetaPeriodo').val() !== "" && $('#optPeriodo').val() != "") {
-
         var mediaMensalPeriodo = parseFloat($("#txtMetaPeriodo").val()) / parseFloat($("#optPeriodo").val());
         var mediaHistorica = parseFloat($("#txtMediaHistorica").val());
         var crescimento = (((mediaMensalPeriodo / mediaHistorica) - 1) * 100).toFixed(1);
@@ -148,5 +151,13 @@ function Rebate() {
         var rebatePercent = $("#optRebatePercent").val();
         var Meta = ($("#txtMetaPeriodo").val()).replace('.', '');
         $('#txtRebateValor').val(rebatePercent * Meta);
+    }
+}
+
+function MarkUP() {
+    if ($('#optDesconto') != "") {
+        var desconto = $("#optDesconto").val();
+        var markup = 2.52 / (1 - desconto);
+        $("#txtMarkUP").val(markup.toFixed(1));
     }
 }

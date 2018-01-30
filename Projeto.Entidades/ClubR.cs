@@ -23,6 +23,7 @@ namespace Projeto.Entidades
         public int PeriodoMeses { get; set; }
         public decimal MetaPeriodo { get; set; }
         public decimal Desconto { get; set; }
+        public decimal Markup { get; set; }
         public decimal Crescimento { get; set; }
         public string PrazoPagamento { get; set; }
         public decimal RebateValor { get; set; }
@@ -30,5 +31,7 @@ namespace Projeto.Entidades
         public bool Ativo { get; set; }
         public string Contrato { get; set; }
         public string Observacao { get; set; }
+
+        public Usuario usuario { get; set; }
     }
 }

@@ -27,32 +27,32 @@
             <div class="row">
                 <div class="col-md-1">
                     <label>CODUN</label>
-                    <input type="text" id="txtCodun" class="form-control" name="Codun" />
+                    @Html.TextBoxFor(m => m.Codun, new {Class = "form-control", id="txtCodun"})
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.Codun)</span>
                 </div>
                 <div class="col-md-1">
                     <label>Contrato</label>
-                    <input type="text" id="txtNumeroContrato" class="form-control" name="NumeroContrato" readonly />
+                    @Html.TextBoxFor(m => m.NumeroContrato, new { Class = "form-control", id = "txtNumeroContrato", Readonly = "readonly" })
                 </div>
                 <div class="col-md-3">
                     <label>Razao Social</label>
-                    <input type="text" id="txtRazaoSocial" class="form-control" name="RazaoSocial" />
+                    @Html.TextBoxFor(m => m.RazaoSocial, new { Class = "form-control", id = "txtRazaoSocial"})
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.RazaoSocial)</span>
                 </div>
                 <div class="col-md-3">
                     <label>Nome do Responsável</label>
-                    <input type="text" id="txtNomeResponsavel" class="form-control" name="NomeResponsavel" />
+                    @Html.TextBoxFor(m => m.NomeResponsavel, new { Class = "form-control", id = "txtNomeResponsavel" })
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.NomeResponsavel)</span>
                 </div>
                 <div class="col-md-2">
                     <label>CPF do Responsável</label>
-                    <input type="text" id="txtCpfResponsavel" class="form-control cpf" name="CpfResponsavel" />
+                    @Html.TextBoxFor(m => m.CpfResponsavel, new { Class = "form-control", id = "txtCpfResponsavel" })
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.CpfResponsavel)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Data Negociação</label>
                     <div class='input-group'>
-                        <input type="text" class="form-control date" id="txtDataNegociacao" name="DataNegociacao" />
+                        @Html.TextBoxFor(m => m.DataNegociacao, new { Class = "form-control date", id = "txtDataNegociacao" })
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -76,7 +76,7 @@
                 <div class="col-md-2">
                     <label>Data Inicio Contrato</label>
                     <div class='input-group'>
-                        <input type="text" class="form-control date" id="txtDataInicio" name="DataInicioContrato" />
+                        @Html.TextBoxFor(m => m.DataInicioContrato, new { Class = "form-control date", id = "txtDataInicio" })
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -86,30 +86,31 @@
                 <div class="col-md-2">
                     <label>Data Fim Contrato</label>
                     <div class='input-group'>
-                        <input type="text" class="form-control date" id="txtDataFim" name="DataFimContrato" readonly />
+                        @Html.TextBoxFor(m => m.DataFimContrato, new { Class = "form-control date", id = "txtDataFim", Readonly = "readonly" })
                     </div>
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.DataFimContrato)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Média Mensal Histórica</label>
-                    <input type="text" class="form-control money" id="txtMediaHistorica" name="MediaHistorica" />
+                    @Html.TextBoxFor(m => m.MediaHistorica, new { Class = "form-control money", id = "txtMediaHistorica" })
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.MediaHistorica)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Meta para o Período</label>
-                    <input type="text" class="form-control money" id="txtMetaPeriodo" name="MetaPeriodo" />
+                    @Html.TextBoxFor(m => m.MetaPeriodo, new { Class = "form-control money", id = "txtMetaPeriodo" })
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.MetaPeriodo)</span>
                 </div>
             </div>
             <div class="row" style="margin-top:15px">
                 <div class="col-md-2">
                     <label>Crescimento Proposto</label>
-                    <input type="text" class="form-control" id="txtCrescimentoProposto" name="CrescimentoProposto" readonly />
+                    @Html.TextBoxFor(m => m.CrescimentoProposto, new { Class = "form-control", id = "txtCrescimentoProposto", Readonly = "readonly" })
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.CrescimentoProposto)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Prazo Pagamento</label>
                     <select class="form-control" id="optPrazoPagamento" name="PrazoPagamento">
+                        <option value="">-Selecione-</option>
                         <option>2 Vezes</option>
                         <option>3 Vezes</option>
                         <option>4 Vezes</option>
@@ -122,6 +123,10 @@
                     <label>Desconto</label>
                     <select class="form-control" id="optDesconto" name="Desconto"></select>
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.Desconto)</span>
+                </div>
+                <div class="col-md-2">
+                    <label>MarkUP</label>
+                    <input type="text" id="txtMarkUP" class="form-control" readonly />
                 </div>
                 <div class="col-md-2">
                     <label>Rebate Percentual</label>
@@ -145,7 +150,7 @@
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.Contrato)</span>
                 </div>
                 <div class="col-md-4">
-                    <textarea id="txtObservacao" placeholder="Observação..." class="form-control" name="Obervacao"></textarea>
+                    @Html.TextAreaFor(m => m.Obervacao, new { Class = "form-control", id = "txtObservacao", placeholder = "Observação..." })
                     <span class="text-danger">@Html.ValidationMessageFor(m => m.Obervacao)</span>
                 </div>
 
@@ -156,5 +161,6 @@
             <div class="row" style="margin-top:15px">
                 @ViewBag.Mensagem
             </div>
-        </div>
+
+            </div>
 }

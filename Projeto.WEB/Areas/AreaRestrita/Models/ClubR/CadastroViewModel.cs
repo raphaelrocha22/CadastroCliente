@@ -1,4 +1,6 @@
-﻿using Projeto.Entidades.Enum;
+﻿using Projeto.Entidades;
+using Projeto.Entidades.Enum;
+using Projeto.WEB.Validacao;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,16 +21,14 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
         public string RazaoSocial { get; set; }
 
         [RegularExpression("^[a-zA-Zà-üÀ-Ü\\s]{4,50}$", ErrorMessage = "Digite apenas letas com até 50 caracteres")]
-        [Required(ErrorMessage = "Campo Obrigatório")]
         public string NomeResponsavel { get; set; }
 
         [RegularExpression("^[-.0-9\\s]{11,14}$", ErrorMessage = "Digite apenas números")]
-        [Required(ErrorMessage = "Campo Obrigatório")]
         public string CpfResponsavel { get; set; }
 
-        [Required(ErrorMessage = "Campo Obrigatório")]
         public DateTime DataNegociacao { get; set; }
 
+        [UpdateImageValidator(ErrorMessage = "Formato do arquivo inválido, formatos aceitos: PDF, JPG, BMP e PNG de até 10 MB")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public HttpPostedFileBase Contrato { get; set; }
 
@@ -61,6 +61,9 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
         public string Desconto { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
+        public decimal MarkUP { get; set; }
+
+        [Required(ErrorMessage = "Campo Obrigatório")]
         public string RebatePercent { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
@@ -68,5 +71,19 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
 
         [Required(ErrorMessage = "Campo Obrigatório")]
         public ModalidadeClubR ModalidadeClubR { get; set; }
+
+        public int IdUsuario
+        {
+            get
+            {
+                Usuario u = (Usuario)HttpContext.Current.Session["usuario"];
+
+                ///Bug apenas no pc do desenvolvedor :(
+                if (u == null)
+                    return 2;
+
+                return u.IdUsuario;
+            }
+        }
     }
 }

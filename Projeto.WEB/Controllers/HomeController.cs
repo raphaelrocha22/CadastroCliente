@@ -26,7 +26,7 @@ namespace Projeto.WEB.Controllers
                 try
                 {
                     var d = new UsuarioDAL();
-                    Usuario u = d.ObterUsuarioSenha(model.Login, model.Senha);
+                    Usuario u = d.ObterUsuarioSenha(model.Login.ToLower(), model.Senha);
 
                     if (u != null)
                     {
@@ -64,7 +64,7 @@ namespace Projeto.WEB.Controllers
                 try
                 {
                     var d = new UsuarioDAL();
-                    Usuario u = d.ObterUsuarioSenha(model.Login, model.SenhaAntiga);
+                    Usuario u = d.ObterUsuarioSenha(model.Login.ToLower(), model.SenhaAntiga);
 
                     if (u != null)
                     {

@@ -59,19 +59,23 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 try
                 {
                     var c = new ClubR();
+                    c.usuario = new Usuario();
+
                     c.Programa = "ClubR";
                     c.Codun = model.Codun;
                     c.NumeroContrato = model.NumeroContrato;
                     c.NomeResponsavel = model.NomeResponsavel;
                     c.CpfResponsavel = model.CpfResponsavel;
                     c.Modalidade = model.ModalidadeClubR;
-                    c.DataNegociacao = model.DataNegociacao;
+                    if (model.DataNegociacao != DateTime.MinValue)
+                        c.DataNegociacao = model.DataNegociacao;
                     c.DataInicio = model.DataInicioContrato;
                     c.DataFim = model.DataFimContrato;
                     c.MediaHistorica = Convert.ToDecimal(model.MediaHistorica.Replace(".", ""));
                     c.PeriodoMeses = model.PeriodoMeses;
                     c.MetaPeriodo = Convert.ToDecimal(model.MetaPeriodo.Replace(".", ""));
                     c.Desconto = Convert.ToDecimal(model.Desconto.Replace(".",","));
+                    c.Markup = 2.52M / (1 - c.Desconto);
                     c.Crescimento = Convert.ToDecimal(model.CrescimentoProposto.Replace("%", "").Replace(".", ","));
                     c.PrazoPagamento = model.PrazoPagamento;
                     c.RebatePercent = Convert.ToDecimal(model.RebatePercent.Replace("%","")) / 100;
@@ -79,6 +83,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.Ativo = true;
                     c.Observacao = model.Obervacao;
                     c.Contrato = $"{c.Programa}-{c.Codun}-{c.NumeroContrato}";
+                    c.usuario.IdUsuario = model.IdUsuario;
 
                     var d = new ClubRDAL();
                     d.Cadastrar(c);
@@ -88,15 +93,15 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     model.Contrato.SaveAs(pasta + c.Contrato + extesao);
 
                     ModelState.Clear();
-                    ViewBag.Mensagem = $"Cliente {model.RazaoSocial}, CODUN {model.Codun} cadastrado com sucesso no programa ClubR";                  
-                                        
+                    ViewBag.Mensagem = "Solicitação de Cadastro enviada com sucesso";         
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Mensagem = "Erro: " + e.Message;
+                    ViewBag.Mesagem = "Erro: " + e.Message;
                 }
             }
-            return View();
+            return View(new CadastroViewModel() { DataNegociacao = DateTime.Today,
+                DataInicioContrato = DateTime.Today, DataFimContrato = DateTime.Today});
         }
     }
 }

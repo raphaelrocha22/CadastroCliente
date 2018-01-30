@@ -463,6 +463,7 @@
     <Compile Include="Models\Home\UpdateViewModel.cs" />
     <Compile Include="Models\Home\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validacao\UpdateImageValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
