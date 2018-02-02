@@ -490,6 +490,10 @@
       <Project>{10106d0d-9a70-4717-bd10-748981e84a4b}</Project>
       <Name>Projeto.Entidades</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Projeto.Util\Projeto.Util.csproj">
+      <Project>{0CBCF3BE-5265-48B7-BD23-3A9D8F6D6250}</Project>
+      <Name>Projeto.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

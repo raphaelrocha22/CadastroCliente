@@ -18,8 +18,6 @@
 
     $('.money').mask('000.000.000.000.000', { reverse: true });
 
-    $('.cpf').mask('000.000.000-00', { reverse: true });
-
     $('.date').datepicker({
     });
 
@@ -42,6 +40,7 @@
     $('#optPeriodo').change(function () {
         Crescimento();
         CalcularDataFim();
+        MetaMinima();
     });
 
     $('#txtMediaHistoria').change(function () {
@@ -58,14 +57,14 @@
     });
 
     $('#optPrazoPagamento').change(function () {
-        Descontos();
-        $("#optDesconto").val("");
-        $("#txtMarkUP").val("");
+        ValidarMarkUP();
     });
 
-    $('#optDesconto').change(function () {
-        MarkUP();
-    });
+    $('#txtMarkUP').change(function () {
+        $('#txtMarkUP').val($(this).val().replace('.', ','));
+        ValidarMarkUP();
+        Desconto();
+    });    
 });
 
 function CalcularDataFim() {
@@ -97,29 +96,8 @@ function PrazoContrato() {
     });
 }
 
-function Descontos() {
-    $.ajax({
-        type: "POST",
-        url: '/AreaRestrita/ClubR/Descontos',
-        data: model = {
-            PrazoPagamento: $("#optPrazoPagamento").val()
-        },
-        success: function (data) {
-            var selectbox = $('#optDesconto');
-            selectbox.find('option').remove();
-            $('<option>').val("").text("-Selecione-").appendTo(selectbox);
-            $.each(data, function (i, d) {
-                $('<option>').val(d.Desconto).text(((d.Desconto) * 100).toFixed(1) + "%").appendTo(selectbox);
-            });
-        },
-        error: function (e) {
-            console.log(e.status);
-        }
-    });
-}
-
 function Crescimento() {
-    if ($('#txtMediaHistoria').val() !== "" && $('#txtMetaPeriodo').val() !== "" && $('#optPeriodo').val() != "") {
+    if ($('#txtMediaHistoria').val() !== "" && $('#txtMetaPeriodo').val() !== "" && $('#optPeriodo').val() !== "") {
         var mediaMensalPeriodo = parseFloat($("#txtMetaPeriodo").val()) / parseFloat($("#optPeriodo").val());
         var mediaHistorica = parseFloat($("#txtMediaHistorica").val());
         var crescimento = (((mediaMensalPeriodo / mediaHistorica) - 1) * 100).toFixed(1);
@@ -136,7 +114,11 @@ function MetaMinima() {
         },
         success: function (data) {
             $.each(data, function (i, d) {
-                $('#txtMetaPeriodo').attr('placeholder', 'Mínimo: ' + d.MetaPeriodo);
+
+                var periodo = $('#optPeriodo').val();
+                var MetaMinima = d.MinimoMensalPeriodo * periodo;
+
+                $('#txtMetaPeriodo').attr('placeholder', 'Mínimo: ' + MetaMinima);
                 $('#txtMediaHistorica').attr('placeholder', 'Minimo: ' + d.MediaHistorica);
             });
         },
@@ -147,17 +129,44 @@ function MetaMinima() {
 }
 
 function Rebate() {
-    if ($("#optRebatePercent").val() != "" && $('#txtMetaPeriodo').val() != "") {
+    if ($("#optRebatePercent").val() !== "" && $('#txtMetaPeriodo').val() !== "") {
         var rebatePercent = $("#optRebatePercent").val();
         var Meta = ($("#txtMetaPeriodo").val()).replace('.', '');
         $('#txtRebateValor').val(rebatePercent * Meta);
     }
 }
 
-function MarkUP() {
-    if ($('#optDesconto') != "") {
-        var desconto = $("#optDesconto").val();
-        var markup = 2.52 / (1 - desconto);
-        $("#txtMarkUP").val(markup.toFixed(1));
+function Desconto() {
+    if ($('#txtMarkUP').val() !== "") {
+        var mkup = $('#txtMarkUP').val().replace(',', '.');
+        var desconto = (1 - (2.52 / mkup)) * 100;
+        $("#txtDesconto").val(desconto.toFixed(1) + "%");
     }
+}
+
+function ValidarMarkUP() {
+    var pagamento = parseInt($('#optPrazoPagamento').val());
+    var markup = $('#txtMarkUP').val().replace(',', '.');
+
+    if (pagamento == 1) {
+        if (markup > 4.4) {
+            alert('O maior MarkUP disponível para o prazo de pagamento escolhido é de 4,4')
+            $('#txtMarkUP').val("");
+            $('#txtDesconto').val("");
+        }
+    };
+    if (pagamento > 1 && pagamento < 5) {
+        if (markup > 4.2) {
+            alert('O maior MarkUP disponível para o prazo de pagamento escolhido é de 4,2')
+            $('#txtMarkUP').val("");
+            $('#txtDesconto').val("");
+        }
+    };
+    if (pagamento > 4) {
+        if (markup > 4.0) {
+            alert('O maior MarkUP disponível para o prazo de pagamento escolhido é de 4,0')
+            $('#txtMarkUP').val("");
+            $('#txtDesconto').val("");
+        }
+    };
 }

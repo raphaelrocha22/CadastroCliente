@@ -33,9 +33,9 @@ namespace Projeto.DAL.Persistencia
 
                 string query = "insert into clubR (programa,codun,numeroContrato,nomeResponsavel,cpfResponsavel," +
                     "modalidade,dataNegociacao,dataInicio,dataFim,mediaHistorica,periodoMeses,metaPeriodo,desconto,markup," +
-                    "crescimento,prazoPagamento,rebateValor,rebatePercent,ativo,contrato,observacao,idUsuario) values (@programa,@codun,@numeroContrato,@nomeResponsavel,@cpfResponsavel," +
+                    "crescimento,mesesPagamento,rebateValor,rebatePercent,status,contrato,observacao,idUsuario,dataCadastro) values (@programa,@codun,@numeroContrato,@nomeResponsavel,@cpfResponsavel," +
                     "@modalidade,@dataNegociacao,@dataInicio,@dataFim,@mediaHistorica,@periodoMeses,@metaPeriodo,@desconto,@markup," +
-                    "@crescimento,@prazoPagamento,@rebateValor,@rebatePercent,@ativo,@contrato,@observacao,@idUsuario)";
+                    "@crescimento,@mesesPagamento,@rebateValor,@rebatePercent,@status,@contrato,@observacao,@idUsuario,@dataCadastro)";
 
                 cmd = new SqlCommand(query, con, tr);
                 cmd.Parameters.AddWithValue("@programa", c.Programa);
@@ -43,7 +43,7 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithValue("@numeroContrato", c.NumeroContrato);
                 cmd.Parameters.AddWithNullValue("@nomeResponsavel", c.NomeResponsavel);
                 cmd.Parameters.AddWithNullValue("@cpfResponsavel", c.CpfResponsavel);
-                cmd.Parameters.AddWithValue("@modalidade", c.Modalidade);
+                cmd.Parameters.AddWithValue("@modalidade", c.Modalidade.ToString());
                 cmd.Parameters.AddWithNullValue("@dataNegociacao", c.DataNegociacao);
                 cmd.Parameters.AddWithValue("@dataInicio", c.DataInicio);
                 cmd.Parameters.AddWithValue("@dataFim", c.DataFim);
@@ -53,13 +53,14 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithValue("@desconto", c.Desconto);
                 cmd.Parameters.AddWithValue("@crescimento", c.Crescimento);
                 cmd.Parameters.AddWithValue("@markup", c.Markup);
-                cmd.Parameters.AddWithValue("@prazoPagamento", c.PrazoPagamento);
+                cmd.Parameters.AddWithValue("@mesesPagamento", c.MesesPagamento);
                 cmd.Parameters.AddWithValue("@rebateValor", c.RebateValor);
                 cmd.Parameters.AddWithValue("@rebatePercent", c.RebatePercent);
-                cmd.Parameters.AddWithValue("@ativo", c.Ativo);
-                cmd.Parameters.AddWithValue("@contrato", c.Contrato);
-                cmd.Parameters.AddWithValue("@observacao", c.Observacao);
+                cmd.Parameters.AddWithValue("@status", c.Status.ToString());
+                cmd.Parameters.AddWithNullValue("@contrato", c.Contrato);
+                cmd.Parameters.AddWithNullValue("@observacao", c.Observacao);
                 cmd.Parameters.AddWithValue("@idUsuario", c.usuario.IdUsuario);
+                cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
                 cmd.ExecuteNonQuery();
 
                 tr.Commit();

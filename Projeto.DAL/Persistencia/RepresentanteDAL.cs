@@ -44,5 +44,39 @@ namespace Projeto.DAL.Persistencia
                 FecharConexao();
             }
         }
+
+        public List<string> ListaDestinatarios(int idUsuario)
+        {
+            try
+            {
+                AbrirConexao();
+
+                string query = "select u.email emailUsuario, rg.email emailGerente from Usuario u " +
+                    "inner join Representante_Usuario ru on u.idUsuario = ru.idUsuario " +
+                    "inner join Representante r on r.idRepresentante = ru.idRepresentante " +
+                    "inner join Representante rg on rg.idRepresentante = r.idGerente " +
+                    "where u.idUsuario = @idUsuario";
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                dr = cmd.ExecuteReader();
+
+                var lista = new List<string>();
+
+                while (dr.Read())
+                {
+                    lista.Add(dr["emailUsuario"].ToString());
+                    lista.Add(dr["emailGerente"].ToString());
+                }
+                return lista;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                FecharConexao();
+            }
+        }
     }
 }

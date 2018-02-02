@@ -13,13 +13,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
         public string PrazoContrato { get; set; }
         public int PeriodoMeses { get; set; }
         public string PrazoPagamento { get; set; }
-        public decimal Desconto { get; set; }
         public decimal Markup { get; set; }
         public decimal crescimentoMinimo { get; set; }
         public decimal crescimentoMaximo { get; set; }
         public decimal RebatePercent { get; set; }
         public decimal MediaHistorica { get; set; }
-        public decimal MetaPeriodo { get; set; }
+        public decimal MinimoMensalPeriodo { get; set; }
 
         public static List<GenericClass> Modalidade_PrazoContrato()
         {
@@ -52,43 +51,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
 
             return lista;
         }
-
-        public static List<GenericClass> PrazoPagamento_Desconto()
-        {
-            var lista = new List<GenericClass>();
-
-            lista.Add(new GenericClass { PrazoPagamento = "2 Vezes", Desconto = 0.40M});
-            lista.Add(new GenericClass { PrazoPagamento = "2 Vezes", Desconto = 0.36M});
-            lista.Add(new GenericClass { PrazoPagamento = "2 Vezes", Desconto = 0.33M});
-            lista.Add(new GenericClass { PrazoPagamento = "2 Vezes", Desconto = 0.30M});
-            lista.Add(new GenericClass { PrazoPagamento = "2 Vezes", Desconto = 0.25M});
-
-            lista.Add(new GenericClass { PrazoPagamento = "3 Vezes", Desconto = 0.40M});
-            lista.Add(new GenericClass { PrazoPagamento = "3 Vezes", Desconto = 0.36M});
-            lista.Add(new GenericClass { PrazoPagamento = "3 Vezes", Desconto = 0.33M});
-            lista.Add(new GenericClass { PrazoPagamento = "3 Vezes", Desconto = 0.30M});
-            lista.Add(new GenericClass { PrazoPagamento = "3 Vezes", Desconto = 0.25M});
-
-            lista.Add(new GenericClass { PrazoPagamento = "4 Vezes", Desconto = 0.40M});
-            lista.Add(new GenericClass { PrazoPagamento = "4 Vezes", Desconto = 0.36M});
-            lista.Add(new GenericClass { PrazoPagamento = "4 Vezes", Desconto = 0.33M});
-            lista.Add(new GenericClass { PrazoPagamento = "4 Vezes", Desconto = 0.30M});
-            lista.Add(new GenericClass { PrazoPagamento = "4 Vezes", Desconto = 0.25M});
-
-            lista.Add(new GenericClass { PrazoPagamento = "30 Dias", Desconto = 0.425M});
-            lista.Add(new GenericClass { PrazoPagamento = "30 Dias", Desconto = 0.385M});
-            lista.Add(new GenericClass { PrazoPagamento = "30 Dias", Desconto = 0.355M});
-            lista.Add(new GenericClass { PrazoPagamento = "30 Dias", Desconto = 0.325M});
-            lista.Add(new GenericClass { PrazoPagamento = "30 Dias", Desconto = 0.275M});
-
-            lista.Add(new GenericClass { PrazoPagamento = "9 Vezes", Desconto = 0.36M});
-            lista.Add(new GenericClass { PrazoPagamento = "9 Vezes", Desconto = 0.32M});
-            lista.Add(new GenericClass { PrazoPagamento = "9 Vezes", Desconto = 0.29M});
-            lista.Add(new GenericClass { PrazoPagamento = "9 Vezes", Desconto = 0.26M});
-            lista.Add(new GenericClass { PrazoPagamento = "9 Vezes", Desconto = 0.21M});
-
-            return lista;
-        }
         
         public static List<GenericClass> Modalidade_MediaMinima_MetaMinima()
         {
@@ -97,22 +59,21 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
             {
                 ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Ouro"),
                 MediaHistorica = 10000,
-                MetaPeriodo = 37500
+                MinimoMensalPeriodo = 12500
             });
             lista.Add(new GenericClass
             {
                 ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Diamante"),
                 MediaHistorica = 20000,
-                MetaPeriodo = 138000
+                MinimoMensalPeriodo = 23000
             });
             lista.Add(new GenericClass
             {
                 ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Platina"),
                 MediaHistorica = 50000,
-                MetaPeriodo = 660000
+                MinimoMensalPeriodo = 55000
             });
             return lista;
         }
-
     }
 }

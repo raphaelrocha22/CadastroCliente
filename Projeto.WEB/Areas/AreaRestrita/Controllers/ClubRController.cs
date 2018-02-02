@@ -1,9 +1,11 @@
 ﻿using Projeto.DAL.Persistencia;
 using Projeto.Entidades;
 using Projeto.Entidades.Enum;
+using Projeto.Util;
 using Projeto.WEB.Areas.AreaRestrita.Models.ClubR;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -17,7 +19,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         // GET: AreaRestrita/ClubR
         public ActionResult Cadastro()
         {
-            return View();
+            return View(new CadastroViewModel());
         }
 
         public JsonResult NumeroContrato(CadastroViewModel model)
@@ -35,20 +37,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return Json(prazos);
         }
 
-        public JsonResult Descontos(CadastroViewModel model)
-        {
-            var listaDescontos = GenericClass.PrazoPagamento_Desconto();
-            var descontos = listaDescontos.Where(m => m.PrazoPagamento.Equals(model.PrazoPagamento)).ToList();
-
-            return Json(descontos);
-        }
-
         public JsonResult MetaMinima(CadastroViewModel model)
         {
             var listaMetas = GenericClass.Modalidade_MediaMinima_MetaMinima();
-            var mediaMetaMinima = listaMetas.Where(m => m.ModalidadeClubR.Equals(model.ModalidadeClubR)).ToList();
+            var metaMinimaMensal = listaMetas.Where(m => m.ModalidadeClubR.Equals(model.ModalidadeClubR)).ToList();
 
-            return Json(mediaMetaMinima);
+            return Json(metaMinimaMensal);
         }
 
         [HttpPost]
@@ -67,41 +61,51 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.NomeResponsavel = model.NomeResponsavel;
                     c.CpfResponsavel = model.CpfResponsavel;
                     c.Modalidade = model.ModalidadeClubR;
-                    if (model.DataNegociacao != DateTime.MinValue)
-                        c.DataNegociacao = model.DataNegociacao;
-                    c.DataInicio = model.DataInicioContrato;
-                    c.DataFim = model.DataFimContrato;
+                    c.DataNegociacao = model.DataNegociacao != null ? Convert.ToDateTime(model.DataNegociacao) : (DateTime)SqlDateTime.MinValue;
+                    c.DataInicio = Convert.ToDateTime(model.DataInicioContrato);
+                    c.DataFim = Convert.ToDateTime(model.DataFimContrato);
                     c.MediaHistorica = Convert.ToDecimal(model.MediaHistorica.Replace(".", ""));
                     c.PeriodoMeses = model.PeriodoMeses;
                     c.MetaPeriodo = Convert.ToDecimal(model.MetaPeriodo.Replace(".", ""));
-                    c.Desconto = Convert.ToDecimal(model.Desconto.Replace(".",","));
-                    c.Markup = 2.52M / (1 - c.Desconto);
+                    c.Markup = model.MarkUP;
+                    c.Desconto = 1 - (2.52M / c.Markup);
                     c.Crescimento = Convert.ToDecimal(model.CrescimentoProposto.Replace("%", "").Replace(".", ","));
-                    c.PrazoPagamento = model.PrazoPagamento;
+                    c.MesesPagamento = model.MesesPagamento;
                     c.RebatePercent = Convert.ToDecimal(model.RebatePercent.Replace("%","")) / 100;
                     c.RebateValor = c.MetaPeriodo * c.RebatePercent;
-                    c.Ativo = true;
+                    c.Status = Status.Pendente;
                     c.Observacao = model.Obervacao;
-                    c.Contrato = $"{c.Programa}-{c.Codun}-{c.NumeroContrato}";
-                    c.usuario.IdUsuario = model.IdUsuario;
+                    c.Contrato = model.Contrato is null ? null : $"{c.Programa}-{c.Codun}-{c.NumeroContrato}";
+                    c.usuario.IdUsuario = model.usuario.IdUsuario;
+                    c.usuario.Nome = model.usuario.Nome;
 
                     var d = new ClubRDAL();
                     d.Cadastrar(c);
 
-                    string pasta = HttpContext.Server.MapPath("/Imagens/ClubR/");
-                    string extesao = Path.GetExtension(model.Contrato.FileName);
-                    model.Contrato.SaveAs(pasta + c.Contrato + extesao);
+                    if (model.Contrato != null)
+                    {
+                        string pasta = HttpContext.Server.MapPath("/Imagens/ClubR/");
+                        string extesao = Path.GetExtension(model.Contrato.FileName);
+                        model.Contrato.SaveAs(pasta + c.Contrato + extesao);
+                    }
 
-                    ModelState.Clear();
-                    ViewBag.Mensagem = "Solicitação de Cadastro enviada com sucesso";         
+                    var r = new RepresentanteDAL();
+                    List<string> destinatarios = r.ListaDestinatarios(c.usuario.IdUsuario);
+
+                    Email.EnviarEmailClubR(c, destinatarios);
+
+                    TempData["Sucesso"] = true;
+                    TempData["Resultado"] = "Solicitação de Cadastro enviada com sucesso. \n" +
+                        "Um E-mail de confirmação foi enviado para você, seu gerente, Daniel, Eliezer e a equipe BackOffice RJ";
+                    return RedirectToAction("Cadastro", "ClubR");                    
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Mesagem = "Erro: " + e.Message;
+                    TempData["Sucesso"] = false;
+                    TempData["Resultado"] = "Erro: " + e.Message;
                 }
             }
-            return View(new CadastroViewModel() { DataNegociacao = DateTime.Today,
-                DataInicioContrato = DateTime.Today, DataFimContrato = DateTime.Today});
+            return View(new CadastroViewModel());
         }
     }
 }

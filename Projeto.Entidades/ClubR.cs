@@ -25,12 +25,12 @@ namespace Projeto.Entidades
         public decimal Desconto { get; set; }
         public decimal Markup { get; set; }
         public decimal Crescimento { get; set; }
-        public string PrazoPagamento { get; set; }
+        public int MesesPagamento { get; set; }
         public decimal RebateValor { get; set; }
         public decimal RebatePercent { get; set; }
-        public bool Ativo { get; set; }
         public string Contrato { get; set; }
         public string Observacao { get; set; }
+        public Status Status { get; set; }
 
         public Usuario usuario { get; set; }
     }
