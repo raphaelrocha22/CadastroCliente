@@ -1,4 +1,4 @@
-﻿using Projeto.Entidades.Enum;
+﻿using Projeto.Entidades.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +12,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
         public ModalidadeClubR ModalidadeClubR { get; set; }
         public string PrazoContrato { get; set; }
         public int PeriodoMeses { get; set; }
-        public string PrazoPagamento { get; set; }
-        public decimal Markup { get; set; }
-        public decimal crescimentoMinimo { get; set; }
-        public decimal crescimentoMaximo { get; set; }
-        public decimal RebatePercent { get; set; }
         public decimal MediaHistorica { get; set; }
         public decimal MinimoMensalPeriodo { get; set; }
 
@@ -26,25 +21,25 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
 
             lista.Add(new GenericClass
             {
-                ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Ouro"),
+                ModalidadeClubR = ModalidadeClubR.Ouro,
                 PrazoContrato = "Trimestral",
                 PeriodoMeses = 3
             });
             lista.Add(new GenericClass
             {
-                ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Diamante"),
+                ModalidadeClubR = ModalidadeClubR.Diamante,
                 PrazoContrato = "Semestral",
                 PeriodoMeses = 6
             });
             lista.Add(new GenericClass
             {
-                ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Diamante"),
+                ModalidadeClubR = ModalidadeClubR.Diamante,
                 PrazoContrato = "Anual",
                 PeriodoMeses = 12
             });
             lista.Add(new GenericClass
             {
-                ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Platina"),
+                ModalidadeClubR = ModalidadeClubR.Platina,
                 PrazoContrato = "Anual",
                 PeriodoMeses = 12
             });
@@ -57,19 +52,19 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
             var lista = new List<GenericClass>();
             lista.Add(new GenericClass
             {
-                ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Ouro"),
+                ModalidadeClubR = ModalidadeClubR.Ouro,
                 MediaHistorica = 10000,
                 MinimoMensalPeriodo = 12500
             });
             lista.Add(new GenericClass
             {
-                ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Diamante"),
+                ModalidadeClubR = ModalidadeClubR.Diamante,
                 MediaHistorica = 20000,
                 MinimoMensalPeriodo = 23000
             });
             lista.Add(new GenericClass
             {
-                ModalidadeClubR = (ModalidadeClubR)Enum.Parse(typeof(ModalidadeClubR), "Platina"),
+                ModalidadeClubR = ModalidadeClubR.Platina,
                 MediaHistorica = 50000,
                 MinimoMensalPeriodo = 55000
             });

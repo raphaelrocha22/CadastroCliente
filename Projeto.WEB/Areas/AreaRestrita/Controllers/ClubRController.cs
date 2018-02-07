@@ -1,6 +1,6 @@
 ﻿using Projeto.DAL.Persistencia;
 using Projeto.Entidades;
-using Projeto.Entidades.Enum;
+using Projeto.Entidades.Enuns;
 using Projeto.Util;
 using Projeto.WEB.Areas.AreaRestrita.Models.ClubR;
 using System;
@@ -55,7 +55,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     var c = new ClubR();
                     c.usuario = new Usuario();
 
-                    c.Programa = "ClubR";
+                    c.Campanha = Campanha.ClubR;
                     c.Codun = model.Codun;
                     c.NumeroContrato = model.NumeroContrato;
                     c.NomeResponsavel = model.NomeResponsavel;
@@ -70,12 +70,15 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.Markup = model.MarkUP;
                     c.Desconto = 1 - (2.52M / c.Markup);
                     c.Crescimento = Convert.ToDecimal(model.CrescimentoProposto.Replace("%", "").Replace(".", ","));
-                    c.MesesPagamento = model.MesesPagamento;
+                    c.MesesPagamentoRBR = model.MesesPagamentoRBR;
+                    c.NetlineHabilitado = model.MesesPagamentoNetline != 0;
+                    c.MesesPagamentoNetline = model.MesesPagamentoNetline;
                     c.RebatePercent = Convert.ToDecimal(model.RebatePercent.Replace("%","")) / 100;
                     c.RebateValor = c.MetaPeriodo * c.RebatePercent;
+                    c.Guelta = model.Guelta;
                     c.Status = Status.Pendente;
                     c.Observacao = model.Obervacao;
-                    c.Contrato = model.Contrato is null ? null : $"{c.Programa}-{c.Codun}-{c.NumeroContrato}";
+                    c.Contrato = model.Contrato is null ? null : $"{c.Campanha}-{c.Codun}-{c.NumeroContrato}";
                     c.usuario.IdUsuario = model.usuario.IdUsuario;
                     c.usuario.Nome = model.usuario.Nome;
 
@@ -96,7 +99,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
                     TempData["Sucesso"] = true;
                     TempData["Resultado"] = "Solicitação de Cadastro enviada com sucesso. \n" +
-                        "Um E-mail de confirmação foi enviado para você, seu gerente, Daniel, Eliezer e a equipe BackOffice RJ";
+                        "Um E-mail de confirmação foi enviado, assim que o cliente estiver cadastrado você receberá uma confirmação via E-mail";
                     return RedirectToAction("Cadastro", "ClubR");                    
                 }
                 catch (Exception e)

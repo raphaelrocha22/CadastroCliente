@@ -31,14 +31,15 @@ namespace Projeto.DAL.Persistencia
                 AbrirConexao();
                 tr = con.BeginTransaction();
 
-                string query = "insert into clubR (programa,codun,numeroContrato,nomeResponsavel,cpfResponsavel," +
+                string query = "insert into clubR (campanha,codun,numeroContrato,nomeResponsavel,cpfResponsavel," +
                     "modalidade,dataNegociacao,dataInicio,dataFim,mediaHistorica,periodoMeses,metaPeriodo,desconto,markup," +
-                    "crescimento,mesesPagamento,rebateValor,rebatePercent,status,contrato,observacao,idUsuario,dataCadastro) values (@programa,@codun,@numeroContrato,@nomeResponsavel,@cpfResponsavel," +
+                    "crescimento,mesesPagamentoRBR,mesesPagamentoNetline,netlineHabilitado,guelta,rebateValor,rebatePercent,status,contrato,observacao,idUsuario,dataCadastro) " +
+                    "values (@campanha,@codun,@numeroContrato,@nomeResponsavel,@cpfResponsavel," +
                     "@modalidade,@dataNegociacao,@dataInicio,@dataFim,@mediaHistorica,@periodoMeses,@metaPeriodo,@desconto,@markup," +
-                    "@crescimento,@mesesPagamento,@rebateValor,@rebatePercent,@status,@contrato,@observacao,@idUsuario,@dataCadastro)";
+                    "@crescimento,@mesesPagamentoRBR,@mesesPagamentoNetline,@netlineHabilitado,@guelta,@rebateValor,@rebatePercent,@status,@contrato,@observacao,@idUsuario,@dataCadastro)";
 
                 cmd = new SqlCommand(query, con, tr);
-                cmd.Parameters.AddWithValue("@programa", c.Programa);
+                cmd.Parameters.AddWithValue("@campanha", c.Campanha.ToString());
                 cmd.Parameters.AddWithValue("@codun", c.Codun);
                 cmd.Parameters.AddWithValue("@numeroContrato", c.NumeroContrato);
                 cmd.Parameters.AddWithNullValue("@nomeResponsavel", c.NomeResponsavel);
@@ -53,7 +54,10 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithValue("@desconto", c.Desconto);
                 cmd.Parameters.AddWithValue("@crescimento", c.Crescimento);
                 cmd.Parameters.AddWithValue("@markup", c.Markup);
-                cmd.Parameters.AddWithValue("@mesesPagamento", c.MesesPagamento);
+                cmd.Parameters.AddWithValue("@mesesPagamentoRBR", c.MesesPagamentoRBR);
+                cmd.Parameters.AddWithValue("@mesesPagamentoNetline", c.MesesPagamentoNetline);
+                cmd.Parameters.AddWithValue("@netlineHabilitado", c.NetlineHabilitado);
+                cmd.Parameters.AddWithValue("@guelta", c.Guelta.ToString());
                 cmd.Parameters.AddWithValue("@rebateValor", c.RebateValor);
                 cmd.Parameters.AddWithValue("@rebatePercent", c.RebatePercent);
                 cmd.Parameters.AddWithValue("@status", c.Status.ToString());

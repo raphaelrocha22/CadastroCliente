@@ -55,7 +55,7 @@ namespace Projeto.DAL.Persistencia
                     "inner join Representante_Usuario ru on u.idUsuario = ru.idUsuario " +
                     "inner join Representante r on r.idRepresentante = ru.idRepresentante " +
                     "inner join Representante rg on rg.idRepresentante = r.idGerente " +
-                    "where u.idUsuario = @idUsuario";
+                    "where u.idUsuario = @idUsuario group by u.email,rg.email";
                 cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
                 dr = cmd.ExecuteReader();

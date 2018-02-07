@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Projeto.DAL.Persistencia;
 using Projeto.Entidades;
-using Projeto.Entidades.Enum;
+using Projeto.Entidades.Enuns;
 using Projeto.WEB.Areas.AreaRestrita.Models.Cliente;
 using System;
 using System.Collections.Generic;

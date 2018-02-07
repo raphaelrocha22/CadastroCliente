@@ -1,4 +1,4 @@
-﻿using Projeto.Entidades.Enum;
+﻿using Projeto.Entidades.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -316,6 +316,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\AreaRestrita\Views\Upgrade\Cadastro.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\Markup\Cadastro.cshtml" />
     <None Include="Properties\PublishProfiles\cadastroclienterbr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Imagens\logoRodenstock.png" />
@@ -440,6 +442,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Markup\cadastro.js" />
+    <Content Include="Scripts\Upgrade\cadastro.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +451,8 @@
     <Compile Include="Areas\AreaRestrita\AreaRestritaAreaRegistration.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\ClienteController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\ClubRController.cs" />
+    <Compile Include="Areas\AreaRestrita\Controllers\MarkupController.cs" />
+    <Compile Include="Areas\AreaRestrita\Controllers\UpgradeController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\CadastroViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\GenericClass.cs" />
@@ -456,6 +462,11 @@
     <Compile Include="Areas\AreaRestrita\Models\Cliente\EnderecoViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\ClubR\CadastroViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\ClubR\GenericClass.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\GenericCampanhaViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Markup\CadastroViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Markup\GenericClass.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Upgrade\CadastroViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Upgrade\GenericClass.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

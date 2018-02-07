@@ -1,4 +1,4 @@
-﻿namespace Projeto.Entidades.Enum
+﻿namespace Projeto.Entidades.Enuns
 {
     public enum TipoRepresentante
     {

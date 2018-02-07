@@ -1,4 +1,4 @@
-﻿using Projeto.Entidades.Enum;
+﻿using Projeto.Entidades.Enuns;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {

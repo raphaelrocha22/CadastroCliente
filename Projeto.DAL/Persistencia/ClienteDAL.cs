@@ -1,6 +1,6 @@
 ﻿using Projeto.DAL.Repositorio;
 using Projeto.Entidades;
-using Projeto.Entidades.Enum;
+using Projeto.Entidades.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;

@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
 
+    $("#btnCadastrar").prop('value', 'Cadastrar').prop('disabled', false);
+
+
     $("#txtCodun").change(function () {
         $.ajax({
             type: 'POST',
@@ -56,7 +59,7 @@
         Rebate();
     });
 
-    $('#optPrazoPagamento').change(function () {
+    $('#optPrazoPagamentoRBR').change(function () {
         ValidarMarkUP();
     });
 
@@ -64,7 +67,11 @@
         $('#txtMarkUP').val($(this).val().replace('.', ','));
         ValidarMarkUP();
         Desconto();
-    });    
+    });
+
+    $('#btnCadastrar').click(function () {
+        $(this).prop('value', 'Aguarde...').prop('disabled', true);
+    });
 });
 
 function CalcularDataFim() {
@@ -145,7 +152,7 @@ function Desconto() {
 }
 
 function ValidarMarkUP() {
-    var pagamento = parseInt($('#optPrazoPagamento').val());
+    var pagamento = parseInt($('#optPrazoPagamentoRBR').val());
     var markup = $('#txtMarkUP').val().replace(',', '.');
 
     if (pagamento == 1) {

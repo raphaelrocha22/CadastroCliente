@@ -23,7 +23,7 @@
         new { @enctype = "multipart/form-data" }))
 {
 
-    if(TempData["Sucesso"] != null)
+    if (TempData["Sucesso"] != null)
     {
         if ((bool)TempData["Sucesso"])
         {
@@ -34,7 +34,7 @@
             <div class="alert alert-danger text-center form-group-lg"><strong>@TempData["Resultado"]</strong></div>
         }
     }
-    
+
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-1">
@@ -75,12 +75,12 @@
         <div class="row" style="margin-top:15px">
             <div class="col-md-2">
                 <label>*Modalidade</label>
-                @Html.EnumDropDownListFor(m => m.ModalidadeClubR, "- Selecione -", new { Class = "form-control", id = "optModalidade"})
+                @Html.EnumDropDownListFor(m => m.ModalidadeClubR, "- Selecione -", new { Class = "form-control", id = "optModalidade" })
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.ModalidadeClubR)</span>
             </div>
             <div class="col-md-2">
                 <label>*Período</label>
-                @Html.DropDownListFor(m=>m.PeriodoMeses,Model.ListaPeriodo, new { Class = "form-control", id="optPeriodo"})
+                @Html.DropDownListFor(m => m.PeriodoMeses, Model.ListaPeriodo, new { Class = "form-control", id = "optPeriodo" })
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.PeriodoMeses)</span>
             </div>
             <div class="col-md-2">
@@ -118,19 +118,31 @@
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.CrescimentoProposto)</span>
             </div>
             <div class="col-md-2">
-                <label>*Prazo Pagamento</label>
-                @Html.DropDownListFor(m => m.MesesPagamento,Model.ListaPrazoPagamento,"-Selecione-", new { Class="form-control", id = "optPrazoPagamento" })
-                <span class="text-danger">@Html.ValidationMessageFor(m => m.MesesPagamento)</span>
+                <label>*Prazo Pagamento RBR</label>
+                @Html.DropDownListFor(m => m.MesesPagamentoRBR, Model.ListaPrazoPagamentoRBR, "-Selecione-", new { Class = "form-control", id = "optPrazoPagamentoRBR" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.MesesPagamentoRBR)</span>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <label>*MarkUP</label>
-                @Html.TextBoxFor(m => m.MarkUP, new { id = "txtMarkUP", Class = "form-control"})
+                @Html.TextBoxFor(m => m.MarkUP, new { id = "txtMarkUP", Class = "form-control" })
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.MarkUP)</span>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <label>Desconto</label>
-                @Html.TextBoxFor(m => m.Desconto, new { Class = "form-control", id = "txtDesconto", Readonly = "readonly" })
+                @Html.TextBoxFor(m => m.Desconto, new { Class = "form-control", id = "txtDesconto", Readonly = "readonly", Style = "font-size:13px" })
             </div>
+            <div class="col-md-2">
+                <label>*Guelta</label>
+                @Html.DropDownListFor(m => m.Guelta, Model.ListaGuelta, new { Class = "form-control", id= "optGuelta" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.Guelta)</span>
+            </div>
+            <div class="col-md-3">
+                <label>*Prazo Pagamento NetLine</label>
+                @Html.DropDownListFor(m => m.MesesPagamentoNetline, Model.ListaPrazoPagamentoNetLine, "-Selecione-", new { Class = "form-control", id = "optPrazoPagamentoNetline" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.MesesPagamentoNetline)</span>
+            </div>
+        </div>
+        <div class="row" style="margin-top:15px">
             <div class="col-md-2">
                 <label>*Rebate Percentual</label>
                 @Html.DropDownListFor(m => m.RebatePercent, Model.ListaRebate, "-Selecione-", new { Class = "form-control", id = "optRebatePercent" })
@@ -140,14 +152,12 @@
                 <label>Rebate Valor</label>
                 @Html.TextBoxFor(m => m.RebateValor, new { Class = "form-control", id = "txtRebateValor", Readonly = "readonly" })
             </div>
-        </div>
-        <div class="row" style="margin-top:15px">
             <div class="col-md-3">
                 <label>Contrato Assinado</label>
                 <input type="file" id="uplFile" class="form-control" name="Contrato" />
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.Contrato)</span>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 @Html.TextAreaFor(m => m.Obervacao, new { Class = "form-control", id = "txtObservacao", placeholder = "Observação..." })
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.Obervacao)</span>
             </div>
@@ -156,9 +166,5 @@
                 <input type="submit" value="Cadastrar" id="btnCadastrar" class="btn btn-primary" />
             </div>
         </div>
-        <div class="row" style="margin-top:15px">
-            @ViewBag.Mensagem
-        </div>
-
     </div>
 }
