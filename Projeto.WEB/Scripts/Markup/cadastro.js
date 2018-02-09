@@ -53,8 +53,8 @@
         Rebate();
     });
 
-    $('#btnCadastrar').click(function () {
-        $(this).prop('value', 'Aguarde...').prop('disabled', true);
+    $("#formMarkupCadastro").submit(function () {
+        $('#btnCadastrar').prop('value', 'Aguarde...').prop('disabled', true);
     });
 });
 

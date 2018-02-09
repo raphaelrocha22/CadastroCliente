@@ -18,7 +18,7 @@
 <h6>(*) Campos obrigatórios</h6>
 <hr />
 
-@using (Html.BeginForm("Cadastro", "Markup", FormMethod.Post))
+@using (Html.BeginForm("Cadastro", "Markup", FormMethod.Post, new { id = "formMarkupCadastro" }))
 {
 
     if (TempData["Sucesso"] != null)

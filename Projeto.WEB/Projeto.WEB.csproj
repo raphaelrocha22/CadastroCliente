@@ -302,7 +302,6 @@
     <Content Include="Areas\AreaRestrita\Views\Cliente\Cadastro.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\Cliente\Index.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\AreaRestrita\Views\Cliente\Consulta.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\Cliente\Edicao.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\ClubR\Cadastro.cshtml" />
     <Content Include="Content\DataTables\css\common.scss" />
@@ -318,6 +317,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Areas\AreaRestrita\Views\Upgrade\Cadastro.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\Markup\Cadastro.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\SemCampanha\Cadastro.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\Cliente\Consulta.cshtml" />
     <None Include="Properties\PublishProfiles\cadastroclienterbr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Imagens\logoRodenstock.png" />
@@ -443,6 +444,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Markup\cadastro.js" />
+    <Content Include="Scripts\SemCampanha\cadastro.js" />
     <Content Include="Scripts\Upgrade\cadastro.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -452,6 +454,7 @@
     <Compile Include="Areas\AreaRestrita\Controllers\ClienteController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\ClubRController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\MarkupController.cs" />
+    <Compile Include="Areas\AreaRestrita\Controllers\SemCampanhaController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\UpgradeController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Cliente\CadastroViewModel.cs" />
@@ -465,6 +468,7 @@
     <Compile Include="Areas\AreaRestrita\Models\GenericCampanhaViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Markup\CadastroViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Markup\GenericClass.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\SemCampanha\CadastroViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Upgrade\CadastroViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Upgrade\GenericClass.cs" />
     <Compile Include="Controllers\HomeController.cs" />

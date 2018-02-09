@@ -18,11 +18,14 @@ namespace Projeto.Entidades
         public string InscricaoEstadual { get; set; }
         public string InscricaoMunicipal { get; set; }
         public ClasseCliente Classe { get; set; }
-        public bool Ativo { get; set; }
+        public Status Status { get; set; }
+        public string Observacao { get; set; }
         public DateTime DataCadastro { get; set; }
 
         public List<Endereco> Enderecos { get; set; }
         public Representante Representante { get; set; }
+
+        public Usuario Usuario { get; set; }
 
     }
 }

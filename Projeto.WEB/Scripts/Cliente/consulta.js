@@ -33,13 +33,14 @@ function Consultar() {
             $.each(lista, function (i, m) {
 
                 conteudo += "<tr>";
-
-                conteudo += "<td>" + m.CodCliente + "</td>";
-                conteudo += "<td>" + m.Codun + "</td>";
-                conteudo += "<td>" + m.RazaoSocial + "</td>";
-                conteudo += "<td>" + m.NomeFantasia + "</td>";
-                conteudo += "<td>" + m.Classe + "</td>";
-                conteudo += "<td>" + m.NomeRepresentante + "</td>";
+                
+                conteudo += "<td>" + m.IdCliente + "</td>";
+                conteudo += "<td style='max-width: 7ch' class='limiteColuna'>" + m.CodCliente + "</td>";
+                conteudo += "<td style='max-width: 7ch' class='limiteColuna'>" + m.Codun + "</td>";
+                conteudo += "<td style='max-width: 19ch' class='limiteColuna'>" + m.RazaoSocial + "</td>";
+                conteudo += "<td style='max-width: 19ch' class='class='limiteColuna'>" + m.NomeFantasia + "</td>";
+                conteudo += "<td style='max-width: 10ch' class='limiteColuna'>" + m.Classe + "</td>";
+                conteudo += "<td style='max-width: 15ch' class='limiteColuna'>" + m.NomeRepresentante + "</td>";
                 conteudo += "<td>";
                 conteudo += "<button data-target='#janelaDetalhes' data-toggle='modal' onclick='exibirDetalhes(" + m.IdCliente + ")' class='btn btn-success btn-xs'>Detalhes</button>";
                 conteudo += "&nbsp;";

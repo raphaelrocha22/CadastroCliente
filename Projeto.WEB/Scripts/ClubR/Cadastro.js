@@ -69,8 +69,8 @@
         Desconto();
     });
 
-    $('#btnCadastrar').click(function () {
-        $(this).prop('value', 'Aguarde...').prop('disabled', true);
+    $("#formClubRCadastro").submit(function () {
+        $('#btnCadastrar').prop('value', 'Aguarde...').prop('disabled', true);
     });
 });
 

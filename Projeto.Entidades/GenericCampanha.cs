@@ -31,6 +31,6 @@ namespace Projeto.Entidades
         public string Observacao { get; set; }
         public Guelta Guelta { get; set; }
 
-        public Usuario usuario { get; set; }
+        public Usuario Usuario { get; set; }
     }
 }

@@ -45,6 +45,7 @@
     <Compile Include="Persistencia\ClubRDAL.cs" />
     <Compile Include="Persistencia\MarkupDAL.cs" />
     <Compile Include="Persistencia\RepresentanteDAL.cs" />
+    <Compile Include="Persistencia\SemCampanhaDAL.cs" />
     <Compile Include="Persistencia\UpgradeDAL.cs" />
     <Compile Include="Persistencia\UsuarioDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

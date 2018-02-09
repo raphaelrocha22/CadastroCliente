@@ -43,7 +43,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 try
                 {
                     var c = new Upgrade();
-                    c.usuario = new Usuario();
+                    c.Usuario = new Usuario();
 
                     c.Campanha = Campanha.Upgrade;
                     c.Codun = model.Codun;
@@ -66,14 +66,14 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.Guelta = model.Guelta;
                     c.Status = Status.Pendente;
                     c.Observacao = model.Obervacao;
-                    c.usuario.IdUsuario = model.usuario.IdUsuario;
-                    c.usuario.Nome = model.usuario.Nome;
+                    c.Usuario.IdUsuario = model.usuario.IdUsuario;
+                    c.Usuario.Nome = model.usuario.Nome;
 
                     var d = new UpgradeDAL();
                     d.Cadastrar(c);
 
                     var r = new RepresentanteDAL();
-                    List<string> destinatarios = r.ListaDestinatarios(c.usuario.IdUsuario);
+                    List<string> destinatarios = r.ListaDestinatarios(c.Usuario.IdUsuario);
 
                     Email.EnviarEmailUpgrade(c, destinatarios);
 

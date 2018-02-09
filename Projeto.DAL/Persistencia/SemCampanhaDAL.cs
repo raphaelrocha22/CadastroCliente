@@ -9,50 +9,55 @@ using System.Threading.Tasks;
 
 namespace Projeto.DAL.Persistencia
 {
-    public class UpgradeDAL:Conexao
+    public class SemCampanhaDAL:Conexao
     {
-        public int NumeroContrato(int codun)
+        public int NumeroContrato(int codun, int codCliente, int idTransacao)
         {
             AbrirConexao();
 
-            string query = "select ISNULL(MAX(numeroContrato),0) numeroContrato from Upgrade where codun = @codun";
+            string query = "select ISNULL(MAX(numeroContrato),0) numeroContrato from SemCampanha where ";
+
+            if (codun != 0)
+                query += "codun = @codun";
+
+            if (codCliente != 0)
+                query += "codCliente = @codCliente";
+
+            if (idTransacao != 0)
+                query += "idCliente = @idTransacao";
+
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@codun", codun);
+            cmd.Parameters.AddWithValue("@codCliente", codCliente);
+            cmd.Parameters.AddWithValue("@idTransacao", idTransacao);
             int numeroContrato = Convert.ToInt32(cmd.ExecuteScalar()) + 1;
 
             FecharConexao();
             return numeroContrato;
         }
 
-        public void Cadastrar(Upgrade c)
+        public void Cadastrar(SemCampanha c)
         {
             try
             {
                 AbrirConexao();
                 tr = con.BeginTransaction();
 
-                string query = "insert into Upgrade (campanha,codun,numeroContrato,nomeResponsavel,cpfResponsavel," +
-                    "modalidade,dataNegociacao,dataInicio,dataFim,mediaHistorica,periodoMeses,metaPeriodo,desconto,markup," +
-                    "crescimento,mesesPagamentoRBR,mesesPagamentoNetline,netlineHabilitado,guelta,status,observacao,idUsuario,dataCadastro) " +
-                    "values (@campanha,@codun,@numeroContrato,@nomeResponsavel,@cpfResponsavel," +
-                    "@modalidade,@dataNegociacao,@dataInicio,@dataFim,@mediaHistorica,@periodoMeses,@metaPeriodo,@desconto,@markup," +
-                    "@crescimento,@mesesPagamentoRBR,@mesesPagamentoNetline,@netlineHabilitado,@guelta,@status,@observacao,@idUsuario,@dataCadastro)";
+                string query = "insert into SemCampanha (campanha,idCliente,codCliente,codun,numeroContrato," +
+                    "dataNegociacao,dataInicio,desconto,markup, mesesPagamentoRBR,mesesPagamentoNetline, " +
+                    "netlineHabilitado,guelta,status,observacao,idUsuario,dataCadastro) " +
+                    "values (@campanha,@idCliente,@codCliente,@codun,@numeroContrato,@dataNegociacao,@dataInicio,@desconto,@markup," +
+                    "@mesesPagamentoRBR,@mesesPagamentoNetline,@netlineHabilitado,@guelta,@status,@observacao,@idUsuario,@dataCadastro)";
 
                 cmd = new SqlCommand(query, con, tr);
                 cmd.Parameters.AddWithValue("@campanha", c.Campanha.ToString());
-                cmd.Parameters.AddWithValue("@codun", c.Codun);
+                cmd.Parameters.AddWithValue("@idCliente", c.Cliente.IdCliente);
+                cmd.Parameters.AddWithValue("@codCliente", c.Cliente.CodCliente);
+                cmd.Parameters.AddWithValue("@codun", c.Cliente.Codun);
                 cmd.Parameters.AddWithValue("@numeroContrato", c.NumeroContrato);
-                cmd.Parameters.AddWithNullValue("@nomeResponsavel", c.NomeResponsavel);
-                cmd.Parameters.AddWithNullValue("@cpfResponsavel", c.CpfResponsavel);
-                cmd.Parameters.AddWithValue("@modalidade", c.Modalidade.ToString());
                 cmd.Parameters.AddWithNullValue("@dataNegociacao", c.DataNegociacao);
                 cmd.Parameters.AddWithValue("@dataInicio", c.DataInicio);
-                cmd.Parameters.AddWithValue("@dataFim", c.DataFim);
-                cmd.Parameters.AddWithValue("@mediaHistorica", c.MediaHistorica);
-                cmd.Parameters.AddWithValue("@periodoMeses", c.PeriodoMeses);
-                cmd.Parameters.AddWithValue("@metaPeriodo", c.MetaPeriodo);
                 cmd.Parameters.AddWithValue("@desconto", c.Desconto);
-                cmd.Parameters.AddWithValue("@crescimento", c.Crescimento);
                 cmd.Parameters.AddWithValue("@markup", c.Markup);
                 cmd.Parameters.AddWithValue("@mesesPagamentoRBR", c.MesesPagamentoRBR);
                 cmd.Parameters.AddWithValue("@mesesPagamentoNetline", c.MesesPagamentoNetline);
@@ -76,5 +81,7 @@ namespace Projeto.DAL.Persistencia
                 FecharConexao();
             }
         }
+
+
     }
 }

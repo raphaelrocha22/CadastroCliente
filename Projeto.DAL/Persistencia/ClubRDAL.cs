@@ -63,7 +63,7 @@ namespace Projeto.DAL.Persistencia
                 cmd.Parameters.AddWithValue("@status", c.Status.ToString());
                 cmd.Parameters.AddWithNullValue("@contrato", c.Contrato);
                 cmd.Parameters.AddWithNullValue("@observacao", c.Observacao);
-                cmd.Parameters.AddWithValue("@idUsuario", c.usuario.IdUsuario);
+                cmd.Parameters.AddWithValue("@idUsuario", c.Usuario.IdUsuario);
                 cmd.Parameters.AddWithValue("@dataCadastro", DateTime.Now);
                 cmd.ExecuteNonQuery();
 

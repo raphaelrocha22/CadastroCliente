@@ -22,6 +22,8 @@ namespace Projeto.Entidades
         public string Telefone2 { get; set; }
         public string Email { get; set; }
         public DateTime DataCadastro { get; set; }
+        public bool IgualCadastro { get; set; }
+        public bool IgualCobranca { get; set; }
 
         public Endereco()
         {
@@ -30,7 +32,7 @@ namespace Projeto.Entidades
 
         public Endereco(TipoEndereco tipo, string logradouro, string numero,
             string complemento, string bairro, string municipio, string uf, string cep,
-            string telefone1, string telefone2, string email)
+            string telefone1, string telefone2, string email, bool igualCadastro, bool igualCobranca)
         {
             Tipo = tipo;
             Logradouro = logradouro;
@@ -43,12 +45,14 @@ namespace Projeto.Entidades
             Telefone1 = telefone1;
             Telefone2 = telefone2;
             Email = email;
+            IgualCadastro = igualCadastro;
+            IgualCobranca = igualCobranca;
         }
 
         public Endereco(int idEndereco, TipoEndereco tipo, string logradouro, string numero,
             string complemento, string bairro, string municipio, string uf, string cep,
-            string telefone1, string telefone2, string email)
-            : this(tipo, logradouro, numero, complemento, bairro, municipio, uf, cep, telefone1, telefone2, email)
+            string telefone1, string telefone2, string email, bool igualCadastro, bool igualCobranca)
+            : this(tipo, logradouro, numero, complemento, bairro, municipio, uf, cep, telefone1, telefone2, email, igualCadastro, igualCobranca)
         {
             IdEndereco = idEndereco;
         }

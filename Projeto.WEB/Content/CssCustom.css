@@ -1,7 +1,5 @@
-﻿.my-error-class {
-    color: red;
-}
-
-.my-valid-class {
-    color: green;
+﻿.limiteColuna {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

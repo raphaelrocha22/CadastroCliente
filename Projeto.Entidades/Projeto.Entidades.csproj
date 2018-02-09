@@ -58,6 +58,7 @@
     <Compile Include="Markup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Representante.cs" />
+    <Compile Include="SemCampanha.cs" />
     <Compile Include="Upgrade.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>

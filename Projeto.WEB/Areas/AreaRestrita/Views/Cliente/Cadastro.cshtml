@@ -3,59 +3,82 @@
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/CssCustom.css" rel="stylesheet" />
-
-<script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/Cliente/cadastro.js"></script>
 
-<h4>Cadastro de Cliente</h4>
+<h4>Cadastro Cliente</h4>
+<h6>(*) Campos obrigatórios</h6>
 <hr />
 
-<form id="formCadastroCliente">
-    <div class="col-md-12">
+@using (Html.BeginForm("Cadastro", "Cliente", FormMethod.Post, new { id = "formClienteCadastro" }))
+{
+    if (TempData["Sucesso"] != null)
+    {
+        if ((bool)TempData["Sucesso"])
+        {
+            <div class="alert alert-success text-center form-group-lg"><strong>@TempData["Resultado"]</strong></div>
+            <div class="pull-left">
+                <input type="button" value="Cadastrar Novo Cliente" id="btnCadastrarNovoCliente" class="btn btn-success btn-sm" />
+            </div>
+            <div class="pull-right">
+                <input type="button" value="Cadastrar Modalidade Comercial" id="btnCadastrarModalidadeComercial" class="btn btn-primary btn-sm" />
+                <label id="idTransacao" class="hidden">@ViewBag.IdTransacao</label>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger text-center form-group-lg"><strong>@TempData["Resultado"]</strong></div>
+        }
+        
+    }
 
+    <div class="col-md-12">
         <div class="row">
             <div class="col-md-2">
                 <label>*Classe:</label>
-                @Html.EnumDropDownListFor(m => m.Classe,"- Selecione -", new { Class = "form-control", id = "optClasse", Name = "classe" })
+                @Html.EnumDropDownListFor(m => m.Classe, "- Selecione -", new { Class = "form-control", id = "optClasse" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.Classe)</span>
             </div>
-
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <label>*Representante</label>
-                @Html.DropDownListFor(m => m.IdRepresentante, Model.ListagemRepresentante,"- Selecione -",new {Class = "form-control", id = "optRepresentante", Name = "representante" })
+                @Html.DropDownListFor(m => m.IdRepresentante, Model.ListagemRepresentante, "- Selecione -", new { Class = "form-control", id = "optRepresentante" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.IdRepresentante)</span>
             </div>
-
             <div class="col-md-3">
                 <label>*CNPJ</label>
-                <input type="text" class="form-control" id="txtCnpj" placeholder="Digite aqui" name="cnpj" />
+                @Html.TextBoxFor(m => m.Cnpj, new { Class = "form-control", id = "txtCnpj", placeholder = "Digite aqui" })
                 <input type="button" id="btnConsultaCNPJ" class="btn btn-success btn-xs" value="Consultar pelo CNPJ" />
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.Cnpj)</span>
             </div>
-
             <div class="col-md-2">
                 <label>CODUN</label>
-                <input type="number" id="txtCodun" class="form-control" placeholder="Digite aqui" name="codun" />
+                @Html.TextBoxFor(m => m.Codun, new { Class = "form-control", id = "txtCodun", placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.Codun)</span>
             </div>
         </div>
-        <hr />
 
         <div class="row" style="margin-top:15px">
             <div class="col-md-4">
                 <label>*Razão Social</label>
-                <input type="text" id="txtRazaoSocial" class="form-control" placeholder="Digite aqui" name="razaoSocial" />
+                @Html.TextBoxFor(m => m.RazaoSocial, new { Class = "form-control", id = "txtRazaoSocial", placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.RazaoSocial)</span>
             </div>
             <div class="col-md-4">
                 <label>Nome Fantasia</label>
-                <input type="text" id="txtNomeFantasia" class="form-control" placeholder="Digite aqui" />
+                @Html.TextBoxFor(m => m.NomeFantasia, new { Class = "form-control", id = "txtNomeFantasia", placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.NomeFantasia)</span>
             </div>
             <div class="col-md-2">
                 <label>*Inscrição Estadual</label>
-                <input type="text" id="txtInscEstadual" class="form-control" placeholder="Digite aqui" />
+                @Html.TextBoxFor(m => m.InscricaoEstadual, new { Class = "form-control", id = "txtInscEstadual", placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.InscricaoEstadual)</span>
             </div>
             <div class="col-md-2">
                 <label>*Inscrição Municipal</label>
-                <input type="text" id="txtInscMunicipal" class="form-control" placeholder="Digite aqui" />
+                @Html.TextBoxFor(m => m.InscricaoMunicipal, new { Class = "form-control", id = "txtInscMunicipal", placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.InscricaoMunicipal)</span>
             </div>
         </div>
+
         <hr />
 
         <div class="enderecoCadastro">
@@ -67,46 +90,56 @@
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
                     <label>*Logradouro</label>
-                    <input type="text" id="cadastro_Logradouro" class="form-control" placeholder="Digite aqui" name="logradouro" />
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Logradouro, new { Class = "form-control", id = "cadastro_Logradouro", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.Logradouro)</span>
                 </div>
                 <div class="col-md-2">
                     <label>*Número</label>
-                    <input type="text" id="cadastro_Numero" class="form-control" placeholder="Digite aqui" name="numero" />
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Numero, new { Class = "form-control", id = "cadastro_Numero", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.Numero)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Complemento</label>
-                    <input type="text" id="cadastro_Complemento" class="form-control" placeholder="Digite aqui" />
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Complemento, new { Class = "form-control", id = "cadastro_Complemento", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.Complemento)</span>
                 </div>
                 <div class="col-md-2">
                     <label>*Bairro</label>
-                    <input type="text" id="cadastro_Bairro" class="form-control" placeholder="Digite aqui" name="bairro" />
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Bairro, new { Class = "form-control", id = "cadastro_Bairro", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.Bairro)</span>
                 </div>
                 <div class="col-md-2">
                     <label>*Munícipio</label>
-                    <input type="text" id="cadastro_Municipio" class="form-control" placeholder="Digite aqui" name="municipio"/>
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Municipio, new { Class = "form-control", id = "cadastro_Municipio", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.Municipio)</span>
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    <input type="text" id="cadastro_UF" class="form-control" placeholder="Digite aqui" name="uf" />
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.UF, new { Class = "form-control", id = "cadastro_UF", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.UF)</span>
                 </div>
             </div>
 
             <div class="row" style="margin-top:15px">
                 <div class="col-md-2">
                     <label>*CEP</label>
-                    <input type="text" id="cadastro_CEP" class="form-control" placeholder="Digite aqui" name="cep" />
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Cep, new { Class = "form-control", id = "cadastro_CEP", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.Cep)</span>
                 </div>
                 <div class="col-md-3">
                     <label>E-mail</label>
-                    <input type="email" id="cadastro_Email" class="form-control" placeholder="Digite aqui" name="email" />
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Email, new { Class = "form-control", id = "cadastro_Email", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.Email)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Telefone1</label>
-                    <input type="text" id="cadastro_Telefone1" class="form-control" placeholder="Digite aqui" />
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Telefone1, new { Class = "form-control", id = "cadastro_Telefone1", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.Telefone1)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Telefone2</label>
-                    <input type="text" id="cadastro_Telefone2" class="form-control" placeholder="Digite aqui" />
+                    @Html.TextBoxFor(m => m.EnderecoCadastro.Telefone2, new { Class = "form-control", id = "cadastro_Telefone2", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCadastro.Telefone2)</span>
                 </div>
             </div>
         </div>
@@ -117,52 +150,62 @@
             <div class="row">
                 <div class="col-md-5">
                     <label>*Endereco de Cobrança</label><br />
-                    <input type="checkbox" id="check_Cobranca_Cadastro"> Igual ao endereco de cadastro
+                    @Html.CheckBoxFor(m => m.CobrancaIgualCadastro, new { id = "check_CobrancaIgualCadastro" }) Igual ao endereco de cadastro
                 </div>
             </div>
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
                     <label>*Logradouro</label>
-                    <input type="text" id="cobranca_Logradouro" class="form-control cobranca" placeholder="Digite aqui" name="cobranca_logradouro" />
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Logradouro, new { Class = "form-control cobranca", id = "cobranca_Logradouro", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.Logradouro)</span>
                 </div>
                 <div class="col-md-2">
                     <label>*Número</label>
-                    <input type="text" id="cobranca_Numero" class="form-control cobranca" placeholder="Digite aqui" name="cobranca_numero"/>
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Numero, new { Class = "form-control cobranca", id = "cobranca_Numero", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.Numero)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Complemento</label>
-                    <input type="text" id="cobranca_Complemento" class="form-control cobranca" placeholder="Digite aqui"/>
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Complemento, new { Class = "form-control cobranca", id = "cobranca_Complemento", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.Complemento)</span>
                 </div>
                 <div class="col-md-2">
                     <label>*Bairro</label>
-                    <input type="text" id="cobranca_Bairro" class="form-control cobranca" placeholder="Digite aqui" name="cobranca_bairro"/>
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Bairro, new { Class = "form-control cobranca", id = "cobranca_Bairro", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.Bairro)</span>
                 </div>
                 <div class="col-md-2">
                     <label>*Munícipio</label>
-                    <input type="text" id="cobranca_Municipio" class="form-control cobranca" placeholder="Digite aqui" name="cobranca_municipio"/>
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Municipio, new { Class = "form-control cobranca", id = "cobranca_Municipio", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.Municipio)</span>
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    <input type="text" id="cobranca_UF" class="form-control cobranca" placeholder="Digite aqui" name="cobranca_UF" />
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.UF, new { Class = "form-control cobranca", id = "cobranca_UF", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.UF)</span>
                 </div>
             </div>
 
             <div class="row" style="margin-top:15px">
                 <div class="col-md-2">
                     <label>*CEP</label>
-                    <input type="text" id="cobranca_CEP" class="form-control cobranca" placeholder="Digite aqui" name="cobranca_cep"/>
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Cep, new { Class = "form-control cobranca", id = "cobranca_CEP", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.Cep)</span>
                 </div>
                 <div class="col-md-3">
                     <label>E-mail</label>
-                    <input type="email" id="cobranca_Email" class="form-control cobranca" placeholder="Digite aqui" name="email" />
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Email, new { Class = "form-control cobranca", id = "cobranca_Email", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.Email)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Telefone1</label>
-                    <input type="text" id="cobranca_Telefone1" class="form-control cobranca" placeholder="Digite aqui" />
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Telefone1, new { Class = "form-control cobranca", id = "cobranca_Telefone1", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.Telefone1)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Telefone2</label>
-                    <input type="text" id="cobranca_Telefone2" class="form-control cobranca" placeholder="Digite aqui" />
+                    @Html.TextBoxFor(m => m.EnderecoCobranca.Telefone2, new { Class = "form-control cobranca", id = "cobranca_Telefone2", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoCobranca.Telefone2)</span>
                 </div>
             </div>
         </div>
@@ -173,63 +216,79 @@
             <div class="row">
                 <div class="col-md-3">
                     <label>*Endereco de Entrega</label><br />
-                    <input type="checkbox" id="check_Entrega_Cadastro"> Igual ao endereco de cadastro<br />
-                    <input type="checkbox" id="check_Entrega_Cobranca"> Igual ao endereco de cobrança
+                    @Html.CheckBoxFor(m => m.EntregaIgualCadastro, new { id = "check_EntregaIgualCadastro" }) Igual ao endereco de cadastro<br />
+                    @Html.CheckBoxFor(m => m.EntregaIgualCobranca, new { id = "check_EntregaIgualCobranca" }) Igual ao endereco de cobrança<br />
                 </div>
             </div>
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
                     <label>*Logradouro</label>
-                    <input type="text" id="entrega_Logradouro" class="form-control entrega" placeholder="Digite aqui" name="entrega_logradouro" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Logradouro, new { Class = "form-control entrega", id = "entrega_Logradouro", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.Logradouro)</span>
                 </div>
                 <div class="col-md-2">
                     <label>*Número</label>
-                    <input type="text" id="entrega_Numero" class="form-control entrega" placeholder="Digite aqui" name="entrega_numero" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Numero, new { Class = "form-control entrega", id = "entrega_Numero", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.Numero)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Complemento</label>
-                    <input type="text" id="entrega_Complemento" class="form-control entrega" placeholder="Digite aqui" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Complemento, new { Class = "form-control entrega", id = "entrega_Complemento", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.Complemento)</span>
                 </div>
                 <div class="col-md-2">
                     <label>*Bairro</label>
-                    <input type="text" id="entrega_Bairro" class="form-control entrega" placeholder="Digite aqui" name="entrega_bairro" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Bairro, new { Class = "form-control entrega", id = "entrega_Bairro", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.Bairro)</span>
                 </div>
                 <div class="col-md-2">
                     <label>*Munícipio</label>
-                    <input type="text" id="entrega_Municipio" class="form-control entrega" placeholder="Digite aqui" name="entrega_municipio" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Municipio, new { Class = "form-control entrega", id = "entrega_Municipio", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.Municipio)</span>
                 </div>
                 <div class="col-md-1">
                     <label>*UF</label>
-                    <input type="text" id="entrega_UF" class="form-control entrega" placeholder="Digite aqui" name="entrega_UF" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.UF, new { Class = "form-control entrega", id = "entrega_UF", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.UF)</span>
                 </div>
             </div>
 
             <div class="row" style="margin-top:15px">
                 <div class="col-md-2">
                     <label>*CEP</label>
-                    <input type="text" id="entrega_CEP" class="form-control entrega" placeholder="Digite aqui" name="entrega_cep" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Cep, new { Class = "form-control entrega", id = "entrega_CEP", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.Cep)</span>
                 </div>
                 <div class="col-md-3">
                     <label>E-mail</label>
-                    <input type="email" id="entrega_Email" class="form-control entrega" placeholder="Digite aqui" name="email" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Email, new { Class = "form-control entrega", id = "entrega_Email", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.Email)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Telefone1</label>
-                    <input type="text" id="entrega_Telefone1" class="form-control entrega" placeholder="Digite aqui" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Telefone1, new { Class = "form-control entrega", id = "entrega_Telefone1", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.Telefone1)</span>
                 </div>
                 <div class="col-md-2">
                     <label>Telefone2</label>
-                    <input type="text" id="entrega_Telefone2" class="form-control entrega" placeholder="Digite aqui" />
+                    @Html.TextBoxFor(m => m.EnderecoEntrega.Telefone2, new { Class = "form-control entrega", id = "entrega_Telefone2", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.EnderecoEntrega.Telefone2)</span>
                 </div>
             </div>
+            <hr />
         </div>
 
         <div class="row" style="margin-top:15px">
+            <div class="col-md-4">
+                @Html.TextAreaFor(m => m.Observacao, new { Class = "form-control", id="txtObservacao", placeholder = "Observação..."})
+            </div>
             <div class="col-md-2">
                 <input type="submit" value="Cadastrar" id="btnCadastrar" class="btn btn-primary" />
             </div>
         </div>
 
     </div>
-</form>
 
+
+
+}

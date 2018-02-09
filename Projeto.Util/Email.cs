@@ -8,7 +8,7 @@ namespace Projeto.Util
 {
     public class Email
     {
-        public static void EnviarEmail(MailMessage message, List<string> destinatarios)
+        private static void EnviarEmail(MailMessage message, List<string> destinatarios)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Projeto.Util
                     $"Rebate Valor: {string.Format("{0:C}", c.RebateValor)}\n" +
                     $"Contrato assinado foi anexado: {contratoAnexo} \n" +
                     $"Observação: {c.Observacao} \n\n" +
-                    $"Usuário: {c.usuario.Nome} \n" +
+                    $"Usuário: {c.Usuario.Nome} \n" +
                     $"Data: {DateTime.Now} \n\n" +
 
                     $"Este é um email automático do sistema, por favor não responda, " +
@@ -113,7 +113,7 @@ namespace Projeto.Util
                     $"Desconto: {Math.Round(c.Desconto * 100, 1)}% \n" +
                     $"Guelta: {c.Guelta} \n" +
                     $"Observação: {c.Observacao} \n\n" +
-                    $"Usuário: {c.usuario.Nome} \n" +
+                    $"Usuário: {c.Usuario.Nome} \n" +
                     $"Data: {DateTime.Now} \n\n" +
 
                     $"Este é um email automático do sistema, por favor não responda, " +
@@ -156,7 +156,7 @@ namespace Projeto.Util
                     $"Desconto: {Math.Round(c.Desconto * 100, 1)}% \n" +
                     $"Guelta: {c.Guelta} \n" +
                     $"Observação: {c.Observacao} \n\n" +
-                    $"Usuário: {c.usuario.Nome} \n" +
+                    $"Usuário: {c.Usuario.Nome} \n" +
                     $"Data: {DateTime.Now} \n\n" +
 
                     $"Este é um email automático do sistema, por favor não responda, " +
@@ -168,6 +168,97 @@ namespace Projeto.Util
             {
                 throw e;
             }
+        }
+
+        public static void EnviarEmailSemCampanha(SemCampanha c, List<string> destinatarios)
+        {
+            try
+            {
+                MailMessage message = new MailMessage();
+                message.Subject = $"Solicitação de cadastro cliente Sem Campanha - #CodTransação: {c.Cliente.IdCliente}";
+
+                var compraNetline = c.NetlineHabilitado ? $"Sim, em {c.MesesPagamentoNetline} vezes" : "Não";
+
+                message.Body =
+                    "Foi solicitado um novo cadastro de Cliente Sem Campanha \n\n" +
+                    $"Codun: {c.Codun} \n" +
+                    $"Contrato: {c.NumeroContrato} \n" +
+                    $"Data Negociação: {c.DataNegociacao.ToShortDateString()} \n" +
+                    $"Data Início: {c.DataInicio.ToShortDateString()} \n" +
+                    $"Data Fim: {c.DataFim.ToShortDateString()} \n" +
+                    $"Prazo Pagamento RBR: {c.MesesPagamentoRBR} vezes \n" +
+                    $"Habiitada Compra Netline ?: {compraNetline} \n" +
+                    $"MarkUP: {c.Markup} \n" +
+                    $"Desconto: {Math.Round(c.Desconto * 100, 1)}% \n" +
+                    $"Guelta: {c.Guelta} \n" +
+                    $"Observação: {c.Observacao} \n\n" +
+                    $"Usuário: {c.Usuario.Nome} \n" +
+                    $"Data: {DateTime.Now} \n\n" +
+
+                    $"Este é um email automático do sistema, por favor não responda, " +
+                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o acontecido.";
+
+                EnviarEmail(message, destinatarios);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void EnviarEmailCadastroCliente(Cliente c, List<string> destinatarios)
+        {
+            try
+            {
+                string endereco = string.Empty;
+                foreach (var item in c.Enderecos)
+                {
+                    endereco += 
+                    $"Tipo Endereço: {item.Tipo.ToString()} \n" +
+                    $"Logradouro: {item.Logradouro} \n" +
+                    $"Numero: {item.Numero} \n" +
+                    $"Complemento: {item.Complemento} \n" +
+                    $"Bairro: {item.Bairro} \n" +
+                    $"Municipio: {item.Municipio} \n" +
+                    $"UF: {item.UF} \n" +
+                    $"Cep: {item.Cep} \n" +
+                    $"Telefone1: {item.Telefone1} \n" +
+                    $"Telefone2: {item.Telefone2} \n" +
+                    $"Email: {item.Email} \n\n";
+                }
+
+                MailMessage message = new MailMessage();
+                message.Subject = $"Solicitação de cadastro de novo Cliente - #CodTransacao: {c.IdCliente}";
+
+                message.Body =
+                    "Foi solicitado um novo cadastro de Cliente \n\n" +
+
+                    $"CodTransação: {c.IdCliente} \n" +
+                    $"Codun: {c.Codun} \n" +
+                    $"Razão Social: {c.RazaoSocial} \n" +
+                    $"Nome Fantasia: {c.NomeFantasia} \n" +
+                    $"CNPJ: {c.Cnpj} \n" +
+                    $"Inscrição Estadual: {c.InscricaoEstadual} \n" +
+                    $"Inscrição Municipal: {c.InscricaoMunicipal} \n" +
+                    $"Classe: {c.Classe.ToString()} \n" +
+                    $"Observação: {c.Observacao} \n" +
+                    $"Representante: {c.Representante.Nome} \n\n" +
+                    
+                    $"{endereco}" +
+                                      
+                    $"Usuário: {c.Usuario.Nome} \n" +
+                    $"Data: {DateTime.Now} \n\n" +
+
+                    $"Este é um email automático do sistema, por favor não responda, " +
+                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o acontecido.";
+
+                EnviarEmail(message, destinatarios);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
         }
     }
 }

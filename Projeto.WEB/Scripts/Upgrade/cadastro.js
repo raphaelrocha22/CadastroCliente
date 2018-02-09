@@ -60,8 +60,8 @@
         Desconto();
     });
 
-    $('#btnCadastrar').click(function () {
-        $(this).prop('value', 'Aguarde...').prop('disabled', true);
+    $("#formUpgradeCadastro").submit(function () {
+        $('#btnCadastrar').prop('value', 'Aguarde...').prop('disabled', true);
     });
 });
 

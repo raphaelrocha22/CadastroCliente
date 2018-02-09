@@ -53,7 +53,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 try
                 {
                     var c = new ClubR();
-                    c.usuario = new Usuario();
+                    c.Usuario = new Usuario();
 
                     c.Campanha = Campanha.ClubR;
                     c.Codun = model.Codun;
@@ -79,8 +79,8 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.Status = Status.Pendente;
                     c.Observacao = model.Obervacao;
                     c.Contrato = model.Contrato is null ? null : $"{c.Campanha}-{c.Codun}-{c.NumeroContrato}";
-                    c.usuario.IdUsuario = model.usuario.IdUsuario;
-                    c.usuario.Nome = model.usuario.Nome;
+                    c.Usuario.IdUsuario = model.usuario.IdUsuario;
+                    c.Usuario.Nome = model.usuario.Nome;
 
                     var d = new ClubRDAL();
                     d.Cadastrar(c);
@@ -93,7 +93,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     }
 
                     var r = new RepresentanteDAL();
-                    List<string> destinatarios = r.ListaDestinatarios(c.usuario.IdUsuario);
+                    List<string> destinatarios = r.ListaDestinatarios(c.Usuario.IdUsuario);
 
                     Email.EnviarEmailClubR(c, destinatarios);
 

@@ -11,19 +11,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
     public abstract class GenericClass
     {
-        public string Cnpj { get; set; }
-        public int Codun { get; set; }
-        public string RazaoSocial { get; set; }
-        public string NomeFantasia { get; set; }
-        public string InscricaoEstadual { get; set; }
-        public string InscricaoMunicipal { get; set; }
-        public EnderecoViewModel EnderecoCadastro { get; set; }
-        public EnderecoViewModel EnderecoCobranca { get; set; }
-        public EnderecoViewModel EnderecoEntrega { get; set; }
-        public int IdRepresentante { get; set; }
-        public string NomeRepresentante { get; set; }
-
-        public int IdUsuario
+        public Usuario usuario
         {
             get
             {
@@ -31,11 +19,14 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 
                 ///Bug apenas no pc do desenvolvedor :(
                 if (u == null)
-                    return 2;
+                {
+                    u = new Usuario();
+                    u.IdUsuario = 2;
+                    u.Nome = "Raphael Rocha";
+                }
 
-                return u.IdUsuario;
+                return u;
             }
-            set { }
         }
 
         public List<SelectListItem> ListagemRepresentante
@@ -45,7 +36,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
                 var lista = new List<SelectListItem>();
                 var d = new RepresentanteDAL();
 
-                foreach (var r in d.ListaRepresentante(IdUsuario))
+                foreach (var r in d.ListaRepresentante(usuario.IdUsuario))
                 {
                     var item = new SelectListItem();
                     item.Value = r.IdRepresentante.ToString();
