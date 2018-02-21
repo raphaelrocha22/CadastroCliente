@@ -33,7 +33,7 @@ namespace Projeto.Util
             catch
             {
                 throw new Exception("A solicitação foi realizada com sucesso, mas não conseguimos enviar para você o email de confirmação. " +
-                    "Por favor, entre em contato com o Back Office do RJ para confirmar o recebimento");
+                    "Por favor, entre em contato com o Back Office do RJ para confirmar o recebimento.");
             }
         }
 
@@ -44,13 +44,13 @@ namespace Projeto.Util
                 MailMessage message = new MailMessage();
                 message.Subject = $"Solicitação de cadastro cliente ClubR - {c.Codun}";
 
-                var contratoAnexo = c.Contrato is null ? "Não" : $"Sim - Nome do Arquivo: {c.Contrato}";
+                var contratoAnexo = c.FileContrato is null ? "Não" : $"Sim - Nome do Arquivo: {c.FileContrato}";
                 var compraNetline = c.NetlineHabilitado ? $"Sim, em {c.MesesPagamentoNetline} vezes" : "Não";
 
                 message.Body =
                     "Foi solicitado um novo cadastro de Cliente na Campanha ClubR \n\n" +
                     $"Codun: {c.Codun} \n" +
-                    $"Contrato: {c.NumeroContrato} \n" +
+                    $"Contrato: {c.Versao} \n" +
                     $"Nome Responsável: {c.NomeResponsavel} \n" +
                     $"CPF Responsavel: {c.CpfResponsavel} \n" +
                     $"Data Negociação: {c.DataNegociacao.ToShortDateString()} \n" +
@@ -74,7 +74,7 @@ namespace Projeto.Util
                     $"Data: {DateTime.Now} \n\n" +
 
                     $"Este é um email automático do sistema, por favor não responda, " +
-                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o acontecido.";
+                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o ocorrido.";
 
                 EnviarEmail(message, destinatarios);
             }
@@ -96,7 +96,7 @@ namespace Projeto.Util
                 message.Body =
                     "Foi solicitado um novo cadastro de Cliente na Campanha Upgrade \n\n" +
                     $"Codun: {c.Codun} \n" +
-                    $"Contrato: {c.NumeroContrato} \n" +
+                    $"Contrato: {c.Versao} \n" +
                     $"Nome Responsável: {c.NomeResponsavel} \n" +
                     $"CPF Responsavel: {c.CpfResponsavel} \n" +
                     $"Data Negociação: {c.DataNegociacao.ToShortDateString()} \n" +
@@ -117,7 +117,7 @@ namespace Projeto.Util
                     $"Data: {DateTime.Now} \n\n" +
 
                     $"Este é um email automático do sistema, por favor não responda, " +
-                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o acontecido.";
+                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o ocorrido.";
 
                 EnviarEmail(message, destinatarios);
             }
@@ -139,7 +139,7 @@ namespace Projeto.Util
                 message.Body =
                     "Foi solicitado um novo cadastro de Cliente na Campanha MArkup \n\n" +
                     $"Codun: {c.Codun} \n" +
-                    $"Contrato: {c.NumeroContrato} \n" +
+                    $"Contrato: {c.Versao} \n" +
                     $"Nome Responsável: {c.NomeResponsavel} \n" +
                     $"CPF Responsavel: {c.CpfResponsavel} \n" +
                     $"Data Negociação: {c.DataNegociacao.ToShortDateString()} \n" +
@@ -160,7 +160,7 @@ namespace Projeto.Util
                     $"Data: {DateTime.Now} \n\n" +
 
                     $"Este é um email automático do sistema, por favor não responda, " +
-                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o acontecido.";
+                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o ocorrido.";
 
                 EnviarEmail(message, destinatarios);
             }
@@ -181,11 +181,10 @@ namespace Projeto.Util
 
                 message.Body =
                     "Foi solicitado um novo cadastro de Cliente Sem Campanha \n\n" +
-                    $"Codun: {c.Codun} \n" +
-                    $"Contrato: {c.NumeroContrato} \n" +
+                    $"Codun: {c.Cliente.Codun} \n" +
+                    $"Contrato: {c.Versao} \n" +
                     $"Data Negociação: {c.DataNegociacao.ToShortDateString()} \n" +
                     $"Data Início: {c.DataInicio.ToShortDateString()} \n" +
-                    $"Data Fim: {c.DataFim.ToShortDateString()} \n" +
                     $"Prazo Pagamento RBR: {c.MesesPagamentoRBR} vezes \n" +
                     $"Habiitada Compra Netline ?: {compraNetline} \n" +
                     $"MarkUP: {c.Markup} \n" +
@@ -196,7 +195,7 @@ namespace Projeto.Util
                     $"Data: {DateTime.Now} \n\n" +
 
                     $"Este é um email automático do sistema, por favor não responda, " +
-                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o acontecido.";
+                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o ocorrido.";
 
                 EnviarEmail(message, destinatarios);
             }
@@ -242,7 +241,7 @@ namespace Projeto.Util
                     $"Inscrição Municipal: {c.InscricaoMunicipal} \n" +
                     $"Classe: {c.Classe.ToString()} \n" +
                     $"Observação: {c.Observacao} \n" +
-                    $"Representante: {c.Representante.Nome} \n\n" +
+                    $"Representante: {c.Agente.Nome} \n\n" +
                     
                     $"{endereco}" +
                                       
@@ -250,7 +249,63 @@ namespace Projeto.Util
                     $"Data: {DateTime.Now} \n\n" +
 
                     $"Este é um email automático do sistema, por favor não responda, " +
-                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o acontecido.";
+                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o ocorrido.";
+
+                EnviarEmail(message, destinatarios);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+        public static void EnviarEmailEdicaoCliente(Cliente c, List<string> destinatarios)
+        {
+            try
+            {
+                string endereco = string.Empty;
+                foreach (var item in c.Enderecos)
+                {
+                    endereco +=
+                    $"Tipo Endereço: {item.Tipo.ToString()} \n" +
+                    $"Logradouro: {item.Logradouro} \n" +
+                    $"Numero: {item.Numero} \n" +
+                    $"Complemento: {item.Complemento} \n" +
+                    $"Bairro: {item.Bairro} \n" +
+                    $"Municipio: {item.Municipio} \n" +
+                    $"UF: {item.UF} \n" +
+                    $"Cep: {item.Cep} \n" +
+                    $"Telefone1: {item.Telefone1} \n" +
+                    $"Telefone2: {item.Telefone2} \n" +
+                    $"Email: {item.Email} \n\n";
+                }
+
+                MailMessage message = new MailMessage();
+                message.Subject = $"Solicitação de Edição de Cliente - CodCliente: {c.CodCliente} - #CodTransacao: {c.IdCliente}";
+
+                message.Body =
+                    "Foi solicitada a edição de dados cadastrais de um Cliente \n\n" +
+
+                    $"CodTransação: {c.IdCliente} \n" +
+                    $"CodCliente: {c.CodCliente} \n" +
+                    $"Codun: {c.Codun} \n" +
+                    $"Razão Social: {c.RazaoSocial} \n" +
+                    $"Nome Fantasia: {c.NomeFantasia} \n" +
+                    $"CNPJ: {c.Cnpj} \n" +
+                    $"Inscrição Estadual: {c.InscricaoEstadual} \n" +
+                    $"Inscrição Municipal: {c.InscricaoMunicipal} \n" +
+                    $"Classe: {c.Classe.ToString()} \n" +
+                    $"Observação: {c.Observacao} \n" +
+                    $"Representante: {c.Agente.Nome} \n\n" +
+
+                    $"{endereco}" +
+
+                    $"Usuário: {c.Usuario.Nome} \n" +
+                    $"Data: {DateTime.Now} \n\n" +
+
+                    $"Este é um email automático do sistema, por favor não responda, " +
+                    $"qualquer problema, encaminhe este email para raphael.rocha@rodenstock.com.br e explique o ocorrido.";
 
                 EnviarEmail(message, destinatarios);
             }

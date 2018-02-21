@@ -1,7 +1,7 @@
 ﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Cliente.ConsultaViewModel
 @{
     ViewBag.Title = "Consulta";
-    Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/AreaRestrita/Views/_Shared/_Layout.cshtml";
 }
 
 
@@ -52,7 +52,7 @@
 
                     <div class="col-md-3">
                         <label>Representante</label>
-                        @Html.DropDownListFor(m => m.IdRepresentante, Model.ListagemRepresentante, "- Selecione -", new { Class = "form-control", id = "optRepresentante" })
+                        @Html.DropDownListFor(m => m.IdAgente, Model.ListagemRepresentante, "- Selecione -", new { Class = "form-control", id = "optRepresentante" })
                     </div>
 
                     <div class="col-md-2">
@@ -94,8 +94,9 @@
                         <th width="20%">Razao Social</th>
                         <th width="20%">Nome Fantasia</th>
                         <th width="8%">Classe</th>
-                        <th width="15%">Representante</th>
-                        <th width="20%">Operações</th>
+                        <th width="6%">Agente</th>
+                        <th width="6%">Promotor</th>
+                        <th width="23%">Operações</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -126,7 +127,8 @@
                 <strong>Inscrição Estadual: </strong><span id="detalhes_estadual"></span> <br />
                 <strong>Inscrição Municipal: </strong><span id="detalhes_municipal"></span> <br />
                 <strong>Classe: </strong><span id="detalhes_classe"></span> <br />
-                <strong>Representante: </strong><span id="detalhes_representante"></span> <br />
+                <strong>Agente: </strong><span id="detalhes_agente"></span> <br />
+                <strong>Promotor: </strong><span id="detalhes_promotor"></span> <br />
                 <br />
 
                 <strong>Endereço Cadastro</strong><br />

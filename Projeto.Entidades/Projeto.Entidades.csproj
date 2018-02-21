@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CentralSolicitacao.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="ClubR.cs" />
     <Compile Include="Endereco.cs" />
+    <Compile Include="Enuns\Acao.cs" />
     <Compile Include="Enuns\Campanha.cs" />
     <Compile Include="Enuns\ClasseCliente.cs" />
     <Compile Include="Enuns\EnumExtentions.cs" />
@@ -51,7 +53,9 @@
     <Compile Include="Enuns\ModalidadeClubR.cs" />
     <Compile Include="Enuns\ModalidadeMarkup.cs" />
     <Compile Include="Enuns\ModalidadeUpgrade.cs" />
-    <Compile Include="Enuns\Status.cs" />
+    <Compile Include="Enuns\PerfilUsuario.cs" />
+    <Compile Include="Enuns\StatusSolicitacao.cs" />
+    <Compile Include="Enuns\StatusUsuario.cs" />
     <Compile Include="Enuns\TipoEndereco.cs" />
     <Compile Include="Enuns\TipoRepresentante.cs" />
     <Compile Include="GenericCampanha.cs" />

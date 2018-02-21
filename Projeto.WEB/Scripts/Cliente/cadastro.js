@@ -15,7 +15,7 @@
     if ($('#check_EntregaIgualCadastro').prop('checked') || $('#check_EntregaIgualCobranca').prop('checked')) {
         $('.entrega').prop('disabled', true);
     };
-    
+
     $('#check_CobrancaIgualCadastro').click(function () {
         if (this.checked) {
             $('.cobranca').prop('disabled', true);
@@ -52,20 +52,6 @@
         }
     });
 
-    $('#btnCadastrarNovoCliente').click(function () {
-        $(location).attr('href', '/AreaRestrita/Cliente/Cadastro/');
-    });
-
-    $('#btnCadastrarModalidadeComercial').click(function () {
-        if ($("#idTransacao").html() != "") {
-            var id = $("#idTransacao").html();
-            $(location).attr('href', '/AreaRestrita/SemCampanha/Cadastro/' + id);
-        }
-        else {
-            alert("O redirecionamento não pôde ser realizado, IdTransação não encontrado, por favor entre em contato com com a equipe Backoffice RJ");
-        }
-    });
-
     $("#formClienteCadastro").submit(function () {
         $('#btnCadastrar').prop('value', 'Aguarde...').prop('disabled', true);
     });
@@ -73,7 +59,7 @@
 });
 
 function ConsultarCNPJ(cnpj) {
-    
+
     var rgx = new RegExp("^[0-9]{14}$");
     if (rgx.test(cnpj)) {
 
@@ -86,7 +72,7 @@ function ConsultarCNPJ(cnpj) {
             },
             success:
             function (m) {
-                if (m.Status !== "ERROR") {
+                if (m.Status == "OK") {
                     $("#txtRazaoSocial").val(m.RazaoSocial);
                     $("#txtNomeFantasia").val(m.NomeFantasia);
                     $("#cadastro_Logradouro").val(m.EnderecoCadastro.Logradouro);
@@ -99,11 +85,17 @@ function ConsultarCNPJ(cnpj) {
                     $("#cadastro_Email").val(m.EnderecoCadastro.Email);
                     $("#cadastro_Telefone1").val(m.EnderecoCadastro.Telefone1);
                 }
-                else {
+                else if (m.Status == "ERROR") {
                     $('#formCadastroCliente').each(function () {
                         this.reset();
                     });
                     alert("CNPJ não encontrado!");
+                }
+                else {
+                    $('#formCadastroCliente').each(function () {
+                        this.reset();
+                    });
+                    alert(m.Status);
                 }
             },
             error: function (e) {

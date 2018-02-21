@@ -21,7 +21,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
                 if (u == null)
                 {
                     u = new Usuario();
-                    u.IdUsuario = 2;
+                    u.IdUsuario = 3;
                     u.Nome = "Raphael Rocha";
                 }
 

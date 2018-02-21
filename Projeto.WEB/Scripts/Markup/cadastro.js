@@ -6,12 +6,12 @@
     $("#txtCodun").change(function () {
         $.ajax({
             type: 'POST',
-            url: '/AreaRestrita/Markup/NumeroContrato',
+            url: '/AreaRestrita/Markup/Versao',
             data: model = {
                 Codun: $("#txtCodun").val()
             },
-            success: function (numeroContrato) {
-                $("#txtNumeroContrato").val(numeroContrato);
+            success: function (versao) {
+                $("#txtVersao").val(versao);
             },
             error: function (e) {
                 console.log(e.status);

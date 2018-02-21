@@ -13,7 +13,5 @@ namespace Projeto.Entidades
         public string Nome { get; set; }
         public string TipoRepresentante { get; set; }
         public bool Ativo { get; set; }
-
-        public List<Cliente> Clientes { get; set; }
     }
 }

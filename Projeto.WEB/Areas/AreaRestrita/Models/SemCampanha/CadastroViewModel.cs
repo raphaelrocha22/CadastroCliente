@@ -14,7 +14,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.SemCampanha
         public int IdTransacao { get; set; }
         public int CodCliente { get; set; }
         public int Codun { get; set; }
-        public int NumeroContrato { get; set; }
+        public int Versao { get; set; }
         public string DataNegociacao { get; set; }
 
         [RegularExpression("^[a-zA-Zà-üÀ-Ü0-9\\s]{4,50}$", ErrorMessage = "Preencha com letras e números, máximo 50 caracteres")]

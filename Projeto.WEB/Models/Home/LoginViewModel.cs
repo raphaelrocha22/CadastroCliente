@@ -10,7 +10,7 @@ namespace Projeto.WEB.Models.Home
         public string Login { get; set; }
 
         [RegularExpression("^[a-z0-9@&]{4,50}$", ErrorMessage = "Senha inválida")]
-        [Required(ErrorMessage = "Por favor, informe a Senha Antiga.")]
+        [Required(ErrorMessage = "Por favor, informe a Senha.")]
         [Display(Name = "Senha")]
         public string Senha { get; set; }
     }

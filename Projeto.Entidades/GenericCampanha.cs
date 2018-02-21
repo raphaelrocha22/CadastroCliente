@@ -12,7 +12,7 @@ namespace Projeto.Entidades
         public int Id { get; set; }
         public Campanha Campanha { get; set; }
         public int Codun { get; set; }
-        public int NumeroContrato { get; set; }
+        public int Versao { get; set; }
         public string NomeResponsavel { get; set; }
         public string CpfResponsavel { get; set; }
         public DateTime DataNegociacao { get; set; }
@@ -27,10 +27,12 @@ namespace Projeto.Entidades
         public int MesesPagamentoRBR { get; set; }
         public int MesesPagamentoNetline { get; set; }
         public bool NetlineHabilitado { get; set; }
-        public Status Status { get; set; }
+        public StatusSolicitacao Status { get; set; }
         public string Observacao { get; set; }
         public Guelta Guelta { get; set; }
 
+        public Acao Acao { get; set; }
         public Usuario Usuario { get; set; }
+
     }
 }

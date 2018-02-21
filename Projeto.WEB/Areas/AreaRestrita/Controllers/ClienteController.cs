@@ -23,11 +23,101 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return View();
         }
 
-        public ActionResult Cadastro()
+        public ActionResult Cadastro(int? id)
         {
-            return View(new CadastroViewModel());
+            try
+            {
+                var model = new CadastroViewModel();
+                model.EnderecoCadastro = new EnderecoViewModel();
+                model.EnderecoCobranca = new EnderecoViewModel();
+                model.EnderecoEntrega = new EnderecoViewModel();
+
+                //Se id not null -> Edicao
+                if (id != null)
+                {
+                    var d = new ClienteDAL();
+                    foreach (var c in d.ObterClientes((int)id))
+                    {
+                        model.IdTransacao = c.IdCliente;
+                        model.CodCliente = c.CodCliente;
+                        model.Codun = c.Codun;
+                        model.RazaoSocial = c.RazaoSocial;
+                        model.NomeFantasia = c.NomeFantasia;
+                        model.Cnpj = c.Cnpj;
+                        model.InscricaoEstadual = c.InscricaoEstadual;
+                        model.InscricaoMunicipal = c.InscricaoMunicipal;
+                        model.Classe = c.Classe;
+                        model.Observacao = c.Observacao;
+                        model.IdAgente = c.Agente.IdRepresentante;
+                        model.IdPromotor = c.Promotor.IdRepresentante;
+
+                        foreach (var item in d.ObterEndereco(c.IdCliente))
+                        {
+                            switch (item.Tipo)
+                            {
+                                case (TipoEndereco.Cadastro):
+                                    model.EnderecoCadastro.IdEndereco = item.IdEndereco;
+                                    model.EnderecoCadastro.Logradouro = item.Logradouro;
+                                    model.EnderecoCadastro.Numero = item.Numero;
+                                    model.EnderecoCadastro.Complemento = item.Complemento;
+                                    model.EnderecoCadastro.Bairro = item.Bairro;
+                                    model.EnderecoCadastro.Municipio = item.Municipio;
+                                    model.EnderecoCadastro.UF = item.UF;
+                                    model.EnderecoCadastro.Cep = item.Cep;
+                                    model.EnderecoCadastro.Email = item.Email;
+                                    model.EnderecoCadastro.Telefone1 = item.Telefone1;
+                                    model.EnderecoCadastro.Telefone2 = item.Telefone2;
+                                    model.EnderecoCadastro.Tipo = item.Tipo;
+                                    break;
+
+                                case (TipoEndereco.Cobranca):
+                                    model.EnderecoCobranca.IdEndereco = item.IdEndereco;
+                                    model.EnderecoCobranca.Logradouro = item.Logradouro;
+                                    model.EnderecoCobranca.Numero = item.Numero;
+                                    model.EnderecoCobranca.Complemento = item.Complemento;
+                                    model.EnderecoCobranca.Bairro = item.Bairro;
+                                    model.EnderecoCobranca.Municipio = item.Municipio;
+                                    model.EnderecoCobranca.UF = item.UF;
+                                    model.EnderecoCobranca.Cep = item.Cep;
+                                    model.EnderecoCobranca.Email = item.Email;
+                                    model.EnderecoCobranca.Telefone1 = item.Telefone1;
+                                    model.EnderecoCobranca.Telefone2 = item.Telefone2;
+                                    model.EnderecoCobranca.Tipo = item.Tipo;
+                                    model.CobrancaIgualCadastro = item.IgualCadastro;
+                                    break;
+
+                                case (TipoEndereco.Entrega):
+                                    model.EnderecoEntrega.IdEndereco = item.IdEndereco;
+                                    model.EnderecoEntrega.Logradouro = item.Logradouro;
+                                    model.EnderecoEntrega.Numero = item.Numero;
+                                    model.EnderecoEntrega.Complemento = item.Complemento;
+                                    model.EnderecoEntrega.Bairro = item.Bairro;
+                                    model.EnderecoEntrega.Municipio = item.Municipio;
+                                    model.EnderecoEntrega.UF = item.UF;
+                                    model.EnderecoEntrega.Cep = item.Cep;
+                                    model.EnderecoEntrega.Email = item.Email;
+                                    model.EnderecoEntrega.Telefone1 = item.Telefone1;
+                                    model.EnderecoEntrega.Telefone2 = item.Telefone2;
+                                    model.EnderecoEntrega.Tipo = item.Tipo;
+                                    model.EntregaIgualCadastro = item.IgualCadastro;
+                                    model.EntregaIgualCobranca = item.IgualCobranca;
+                                    break;
+                            }
+                        }
+                    }
+                }
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                TempData["Sucesso"] = true;
+                TempData["Resultado"] = e.Message;
+
+                return View(new CadastroViewModel());
+            }
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Cadastro(CadastroViewModel model)
         {
@@ -40,7 +130,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     keyList.Add("EnderecoCobranca");
                     model.EnderecoCobranca = new EnderecoViewModel(model.EnderecoCadastro);
                 }
-                    
+
                 if (model.EntregaIgualCadastro)
                 {
                     keyList.Add("EnderecoEntrega");
@@ -63,9 +153,11 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 if (ModelState.IsValid)
                 {
                     var c = new Cliente();
-                    c.Representante = new Representante();
+                    c.Agente = new Representante();
+                    c.Promotor = new Representante();
                     c.Usuario = new Usuario();
 
+                    c.CodCliente = model.CodCliente;
                     c.Codun = model.Codun;
                     c.RazaoSocial = model.RazaoSocial;
                     c.NomeFantasia = model.NomeFantasia;
@@ -73,63 +165,105 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.InscricaoEstadual = model.InscricaoEstadual;
                     c.InscricaoMunicipal = model.InscricaoMunicipal;
                     c.Classe = model.Classe;
-                    c.Status = Status.Pendente;
+                    c.Status = StatusSolicitacao.Pendente;
                     c.Observacao = model.Observacao;
                     c.DataCadastro = DateTime.Now;
-                    c.Representante.IdRepresentante = model.IdRepresentante;
+                    c.Agente.IdRepresentante = model.IdAgente;
+                    c.Promotor.IdRepresentante = model.IdPromotor;
                     c.Usuario = model.usuario;
 
+                    //Necessario passar o idEndereco para caso de Edicao
                     c.Enderecos = new List<Endereco>()
                     {
-                        new Endereco(TipoEndereco.Cadastro, model.EnderecoCadastro.Logradouro, model.EnderecoCadastro.Numero,
+                        new Endereco(model.EnderecoCadastro.IdEndereco,TipoEndereco.Cadastro, model.EnderecoCadastro.Logradouro, model.EnderecoCadastro.Numero,
                         model.EnderecoCadastro.Complemento,model.EnderecoCadastro.Bairro,model.EnderecoCadastro.Municipio,model.EnderecoCadastro.UF,
                         model.EnderecoCadastro.Cep,model.EnderecoCadastro.Telefone1,model.EnderecoCadastro.Telefone2,model.EnderecoCadastro.Email,false,false),
 
-                        new Endereco(TipoEndereco.Cobranca,model.EnderecoCobranca.Logradouro,model.EnderecoCobranca.Numero,
+                        new Endereco(model.EnderecoCobranca.IdEndereco,TipoEndereco.Cobranca,model.EnderecoCobranca.Logradouro,model.EnderecoCobranca.Numero,
                         model.EnderecoCobranca.Complemento,model.EnderecoCobranca.Bairro,model.EnderecoCobranca.Municipio,model.EnderecoCobranca.UF,
                         model.EnderecoCobranca.Cep,model.EnderecoCobranca.Telefone1,model.EnderecoCobranca.Telefone2,model.EnderecoCobranca.Email,model.CobrancaIgualCadastro,false),
 
-                        new Endereco(TipoEndereco.Entrega,model.EnderecoEntrega.Logradouro,model.EnderecoEntrega.Numero,model.EnderecoEntrega.Complemento,
+                        new Endereco(model.EnderecoEntrega.IdEndereco,TipoEndereco.Entrega,model.EnderecoEntrega.Logradouro,model.EnderecoEntrega.Numero,model.EnderecoEntrega.Complemento,
                         model.EnderecoEntrega.Bairro,model.EnderecoEntrega.Municipio,model.EnderecoEntrega.UF,model.EnderecoEntrega.Cep,
                         model.EnderecoEntrega.Telefone1,model.EnderecoEntrega.Telefone2,model.EnderecoCobranca.Email,model.EntregaIgualCadastro,model.EntregaIgualCobranca)
                     };
 
                     var d = new ClienteDAL();
 
-                    if (!d.VerificarCNPJ(c.Cnpj))
+                    if (model.IdTransacao is null)
                     {
-                        d.CadastrarCliente(c);
+                        c.Acao = Acao.Cadastrar;
+                        model.Acao = c.Acao;
+                        if (!d.VerificarCNPJ(c.Cnpj))
+                        {
+                            d.CadastrarCliente(c);
 
-                        var r = new RepresentanteDAL();
-                        List<string> destinatarios = r.ListaDestinatarios(c.Usuario.IdUsuario);
+                            TempData["Sucesso"] = true;
+                            TempData["Resultado"] = "Solicitação de Cadastro enviada com sucesso.\n" +
+                                "Um E-mail de confirmação foi enviado para você, assim que o cliente estiver cadastrado você receberá uma confirmação via E-mail.\n " +
+                                "Se o cliente não estiver coligado a nenhum Codun já existente, clique no botão Cadastrar Modalidade Comercial.\n " +
+                                $"IdTransação: {c.IdCliente}";
+                            model.IdTransacao = c.IdCliente;
 
-                        Email.EnviarEmailCadastroCliente(c, destinatarios);
+                            try
+                            {
+                                var r = new RepresentanteDAL();
+                                List<string> destinatarios = r.ListaDestinatarios(c.Usuario.IdUsuario);
 
-                        TempData["Sucesso"] = true;
-                        TempData["Resultado"] = "Solicitação de Cadastro enviada com sucesso.\n" +
-                            "Um E-mail de confirmação foi enviado para você, assim que o cliente estiver cadastrado você receberá uma confirmação via E-mail.\n " +
-                            "Se o cliente não estiver coligado a nenhum Codun já existente, clique no botão Cadastrar Modalidade Comercial.\n " +
-                            $"IdTransação: {c.IdCliente}";
-                        ViewBag.IdTransacao = c.IdCliente;
+                                Email.EnviarEmailCadastroCliente(c, destinatarios);
+                            }
+                            catch (Exception e)
+                            {
+                                TempData["Sucesso"] = true;
+                                TempData["Resultado"] = $"{e.Message} Se o cliente não estiver coligado a nenhum Codun já existente, clique no botão Cadastrar Modalidade Comercial.\n " +
+                                $"IdTransação: {c.IdCliente}";
+                            }
+                        }
+                        else
+                        {
+                            TempData["Sucesso"] = false;
+                            TempData["Resultado"] = "Já existe um cliente cadastrado com o CNPJ informado";
+                        }
                     }
-                    else
+                    
+                    else 
                     {
-                        TempData["Sucesso"] = false;
-                        TempData["Resultado"] = "Já existe um cliente cadastrado com o CNPJ informado";
+                        c.Acao = Acao.Atualizar;
+                        model.Acao = c.Acao;
+                        c.IdCliente = (int)model.IdTransacao;
+                        d.AtualizarCliente(c);
+
+                        try
+                        {
+                            var r = new RepresentanteDAL();
+                            List<string> destinatarios = r.ListaDestinatarios(c.Usuario.IdUsuario);
+
+                            Email.EnviarEmailEdicaoCliente(c, destinatarios);
+
+                            TempData["Sucesso"] = true;
+                            TempData["Resultado"] = "Solicitação de atualização de dados cadastrais enviada com sucesso.\n" +
+                                "Um E-mail de confirmação foi enviado para você, assim que o cliente estiver cadastrado você receberá uma confirmação via E-mail.";
+                        }
+                        catch (Exception e)
+                        {
+                            TempData["Sucesso"] = true;
+                            TempData["Resultado"] = e.Message;
+                        }                        
                     }
                 }
             }
             catch (Exception e)
             {
                 TempData["Sucesso"] = false;
-                TempData["Resultado"] = "A operação não pôde ser concluida. Erro: " + e.Message;
+                TempData["Resultado"] = "Operação não concluída. Erro: " + e.Message;
             }
-
             return View(model);
         }
 
         public JsonResult ConsultarCNPJ(string cnpj)
         {
+            var model = new CadastroViewModel();
+
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://www.receitaws.com.br/v1/cnpj/{cnpj}");
@@ -140,7 +274,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                     var json = JsonConvert.DeserializeObject<JsonCNPJ>(reader.ReadToEnd());
 
-                    var model = new CadastroViewModel();
                     model.EnderecoCadastro = new EnderecoViewModel();
                     model.RazaoSocial = json.RazaoSocial;
                     model.NomeFantasia = json.NomeFantasia;
@@ -160,7 +293,8 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             }
             catch (Exception e)
             {
-                return Json(e.Message);
+                model.Status = e.Message;
+                return Json(model);
             }
         }
 
@@ -168,7 +302,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         {
             return View(new ConsultaViewModel());
         }
-        
+
         [HttpPost]
         public JsonResult Consulta(ConsultaViewModel model)
         {
@@ -178,7 +312,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
                 var d = new ClienteDAL();
                 foreach (var c in d.ObterClientes(model.IdCliente, model.CodCliente, model.Codun, model.RazaoSocial,
-                    model.NomeFantasia, model.Cnpj, model.IdRepresentante, model.DataInicio, model.DataFim))
+                    model.NomeFantasia, model.Cnpj, model.IdAgente, model.IdPromotor, model.DataInicio, model.DataFim))
                 {
                     model = new ConsultaViewModel();
                     model.EnderecoCadastro = new EnderecoViewModel();
@@ -195,7 +329,8 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     model.InscricaoMunicipal = c.InscricaoMunicipal;
                     model.Classe = c.Classe.ToString();
                     model.DataCadastro = c.DataCadastro.ToString();
-                    model.NomeRepresentante = c.Representante.Nome;
+                    model.NomeAgente = c.Agente.Nome;
+                    model.NomePromotor = c.Promotor.Nome;
 
                     foreach (var item in d.ObterEndereco(c.IdCliente))
                     {
@@ -260,176 +395,26 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             }
         }
 
-        public ActionResult Edicao(int id)
+        public ActionResult Visualizar(int id)
         {
             try
             {
-                var model = new EdicaoViewModel();
-                model.EnderecoCadastro = new EnderecoViewModel();
-                model.EnderecoCobranca = new EnderecoViewModel();
-                model.EnderecoEntrega = new EnderecoViewModel();
+                var model = new ConsultaViewModel();
 
-                var d = new ClienteDAL();
-                foreach (var c in d.ObterClientes(id))
+                var d = new ClienteDAL(); 
+                foreach (var item in d.ObterClientes(id))
                 {
-                    model.IdTransacao = c.IdCliente;
-                    model.CodCliente = c.CodCliente;
-                    model.Codun = c.Codun;
-                    model.RazaoSocial = c.RazaoSocial;
-                    model.NomeFantasia = c.NomeFantasia;
-                    model.Cnpj = c.Cnpj;
-                    model.InscricaoEstadual = c.InscricaoEstadual;
-                    model.InscricaoMunicipal = c.InscricaoMunicipal;
-                    model.Classe = c.Classe;
-                    model.Observacao = c.Observacao;
-                    model.IdRepresentante = c.Representante.IdRepresentante;
 
-                    foreach (var item in d.ObterEndereco(c.IdCliente))
-                    {
-                        switch (item.Tipo)
-                        {
-                            case (TipoEndereco.Cadastro):
-                                model.EnderecoCadastro.IdEndereco = item.IdEndereco;
-                                model.EnderecoCadastro.Logradouro = item.Logradouro;
-                                model.EnderecoCadastro.Numero = item.Numero;
-                                model.EnderecoCadastro.Complemento = item.Complemento;
-                                model.EnderecoCadastro.Bairro = item.Bairro;
-                                model.EnderecoCadastro.Municipio = item.Municipio;
-                                model.EnderecoCadastro.UF = item.UF;
-                                model.EnderecoCadastro.Cep = item.Cep;
-                                model.EnderecoCadastro.Email = item.Email;
-                                model.EnderecoCadastro.Telefone1 = item.Telefone1;
-                                model.EnderecoCadastro.Telefone2 = item.Telefone2;
-                                model.EnderecoCadastro.Tipo = item.Tipo;
-                                break;
-
-                            case (TipoEndereco.Cobranca):
-                                model.EnderecoCobranca.IdEndereco = item.IdEndereco;
-                                model.EnderecoCobranca.Logradouro = item.Logradouro;
-                                model.EnderecoCobranca.Numero = item.Numero;
-                                model.EnderecoCobranca.Complemento = item.Complemento;
-                                model.EnderecoCobranca.Bairro = item.Bairro;
-                                model.EnderecoCobranca.Municipio = item.Municipio;
-                                model.EnderecoCobranca.UF = item.UF;
-                                model.EnderecoCobranca.Cep = item.Cep;
-                                model.EnderecoCobranca.Email = item.Email;
-                                model.EnderecoCobranca.Telefone1 = item.Telefone1;
-                                model.EnderecoCobranca.Telefone2 = item.Telefone2;
-                                model.EnderecoCobranca.Tipo = item.Tipo;
-                                model.CobrancaIgualCadastro = item.IgualCadastro;
-                                break;
-
-                            case (TipoEndereco.Entrega):
-                                model.EnderecoEntrega.IdEndereco = item.IdEndereco;
-                                model.EnderecoEntrega.Logradouro = item.Logradouro;
-                                model.EnderecoEntrega.Numero = item.Numero;
-                                model.EnderecoEntrega.Complemento = item.Complemento;
-                                model.EnderecoEntrega.Bairro = item.Bairro;
-                                model.EnderecoEntrega.Municipio = item.Municipio;
-                                model.EnderecoEntrega.UF = item.UF;
-                                model.EnderecoEntrega.Cep = item.Cep;
-                                model.EnderecoEntrega.Email = item.Email;
-                                model.EnderecoEntrega.Telefone1 = item.Telefone1;
-                                model.EnderecoEntrega.Telefone2 = item.Telefone2;
-                                model.EnderecoEntrega.Tipo = item.Tipo;
-                                model.EntregaIgualCadastro = item.IgualCadastro;
-                                model.EntregaIgualCobranca = item.IgualCobranca;
-                                break;
-                        }
-                    }
                 }
-                return View(model);
+
+
+
             }
             catch (Exception e)
             {
-                ///Falta Implementar o campo de mensagem na tela
-                return ViewBag.Mensagem = e.Message;
+                throw e;
             }
-        }
-
-        [HttpPost]
-        public ActionResult Edicao(EdicaoViewModel model)
-        {
-            try
-            {
-                var idCobranca = model.EnderecoCobranca.IdEndereco;
-                var idEntrega = model.EnderecoEntrega.IdEndereco;
-
-                var keyList = new List<string>();
-
-                if (model.CobrancaIgualCadastro)
-                {
-                    keyList.Add("EnderecoCobranca");
-                    model.EnderecoCobranca = new EnderecoViewModel(model.EnderecoCadastro,model.EnderecoCobranca.IdEndereco);
-                }
-
-                if (model.EntregaIgualCadastro)
-                {
-                    keyList.Add("EnderecoEntrega");
-                    model.EnderecoEntrega = new EnderecoViewModel(model.EnderecoCadastro,model.EnderecoEntrega.IdEndereco);
-                }
-                else if (model.EntregaIgualCobranca)
-                {
-                    keyList.Add("EnderecoEntrega");
-                    model.EnderecoEntrega = new EnderecoViewModel(model.EnderecoCobranca,model.EnderecoEntrega.IdEndereco);
-                }
-
-                foreach (var item in keyList)
-                {
-                    foreach (var key in ModelState.Keys.ToList().Where(key => key.StartsWith(item)))
-                    {
-                        ModelState.Remove(key);
-                    }
-                }
-
-                if (ModelState.IsValid)
-                {
-                    var c = new Cliente();
-                    c.Representante = new Representante();
-
-                    c.IdCliente = model.IdTransacao;
-                    c.Codun = model.Codun;
-                    c.RazaoSocial = model.RazaoSocial;
-                    c.CodCliente = model.CodCliente;
-                    c.NomeFantasia = model.NomeFantasia;
-                    c.Cnpj = model.Cnpj;
-                    c.InscricaoEstadual = model.InscricaoEstadual;
-                    c.InscricaoMunicipal = model.InscricaoMunicipal;
-                    c.Classe = model.Classe;
-                    c.Observacao = model.Observacao;
-                    c.Status = Status.Pendente;
-                    c.Representante.IdRepresentante = model.IdRepresentante;
-
-                    c.Enderecos = new List<Endereco>()
-                {
-                    new Endereco(model.EnderecoCadastro.IdEndereco,TipoEndereco.Cadastro, model.EnderecoCadastro.Logradouro, model.EnderecoCadastro.Numero,
-                    model.EnderecoCadastro.Complemento,model.EnderecoCadastro.Bairro,model.EnderecoCadastro.Municipio,model.EnderecoCadastro.UF,
-                    model.EnderecoCadastro.Cep,model.EnderecoCadastro.Telefone1,model.EnderecoCadastro.Telefone2,model.EnderecoCadastro.Email,false,false),
-
-                    new Endereco(model.EnderecoCobranca.IdEndereco,TipoEndereco.Cobranca,model.EnderecoCobranca.Logradouro,model.EnderecoCobranca.Numero,
-                    model.EnderecoCobranca.Complemento,model.EnderecoCobranca.Bairro,model.EnderecoCobranca.Municipio,model.EnderecoCobranca.UF,
-                    model.EnderecoCobranca.Cep,model.EnderecoCobranca.Telefone1,model.EnderecoCobranca.Telefone2,model.EnderecoCobranca.Email,model.CobrancaIgualCadastro,false),
-
-                    new Endereco(model.EnderecoEntrega.IdEndereco,TipoEndereco.Entrega,model.EnderecoEntrega.Logradouro,model.EnderecoEntrega.Numero,model.EnderecoEntrega.Complemento,
-                    model.EnderecoEntrega.Bairro,model.EnderecoEntrega.Municipio,model.EnderecoEntrega.UF,model.EnderecoEntrega.Cep,
-                    model.EnderecoEntrega.Telefone1,model.EnderecoEntrega.Telefone2,model.EnderecoCobranca.Email,model.EntregaIgualCadastro,model.EntregaIgualCobranca)
-                };
-
-                    var d = new ClienteDAL();
-                    d.AtualizarCliente(c);
-
-                    TempData["Sucesso"] = true;
-                    TempData["Resultado"] = "Solicitação de atualização de dados cadastrais enviada com sucesso.\n" +
-                        "Um E-mail de confirmação foi enviado para você, assim que o cliente estiver cadastrado você receberá uma confirmação via E-mail.";
-                }
-            }
-            catch (Exception e)
-            {
-                TempData["Sucesso"] = false;
-                TempData["Resultado"] = "A operação não pôde ser concluida. Erro: " + e.Message;
-            }
-
-            return View(model);
+            return View();
         }
     }
 }

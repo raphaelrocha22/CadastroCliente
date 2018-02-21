@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/AreaRestrita/Views/_Shared/_Layout.cshtml";
 }
 
 
@@ -20,6 +20,7 @@
 
 @using (Html.BeginForm("Cadastro", "Markup", FormMethod.Post, new { id = "formMarkupCadastro" }))
 {
+    @Html.AntiForgeryToken()
 
     if (TempData["Sucesso"] != null)
     {
@@ -41,8 +42,8 @@
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.Codun)</span>
             </div>
             <div class="col-md-1">
-                <label>Contrato</label>
-                @Html.TextBoxFor(m => m.NumeroContrato, new { Class = "form-control", id = "txtNumeroContrato", Readonly = "readonly" })
+                <label>Versão</label>
+                @Html.TextBoxFor(m => m.Versao, new { Class = "form-control", id = "txtVersao", Readonly = "readonly" })
             </div>
             <div class="col-md-3">
                 <label>*Razao Social</label>

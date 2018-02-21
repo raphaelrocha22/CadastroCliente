@@ -12,6 +12,6 @@ namespace Projeto.Entidades
         public ModalidadeClubR Modalidade { get; set; }
         public decimal RebateValor { get; set; }
         public decimal RebatePercent { get; set; }
-        public string Contrato { get; set; }        
+        public string FileContrato { get; set; }        
     }
 }

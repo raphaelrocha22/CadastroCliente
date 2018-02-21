@@ -22,16 +22,16 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return View(new CadastroViewModel());
         }
 
-        public JsonResult NumeroContrato(CadastroViewModel model)
+        public JsonResult Versao(CadastroViewModel model)
         {
             var d = new ClubRDAL();
-            int numeroContrato = d.NumeroContrato(model.Codun);
-            return Json(numeroContrato);
+            int versao = d.Versao(model.Codun);
+            return Json(versao);
         }
 
         public JsonResult PrazosContrato(CadastroViewModel model)
         {
-            var listaPrazos = GenericClass.Modalidade_PrazoContrato();
+            var listaPrazos = RegrasClubR.Modalidade_PrazoContrato();
             var prazos = listaPrazos.Where(m => m.ModalidadeClubR.Equals(model.ModalidadeClubR)).ToList();
 
             return Json(prazos);
@@ -39,12 +39,13 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
         public JsonResult MetaMinima(CadastroViewModel model)
         {
-            var listaMetas = GenericClass.Modalidade_MediaMinima_MetaMinima();
+            var listaMetas = RegrasClubR.Modalidade_MediaMinima_MetaMinima();
             var metaMinimaMensal = listaMetas.Where(m => m.ModalidadeClubR.Equals(model.ModalidadeClubR)).ToList();
 
             return Json(metaMinimaMensal);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Cadastro(CadastroViewModel model)
         {
@@ -57,7 +58,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
                     c.Campanha = Campanha.ClubR;
                     c.Codun = model.Codun;
-                    c.NumeroContrato = model.NumeroContrato;
+                    c.Versao = model.Versao;
                     c.NomeResponsavel = model.NomeResponsavel;
                     c.CpfResponsavel = model.CpfResponsavel;
                     c.Modalidade = model.ModalidadeClubR;
@@ -76,11 +77,11 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.RebatePercent = Convert.ToDecimal(model.RebatePercent.Replace("%","")) / 100;
                     c.RebateValor = c.MetaPeriodo * c.RebatePercent;
                     c.Guelta = model.Guelta;
-                    c.Status = Status.Pendente;
+                    c.Status = StatusSolicitacao.Pendente;
                     c.Observacao = model.Obervacao;
-                    c.Contrato = model.Contrato is null ? null : $"{c.Campanha}-{c.Codun}-{c.NumeroContrato}";
-                    c.Usuario.IdUsuario = model.usuario.IdUsuario;
-                    c.Usuario.Nome = model.usuario.Nome;
+                    c.FileContrato = model.Contrato is null ? null : $"{c.Campanha}-{c.Codun}-{c.Versao}";
+                    c.Acao = Acao.Cadastrar;
+                    c.Usuario = model.usuario;
 
                     var d = new ClubRDAL();
                     d.Cadastrar(c);
@@ -89,7 +90,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     {
                         string pasta = HttpContext.Server.MapPath("/Imagens/ClubR/");
                         string extesao = Path.GetExtension(model.Contrato.FileName);
-                        model.Contrato.SaveAs(pasta + c.Contrato + extesao);
+                        model.Contrato.SaveAs(pasta + c.FileContrato + extesao);
                     }
 
                     var r = new RepresentanteDAL();

@@ -9,12 +9,12 @@
     
     $("#txtCodun").change(function () {
         $("#txtCodCliente").val(0);
-        VerificarNumeroContrato();
+        VerificarVersao();
     });
 
     $("#txtCodCliente").change(function () {
         $("#txtCodun").val(0);
-        VerificarNumeroContrato();
+        VerificarVersao();
     });
 
     $('.date').datepicker({
@@ -33,24 +33,32 @@
     $("#formSemCampanhaCadastro").submit(function () {
         $('#btnCadastrar').prop('value', 'Aguarde...').prop('disabled', true);
     });
+
+    VerificarVersao();
 });
 
-function VerificarNumeroContrato() {
-    $.ajax({
-        type: 'POST',
-        url: '/AreaRestrita/SemCampanha/NumeroContrato',
-        data: model = {
-            Codun: $("#txtCodun").val(),
-            CodCliente: $("#txtCodCliente").val(),
-            IdTransacao: $("#txtIdTransacao").val(),
-        },
-        success: function (numeroContrato) {
-            $("#txtNumeroContrato").val(numeroContrato);
-        },
-        error: function (e) {
-            console.log(e.status);
-        }
-    });
+function VerificarVersao(); {
+    if ($('#txtIdTransacao').val() != 0 || $('#txtCodun').val() != 0 || $('#txtCodCliente').val() != 0) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/AreaRestrita/SemCampanha/Versao',
+            data: model = {
+                Codun: $("#txtCodun").val(),
+                CodCliente: $("#txtCodCliente").val(),
+                IdTransacao: $("#txtIdTransacao").val(),
+            },
+            success: function (versao) {
+                $("#txtVersao").val(versao);
+            },
+            error: function (e) {
+                console.log(e.status);
+            }
+        });
+    }
+    else {
+        $('#txtVersao').val(0);
+    }
 }
 
 function Desconto() {

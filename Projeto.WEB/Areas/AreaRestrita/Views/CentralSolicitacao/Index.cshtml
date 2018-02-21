@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Projeto.WEB.Areas.AreaRestrita.Models.CentralSolicitacao.ConsultaViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AreaRestrita/Views/_Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Acao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tabela)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Campanha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Codun)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Acao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tabela)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Campanha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codun)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

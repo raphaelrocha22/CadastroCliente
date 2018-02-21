@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/AreaRestrita/Views/_Shared/_Layout.cshtml";
 }
 
 
@@ -20,8 +20,10 @@
 <hr />
 
 @using (Html.BeginForm("Cadastro", "ClubR", FormMethod.Post,
-        new { @enctype = "multipart/form-data", id="formClubRCadastro" }))
+        new { @enctype = "multipart/form-data", id = "formClubRCadastro" }))
 {
+
+    @Html.AntiForgeryToken()
 
     if (TempData["Sucesso"] != null)
     {
@@ -43,8 +45,8 @@
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.Codun)</span>
             </div>
             <div class="col-md-1">
-                <label>Contrato</label>
-                @Html.TextBoxFor(m => m.NumeroContrato, new { Class = "form-control", id = "txtNumeroContrato", Readonly = "readonly" })
+                <label>Versão</label>
+                @Html.TextBoxFor(m => m.Versao, new { Class = "form-control", id = "txtVersao", Readonly = "readonly" })
             </div>
             <div class="col-md-3">
                 <label>*Razao Social</label>
@@ -133,7 +135,7 @@
             </div>
             <div class="col-md-2">
                 <label>*Guelta</label>
-                @Html.DropDownListFor(m => m.Guelta, Model.ListaGuelta, new { Class = "form-control", id= "optGuelta" })
+                @Html.DropDownListFor(m => m.Guelta, Model.ListaGuelta, new { Class = "form-control", id = "optGuelta" })
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.Guelta)</span>
             </div>
             <div class="col-md-3">

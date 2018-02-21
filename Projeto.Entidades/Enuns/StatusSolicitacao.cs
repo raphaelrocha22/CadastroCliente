@@ -1,6 +1,6 @@
 ﻿namespace Projeto.Entidades.Enuns
 {
-    public enum Status
+    public enum StatusSolicitacao
     {
         Pendente = 1,
         Aprovado = 2,

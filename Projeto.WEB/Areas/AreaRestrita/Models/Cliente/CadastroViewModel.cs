@@ -5,11 +5,19 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 {
     public class CadastroViewModel : GenericClass
     {
+        public int? IdTransacao { get; set; }
+
+        [RegularExpression("^[0-9]+$", ErrorMessage = "Insira apenas números")]
+        public int CodCliente { get; set; }
+
         [Range(1, int.MaxValue, ErrorMessage = "Selecione a Classe")]
         public ClasseCliente Classe { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
-        public int IdRepresentante { get; set; }
+        public int IdAgente { get; set; }
+
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        public int IdPromotor { get; set; }
 
         [RegularExpression("^([0-9]{2}\\.?[0-9]{3}\\.?[0-9]{3}\\/?[0-9]{4}\\-?[0-9]{2})$", ErrorMessage = "CNPJ Inválido, informe apenas números com 14 caracteres")]
         [Required(ErrorMessage = "Campo Obrigatório")]
@@ -17,8 +25,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
 
         [RegularExpression("^[0-9]+$", ErrorMessage = "Insira apenas números")]
         public int Codun { get; set; }
-
-        public int IdTransacao { get; set; }
 
         [MaxLength(100, ErrorMessage = "Máximo {1} caracteres")]
         [Required(ErrorMessage = "Campo Obrigatório")]
@@ -42,6 +48,8 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
         public bool CobrancaIgualCadastro { get; set; }
         public bool EntregaIgualCadastro { get; set; }
         public bool EntregaIgualCobranca { get; set; }
+
+        public Acao Acao { get; set; }
 
         // Status da requisicao do CNPJ (OK ou ERRO)
         public string Status { get; set; }

@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 {
+    [Authorize]
     public class SemCampanhaController : Controller
     {
         // GET: AreaRestrita/SemCampanha
@@ -25,13 +26,14 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return View(model);
         }
 
-        public JsonResult NumeroContrato(CadastroViewModel model)
+        public JsonResult Versao(CadastroViewModel model)
         {
             var d = new SemCampanhaDAL();
-            int numeroContrato = d.NumeroContrato(model.Codun, model.CodCliente, model.IdTransacao);
-            return Json(numeroContrato);
+            int versao = d.Versao(model.Codun, model.CodCliente, model.IdTransacao);
+            return Json(versao);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Cadastro(CadastroViewModel model)
         {
@@ -47,7 +49,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.Cliente.IdCliente = model.IdTransacao;
                     c.Cliente.CodCliente = model.CodCliente;
                     c.Cliente.Codun = model.Codun;                    
-                    c.NumeroContrato = model.NumeroContrato;
+                    c.Versao = model.Versao;
                     c.DataNegociacao = model.DataNegociacao != null ? Convert.ToDateTime(model.DataNegociacao) : (DateTime)SqlDateTime.MinValue;
                     c.DataInicio = Convert.ToDateTime(model.DataInicioContrato);
                     c.Markup = model.MarkUP;
@@ -56,10 +58,10 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.NetlineHabilitado = model.MesesPagamentoNetline != 0;
                     c.MesesPagamentoNetline = model.MesesPagamentoNetline;
                     c.Guelta = model.Guelta;
-                    c.Status = Status.Pendente;
+                    c.Status = StatusSolicitacao.Pendente;
                     c.Observacao = model.Obervacao;
-                    c.Usuario.IdUsuario = model.usuario.IdUsuario;
-                    c.Usuario.Nome = model.usuario.Nome;
+                    c.Acao = Acao.Cadastrar;
+                    c.Usuario = model.usuario;
 
                     var d = new SemCampanhaDAL();
                     d.Cadastrar(c);

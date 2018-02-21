@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 {
+    [Authorize]
     public class MarkupController : Controller
     {
         // GET: AreaRestrita/Markup
@@ -20,21 +21,22 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return View(new CadastroViewModel());
         }
 
-        public JsonResult NumeroContrato(CadastroViewModel model)
+        public JsonResult Versao(CadastroViewModel model)
         {
             var d = new MarkupDAL();
-            int numeroContrato = d.NumeroContrato(model.Codun);
-            return Json(numeroContrato);
+            int versao = d.Versao(model.Codun);
+            return Json(versao);
         }
 
         public JsonResult MetaMinima(CadastroViewModel model)
         {
-            var listaMetas = GenericClass.Modalidade_MediaMinima_MetaMinima();
+            var listaMetas = RegrasMarkup.Modalidade_MediaMinima_MetaMinima();
             var metaMinimaMensal = listaMetas.Where(m => m.ModalidadeMarkup.Equals(model.ModalidadeMarkup)).ToList();
 
             return Json(metaMinimaMensal);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Cadastro(CadastroViewModel model)
         {
@@ -47,7 +49,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
                     c.Campanha = Campanha.MarkUP;
                     c.Codun = model.Codun;
-                    c.NumeroContrato = model.NumeroContrato;
+                    c.Versao = model.Versao;
                     c.NomeResponsavel = model.NomeResponsavel;
                     c.CpfResponsavel = model.CpfResponsavel;
                     c.Modalidade = model.ModalidadeMarkup;
@@ -64,10 +66,10 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.NetlineHabilitado = model.MesesPagamentoNetline != 0;
                     c.MesesPagamentoNetline = model.MesesPagamentoNetline;
                     c.Guelta = model.Guelta;
-                    c.Status = Status.Pendente;
+                    c.Status = StatusSolicitacao.Pendente;
                     c.Observacao = model.Obervacao;
-                    c.Usuario.IdUsuario = model.usuario.IdUsuario;
-                    c.Usuario.Nome = model.usuario.Nome;
+                    c.Acao = Acao.Cadastrar;
+                    c.Usuario = model.usuario;
 
                     var d = new MarkupDAL();
                     d.Cadastrar(c);

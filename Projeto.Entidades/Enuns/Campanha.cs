@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace Projeto.Entidades.Enuns
         ClubR = 1,
         Upgrade = 2,
         MarkUP = 3,
+
+        [Display(Name = "Sem Campanha")]
         Sem_Campanha = 4
     }
 }

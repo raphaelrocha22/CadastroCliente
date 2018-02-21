@@ -1,6 +1,6 @@
 ﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Cliente.CadastroViewModel
 @{
-    Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/AreaRestrita/Views/_Shared/_Layout.cshtml";
 }
 
 <script src="~/Scripts/Cliente/cadastro.js"></script>
@@ -11,37 +11,54 @@
 
 @using (Html.BeginForm("Cadastro", "Cliente", FormMethod.Post, new { id = "formClienteCadastro" }))
 {
+    @Html.AntiForgeryToken()
+
     if (TempData["Sucesso"] != null)
     {
         if ((bool)TempData["Sucesso"])
         {
             <div class="alert alert-success text-center form-group-lg"><strong>@TempData["Resultado"]</strong></div>
+
+            if (Model.Acao.ToString() == "Cadastrar" && Model.IdTransacao != null)
+            {
             <div class="pull-left">
-                <input type="button" value="Cadastrar Novo Cliente" id="btnCadastrarNovoCliente" class="btn btn-success btn-sm" />
+                <a href="/AreaRestrita/Cliente/Cadastro/" class="btn btn-success btn-sm" id="btnCadastrarNovoCliente">Cadastrar Novo Cliente</a>
             </div>
-            <div class="pull-right">
-                <input type="button" value="Cadastrar Modalidade Comercial" id="btnCadastrarModalidadeComercial" class="btn btn-primary btn-sm" />
-                <label id="idTransacao" class="hidden">@ViewBag.IdTransacao</label>
-            </div>
+                <div class="pull-right">
+                    <a href="/AreaRestrita/SemCampanha/Cadastro/@Model.IdTransacao" class="btn btn-primary btn-sm" id="btnCadastrarModalidadeComercial">Cadastrar Modalidade Comercial</a>
+                </div>
+            }
+
         }
         else
         {
             <div class="alert alert-danger text-center form-group-lg"><strong>@TempData["Resultado"]</strong></div>
         }
-        
+
     }
+
+    @Html.HiddenFor(m => m.IdTransacao, new { id = "idTransacao" })
+    @Html.HiddenFor(m => m.EnderecoCadastro.IdEndereco, new { id = "idEnderecoCadastro" })
+    @Html.HiddenFor(m => m.EnderecoCobranca.IdEndereco, new { id = "idEnderecoCobranca" })
+    @Html.HiddenFor(m => m.EnderecoEntrega.IdEndereco, new { id = "idEnderecoEntrega" })
 
     <div class="col-md-12">
         <div class="row">
+
             <div class="col-md-2">
                 <label>*Classe:</label>
                 @Html.EnumDropDownListFor(m => m.Classe, "- Selecione -", new { Class = "form-control", id = "optClasse" })
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.Classe)</span>
             </div>
-            <div class="col-md-2">
-                <label>*Representante</label>
-                @Html.DropDownListFor(m => m.IdRepresentante, Model.ListagemRepresentante, "- Selecione -", new { Class = "form-control", id = "optRepresentante" })
-                <span class="text-danger">@Html.ValidationMessageFor(m => m.IdRepresentante)</span>
+            <div class="col-md-3">
+                <label>*Agente</label>
+                @Html.DropDownListFor(m => m.IdAgente, Model.ListagemRepresentante, "- Selecione -", new { Class = "form-control", id = "optAgente" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.IdAgente)</span>
+            </div>
+            <div class="col-md-3">
+                <label>*Promotor</label>
+                @Html.DropDownListFor(m => m.IdPromotor, Model.ListagemRepresentante, "- Selecione -", new { Class = "form-control", id = "optPromotor" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.IdPromotor)</span>
             </div>
             <div class="col-md-3">
                 <label>*CNPJ</label>
@@ -49,13 +66,7 @@
                 <input type="button" id="btnConsultaCNPJ" class="btn btn-success btn-xs" value="Consultar pelo CNPJ" />
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.Cnpj)</span>
             </div>
-            <div class="col-md-2">
-                <label>CODUN</label>
-                @Html.TextBoxFor(m => m.Codun, new { Class = "form-control", id = "txtCodun", placeholder = "Digite aqui" })
-                <span class="text-danger">@Html.ValidationMessageFor(m => m.Codun)</span>
-            </div>
         </div>
-
         <div class="row" style="margin-top:15px">
             <div class="col-md-4">
                 <label>*Razão Social</label>
@@ -68,11 +79,28 @@
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.NomeFantasia)</span>
             </div>
             <div class="col-md-2">
+                <label>Coligar ao Codun</label>
+                @Html.TextBoxFor(m => m.Codun, new { Class = "form-control", id = "txtCodun", placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.Codun)</span>
+            </div>
+
+            @if (Model.IdTransacao != null)
+            {
+                <div class="col-md-2">
+                    <label>CodCliente</label>
+                    @Html.TextBoxFor(m => m.Codun, new { Class = "form-control", id = "txtCodCliente", placeholder = "Digite aqui" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.Codun)</span>
+                </div>
+            }
+        </div>
+
+        <div class="row" style="margin-top:15px">
+            <div class="col-md-3">
                 <label>*Inscrição Estadual</label>
                 @Html.TextBoxFor(m => m.InscricaoEstadual, new { Class = "form-control", id = "txtInscEstadual", placeholder = "Digite aqui" })
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.InscricaoEstadual)</span>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label>*Inscrição Municipal</label>
                 @Html.TextBoxFor(m => m.InscricaoMunicipal, new { Class = "form-control", id = "txtInscMunicipal", placeholder = "Digite aqui" })
                 <span class="text-danger">@Html.ValidationMessageFor(m => m.InscricaoMunicipal)</span>
@@ -83,9 +111,7 @@
 
         <div class="enderecoCadastro">
             <div class="row">
-                <div class="col-md-3">
-                    <label>*Endereco Cadastro</label>
-                </div>
+                <label>*Endereco Cadastro</label>
             </div>
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
@@ -148,10 +174,8 @@
 
         <div class="enderecoCobranca">
             <div class="row">
-                <div class="col-md-5">
-                    <label>*Endereco de Cobrança</label><br />
-                    @Html.CheckBoxFor(m => m.CobrancaIgualCadastro, new { id = "check_CobrancaIgualCadastro" }) Igual ao endereco de cadastro
-                </div>
+                <label>*Endereco de Cobrança</label><br />
+                @Html.CheckBoxFor(m => m.CobrancaIgualCadastro, new { id = "check_CobrancaIgualCadastro" }) Igual ao endereco de cadastro
             </div>
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
@@ -214,11 +238,9 @@
 
         <div class="enderecoEntrega">
             <div class="row">
-                <div class="col-md-3">
-                    <label>*Endereco de Entrega</label><br />
-                    @Html.CheckBoxFor(m => m.EntregaIgualCadastro, new { id = "check_EntregaIgualCadastro" }) Igual ao endereco de cadastro<br />
-                    @Html.CheckBoxFor(m => m.EntregaIgualCobranca, new { id = "check_EntregaIgualCobranca" }) Igual ao endereco de cobrança<br />
-                </div>
+                <label>*Endereco de Entrega</label><br />
+                @Html.CheckBoxFor(m => m.EntregaIgualCadastro, new { id = "check_EntregaIgualCadastro" }) Igual ao endereco de cadastro<br />
+                @Html.CheckBoxFor(m => m.EntregaIgualCobranca, new { id = "check_EntregaIgualCobranca" }) Igual ao endereco de cobrança<br />
             </div>
             <div class="row" style="margin-top:15px">
                 <div class="col-md-3">
@@ -280,7 +302,7 @@
 
         <div class="row" style="margin-top:15px">
             <div class="col-md-4">
-                @Html.TextAreaFor(m => m.Observacao, new { Class = "form-control", id="txtObservacao", placeholder = "Observação..."})
+                @Html.TextAreaFor(m => m.Observacao, new { Class = "form-control", id = "txtObservacao", placeholder = "Observação..." })
             </div>
             <div class="col-md-2">
                 <input type="submit" value="Cadastrar" id="btnCadastrar" class="btn btn-primary" />

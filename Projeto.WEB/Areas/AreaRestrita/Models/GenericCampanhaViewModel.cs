@@ -15,7 +15,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models
         [Range(1, int.MaxValue, ErrorMessage = "Campo Obrigatório")]
         public int Codun { get; set; }
 
-        public int NumeroContrato { get; set; }
+        public int Versao { get; set; }
 
         [RegularExpression("^[a-zA-Zà-üÀ-Ü0-9\\s]{4,50}$", ErrorMessage = "Preencha com letras e números, máximo 50 caracteres")]
         [Required(ErrorMessage = "Campo Obrigatório")]

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
 {
-    public class GenericClass
+    public class RegrasClubR
     {
         public ModalidadeClubR ModalidadeClubR { get; set; }
         public string PrazoContrato { get; set; }
@@ -15,29 +15,29 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
         public decimal MediaHistorica { get; set; }
         public decimal MinimoMensalPeriodo { get; set; }
 
-        public static List<GenericClass> Modalidade_PrazoContrato()
+        public static List<RegrasClubR> Modalidade_PrazoContrato()
         {
-            var lista = new List<GenericClass>();
+            var lista = new List<RegrasClubR>();
 
-            lista.Add(new GenericClass
+            lista.Add(new RegrasClubR
             {
                 ModalidadeClubR = ModalidadeClubR.Ouro,
                 PrazoContrato = "Trimestral",
                 PeriodoMeses = 3
             });
-            lista.Add(new GenericClass
+            lista.Add(new RegrasClubR
             {
                 ModalidadeClubR = ModalidadeClubR.Diamante,
                 PrazoContrato = "Semestral",
                 PeriodoMeses = 6
             });
-            lista.Add(new GenericClass
+            lista.Add(new RegrasClubR
             {
                 ModalidadeClubR = ModalidadeClubR.Diamante,
                 PrazoContrato = "Anual",
                 PeriodoMeses = 12
             });
-            lista.Add(new GenericClass
+            lista.Add(new RegrasClubR
             {
                 ModalidadeClubR = ModalidadeClubR.Platina,
                 PrazoContrato = "Anual",
@@ -47,22 +47,22 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.ClubR
             return lista;
         }
         
-        public static List<GenericClass> Modalidade_MediaMinima_MetaMinima()
+        public static List<RegrasClubR> Modalidade_MediaMinima_MetaMinima()
         {
-            var lista = new List<GenericClass>();
-            lista.Add(new GenericClass
+            var lista = new List<RegrasClubR>();
+            lista.Add(new RegrasClubR
             {
                 ModalidadeClubR = ModalidadeClubR.Ouro,
                 MediaHistorica = 10000,
                 MinimoMensalPeriodo = 12500
             });
-            lista.Add(new GenericClass
+            lista.Add(new RegrasClubR
             {
                 ModalidadeClubR = ModalidadeClubR.Diamante,
                 MediaHistorica = 20000,
                 MinimoMensalPeriodo = 23000
             });
-            lista.Add(new GenericClass
+            lista.Add(new RegrasClubR
             {
                 ModalidadeClubR = ModalidadeClubR.Platina,
                 MediaHistorica = 50000,

@@ -40,11 +40,12 @@ function Consultar() {
                 conteudo += "<td style='max-width: 19ch' class='limiteColuna'>" + m.RazaoSocial + "</td>";
                 conteudo += "<td style='max-width: 19ch' class='class='limiteColuna'>" + m.NomeFantasia + "</td>";
                 conteudo += "<td style='max-width: 10ch' class='limiteColuna'>" + m.Classe + "</td>";
-                conteudo += "<td style='max-width: 15ch' class='limiteColuna'>" + m.NomeRepresentante + "</td>";
+                conteudo += "<td style='max-width: 15ch' class='limiteColuna'>" + m.NomeAgente + "</td>";
+                conteudo += "<td style='max-width: 15ch' class='limiteColuna'>" + m.NomePromotor + "</td>";
                 conteudo += "<td>";
                 conteudo += "<button data-target='#janelaDetalhes' data-toggle='modal' onclick='exibirDetalhes(" + m.IdCliente + ")' class='btn btn-success btn-xs'>Detalhes</button>";
                 conteudo += "&nbsp;";
-                conteudo += "<a href='/AreaRestrita/Cliente/Edicao/" + m.IdCliente + "' class='btn btn-primary btn-xs'>Editar</a>";
+                conteudo += "<a href='/AreaRestrita/Cliente/Cadastro/" + m.IdCliente + "' class='btn btn-primary btn-xs'>Editar</a>";
                 conteudo += "</td>";
 
                 conteudo += "</tr>";
@@ -80,7 +81,8 @@ function exibirDetalhes(id) {
                 $("#detalhes_estadual").html(m.InscricaoEstadual);
                 $("#detalhes_municipal").html(m.InscricaoMunicipal);
                 $("#detalhes_classe").html(m.Classe);
-                $("#detalhes_representante").html(m.NomeRepresentante);
+                $("#detalhes_agente").html(m.NomeAgente);
+                $("#detalhes_promotor").html(m.NomePromotor);
 
                 $("#detalhes_cadastro_dataCadastro").html(m.EnderecoCadastro.DataCadastro);
                 $("#detalhes_cadastro_logradouro").html(m.EnderecoCadastro.Logradouro);

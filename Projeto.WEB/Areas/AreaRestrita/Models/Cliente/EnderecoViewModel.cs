@@ -6,6 +6,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.Cliente
     public class EnderecoViewModel
     {
         public int IdEndereco { get; set; }
+
         public TipoEndereco Tipo { get; set; }
 
         [MaxLength(100, ErrorMessage = "Máximo {1} caracteres")]

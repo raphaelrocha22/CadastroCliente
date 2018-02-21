@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Persistencia\CentralSolicitacaoDAL.cs" />
     <Compile Include="Persistencia\ClienteDAL.cs" />
     <Compile Include="Persistencia\ClubRDAL.cs" />
     <Compile Include="Persistencia\MarkupDAL.cs" />
