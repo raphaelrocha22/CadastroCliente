@@ -1,0 +1,220 @@
+﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Cliente.ConsultaViewModel
+
+@{
+    ViewBag.Title = "Visualizacao";
+    Layout = "~/Areas/AreaRestrita/Views/_Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Cliente/Visualizacao.js"></script>
+
+
+<button class="btn btn-default pull-right" id="btnImprimir">Imprimir</button>
+
+
+<div class="row" id="divImpressao">
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="~/Imagens/logoRodenstock.png" width="100" height="50" />
+        </div>
+        <div class="col-md-6">
+            <h4>Dados cadastrais de cliente</h4>
+            <h5>Data consulta: @ViewBag.Hora - Usuário: @Model.usuario.Nome</h5>
+        </div>
+    </div>
+
+    <hr />
+
+    <table>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.DataCadastro):</th>
+            <td>@Html.DisplayFor(m => m.DataCadastro)</td>
+        </tr>
+        <tr>
+            <th>Usuário:</th>
+            <td>@Html.DisplayFor(m => m.usuario.Nome)</td>
+        </tr>
+        <tr><td><br /></td></tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Classe):</th>
+            <td>@Html.DisplayFor(m => m.Classe)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.IdCliente):</th>
+            <td>@Html.DisplayFor(m => m.IdCliente)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.CodCliente):</th>
+            <td>@Html.DisplayFor(m => m.CodCliente)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Codun):</th>
+            <td>@Html.DisplayFor(m => m.Codun)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Cnpj):</th>
+            <td>@Html.DisplayFor(m => m.Cnpj)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.RazaoSocial):</th>
+            <td>@Html.DisplayFor(m => m.RazaoSocial)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.NomeFantasia):</th>
+            <td>@Html.DisplayFor(m => m.NomeFantasia)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.NomeAgente):</th>
+            <td>@Html.DisplayFor(m => m.NomeAgente)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.NomePromotor):</th>
+            <td>@Html.DisplayFor(m => m.NomePromotor)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.InscricaoEstadual):</th>
+            <td>@Html.DisplayFor(m => m.InscricaoEstadual)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.InscricaoMunicipal):</th>
+            <td>@Html.DisplayFor(m => m.InscricaoMunicipal)</td>
+        </tr>
+        <tr><td><br /></td></tr>
+        <tr>
+            <th>Endereço @Html.DisplayNameFor(m => m.EnderecoCadastro.Tipo):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Tipo)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.Logradouro):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Logradouro)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.Numero):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Numero)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.Complemento):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Complemento)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.Bairro):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Bairro)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.Municipio):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Municipio)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.UF):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.UF)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.Cep):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Cep)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.Email):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Email)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.Telefone1):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Telefone1)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCadastro.Telefone2):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCadastro.Telefone2)</td>
+        </tr>
+        <tr><td><br /></td></tr>
+        <tr>
+            <th>Endereço @Html.DisplayNameFor(m => m.EnderecoCobranca.Tipo):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Tipo)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.Logradouro):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Logradouro)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.Numero):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Numero)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.Complemento):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Complemento)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.Bairro):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Bairro)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.Municipio):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Municipio)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.UF):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.UF)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.Cep):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Cep)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.Email):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Email)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.Telefone1):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Telefone1)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoCobranca.Telefone2):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoCobranca.Telefone2)</td>
+        </tr>
+        <tr><td><br /></td></tr>
+        <tr>
+            <th>Endereco @Html.DisplayNameFor(m => m.EnderecoEntrega.Tipo):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Tipo)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.Logradouro):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Logradouro)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.Numero):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Numero)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.Complemento):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Complemento)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.Bairro):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Bairro)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.Municipio):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Municipio)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.UF):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.UF)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.Cep):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Cep)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.Email):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Email)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.Telefone1):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Telefone1)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.EnderecoEntrega.Telefone2):</th>
+            <td>@Html.DisplayFor(m => m.EnderecoEntrega.Telefone2)</td>
+        </tr>
+    </table>
+
+    <h5><strong> - Sistema de Cadastro de Clientes RBR - </strong></h5>
+</div>

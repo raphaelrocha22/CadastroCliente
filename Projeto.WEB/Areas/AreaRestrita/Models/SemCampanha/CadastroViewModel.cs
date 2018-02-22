@@ -17,7 +17,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.SemCampanha
         public int Versao { get; set; }
         public string DataNegociacao { get; set; }
 
-        [RegularExpression("^[a-zA-Zà-üÀ-Ü0-9\\s]{4,50}$", ErrorMessage = "Preencha com letras e números, máximo 50 caracteres")]
+        [RegularExpression("^[a-zA-Zà-üÀ-Ü0-9\\s]{4,100}$", ErrorMessage = "Preencha com letras e números, máximo 100 caracteres")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public string RazaoSocial { get; set; }
 

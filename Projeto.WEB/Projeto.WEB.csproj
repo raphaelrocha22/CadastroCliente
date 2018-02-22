@@ -322,6 +322,7 @@
     <Content Include="Areas\AreaRestrita\Views\Usuario\Consulta.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\Usuario\AlterarSenha.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\CentralSolicitacao\Index.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\Cliente\Visualizacao.cshtml" />
     <None Include="Properties\PublishProfiles\cadastroclienterbr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Imagens\logoRodenstock.png" />
@@ -329,6 +330,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Cliente\cadastro.js" />
     <Content Include="Scripts\Cliente\consulta.js" />
+    <Content Include="Scripts\Cliente\Visualizacao.js" />
     <Content Include="Scripts\ClubR\cadastro.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />

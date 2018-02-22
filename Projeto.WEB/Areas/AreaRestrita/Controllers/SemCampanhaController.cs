@@ -45,7 +45,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     c.Cliente = new Cliente();
                     c.Usuario = new Usuario();
 
-                    c.Campanha = Campanha.Sem_Campanha;
+                    c.Campanha = Campanha.SemCampanha;
                     c.Cliente.IdCliente = model.IdTransacao;
                     c.Cliente.CodCliente = model.CodCliente;
                     c.Cliente.Codun = model.Codun;                    

@@ -14,6 +14,6 @@ namespace Projeto.Entidades.Enuns
         MarkUP = 3,
 
         [Display(Name = "Sem Campanha")]
-        Sem_Campanha = 4
+        SemCampanha = 4
     }
 }

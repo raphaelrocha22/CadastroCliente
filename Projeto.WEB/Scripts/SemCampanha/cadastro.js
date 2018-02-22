@@ -37,7 +37,7 @@
     VerificarVersao();
 });
 
-function VerificarVersao(); {
+function VerificarVersao(){
     if ($('#txtIdTransacao').val() != 0 || $('#txtCodun').val() != 0 || $('#txtCodCliente').val() != 0) {
 
         $.ajax({
